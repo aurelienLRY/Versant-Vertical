@@ -1,4 +1,4 @@
-module.exports.auth(req, res, next) {
+module.exports.permission = (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '');
     if (!token) return res.status(401).send({message: 'No token provided'});
     try {

@@ -1,8 +1,9 @@
 const express = require('express');
 const dbConnection = require('./database/connection')
+const autorisation = require('./middleware/tokenValidation');
 
 
-const jwt = require('jsonwebtoken');
+
 const dotenv = require('dotenv');
 const reservationController = require('./controllers/reservationController');
 const userController = require('./controllers/userController');
@@ -20,27 +21,16 @@ dbConnection();
 
 
 
-function auth(req, res, next) {
-  const token = req.header('Authorization').replace('Bearer ', '');
-  if (!token) return res.status(401).send({message: 'No token provided'});
 
-  try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    req.userId = payload.userId;
-    next();
-  } catch (e) {
-    res.status(401).send({message: 'Invalid token'});
-  }
-}
 app.post('/login', authController.login);//
 
 app.post('/user', userController.createUser);
 
-app.post('/reservations', auth, reservationController.createReservation);
-app.get('/reservations', auth, reservationController.getAllReservations);
-app.get('/reservations/:id', auth, reservationController.getOneReservation);
-app.put('/reservations/:id', auth, reservationController.updateReservation);
-app.delete('/reservations/:id', auth, reservationController.deleteReservation);
+app.post('/reservations', autorisation.permission, reservationController.createReservation);
+app.get('/reservations', reservationController.getAllReservations);
+/*app.get('/reservations/:id', permission, reservationController.getOneReservation);
+app.put('/reservations/:id', permission, reservationController.updateReservation);
+app.delete('/reservations/:id', permission, reservationController.deleteReservation);*/
 
 
 
