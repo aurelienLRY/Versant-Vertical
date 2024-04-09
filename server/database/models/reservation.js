@@ -6,6 +6,7 @@ const reservationSchema = new mongoose.Schema({
   spot: { type: Number, required: true },
   userMax: { type: String, required: true },
   placesReserved: { type: String, required: true },
+
 });
 
 const Reservation = mongoose.model('Reservation', reservationSchema);

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
 exports.login = async (req, res) => {
+
   try{
     const user = await User.findOne({username: req.body.username});
     if (!user) return res.status(400).send({message: 'Utilisateur non trouvé'});
@@ -17,3 +18,4 @@ exports.login = async (req, res) => {
   } catch (error) {
     res.status(500).send({message: 'Erreur serveur'});
   }};
+
