@@ -1,13 +1,43 @@
+@use "../../assets/sass/abstracts/variables" as v;
+
 .login{
     display : flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 0.8em;
+    span{
+        font-size: xx-large;
+        font-weight: 600;
+    }
+    .error{
+        color: v.$warning-color;
+        font-weight: 400;
+        font-size: medium;
+        display: flex;
+        align-items: center;
+        gap: 0.2em;
+        svg{
+            width: 1.2em;
+            height: 1.2em;
+        }
+    }
 
     form{
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 0.5em;
+
+        .form-group{
+            display: flex;
+            flex-direction: column;
+            gap: 0.2em;
+            font-size: small;
+        }
+
+        button{
+            margin : 0.8em; 
+        }
     }
 }
