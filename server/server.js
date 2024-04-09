@@ -2,6 +2,7 @@ const express = require('express');
 const dbConnection = require('./database/connection')
 const autorisation = require('./middleware/tokenValidation');
 
+const cors = require('cors'); // permet de gérer les requêtes entre le front et le back
 
 
 const dotenv = require('dotenv');
@@ -12,6 +13,7 @@ const authController = require('./controllers/authController');
 dotenv.config();
 
 const app = express();
+app.use(cors(process.env.CORS_ORIGIN));
 app.use(express.json());
 
 //connection à la base de donnée

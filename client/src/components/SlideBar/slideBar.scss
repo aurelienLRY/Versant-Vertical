@@ -1,0 +1,18 @@
+@use "../../assets/sass/abstracts/variables" as v;
+.slidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  background: v.$background-light;
+  padding: 0.2em 0.3em;
+
+  a {
+    color: v.$text-color;
+    text-decoration: none;
+    transition: all 0.250ms ease-in-out;
+
+    &:hover {
+      color: v.$primary-color;
+    }
+  }
+}

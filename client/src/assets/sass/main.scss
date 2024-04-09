@@ -1,0 +1,76 @@
+@use "./abstracts/variables" as v;
+@use "./abstracts/mixins" as m;
+
+@use 'base/reset';
+@use 'base/typography';
+@use 'component';
+
+
+
+
+html {
+  font-family: v.$fontFamily;
+  font-size: v.$fontSize;
+  font-style: normal;
+  font-weight: 200;
+  background-color: v.$background-dark;
+  color: v.$text-color;
+}
+
+
+#root {
+  width: 100vw;
+  min-height: 98vh;
+  display: flex;
+  flex-direction: column;
+  gap : 1em;
+  position: relative;
+
+
+  @include m.media(tablet){ 
+    align-items: center;
+    gap: 0.5em;
+  }
+}
+main {
+  box-sizing: border-box;
+  min-height: 80vh ;
+  padding: 0.5em 0.7em;
+
+
+ @include m.media(tablet){
+  box-sizing: border-box;
+  padding: 0.5em 0.5em;
+ }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0px;
+  font-family: v.$titleFontFamily;
+  color: v.$primary-color;
+  font-weight: 300;
+  font-size: v.$fontSize * 1.5;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: v.$fontSize * 1.8;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: v.$fontSize * 1.5;
+}
+
+h3 {
+  font-weight: 300;
+  font-size: v.$fontSize * 1.2;
+}
+
+
+
