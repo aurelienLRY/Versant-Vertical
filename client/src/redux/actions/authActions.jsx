@@ -12,6 +12,10 @@ export const logIn = createAsyncThunk("logIn", async (data) => {
     const err = await response.json();
     throw new Error(err.message);
   }
+  if (response.status === 404) {
+    const err = await response.json();
+    throw new Error(err.message);
+  }
   if (response.status === 500) {
     const err = await response.json();
     throw new Error(err.message);
