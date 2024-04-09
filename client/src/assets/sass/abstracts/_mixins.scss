@@ -1,0 +1,31 @@
+@use'variables' as *;
+@use'function' as *;
+
+//BREACKPOINTS
+@mixin media($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @error "Breakpoint '#{$breakpoint}' not found in $breakpoints map.";
+  }
+}
+// TYPOGRAPHIES
+@mixin font-roboto($size: 17, $weight: 300) {
+  font-family: Roboto !important;
+  font-size: rem($size);
+  font-weight: $weight;
+  font-style: normal;
+  line-height: normal;
+  color: $text-color;
+}
+
+
+//colors
+@mixin gradient($direction, $list) { 
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);  
+}

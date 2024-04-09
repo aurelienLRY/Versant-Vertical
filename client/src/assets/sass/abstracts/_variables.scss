@@ -1,0 +1,71 @@
+@use 'sass:color';
+// THEME COLORS
+$primary-color:  #fe2125;
+$primary-color-dark: darken($primary-color, 10%);
+$primary-color-dark-alpha: color.scale($primary-color-dark, $alpha: -50%);
+$primary-color-light: lighten($primary-color, 10%);
+$primary-color-light-alpha: color.scale($primary-color-light, $alpha: -50%);
+$primary-color-shadow: color.scale($primary-color, $alpha: -50%);
+$primary-color-gradient : linear-gradient(to top, darken($primary-color,50%) 0% , $primary-color 100%);
+
+
+$secondary-color: #b37f44;
+$secondary-color-dark: darken($secondary-color, 10%);
+$secondary-color-dark-alpha: color.scale($secondary-color-dark, $alpha: -50%);
+$secondary-color-light: lighten($secondary-color, 10%);
+$secondary-color-light-alpha: color.scale($secondary-color-light, $alpha: -50%);
+$secondary-color-shadow: color.scale($secondary-color, $alpha: -50%);
+$secondary-color-gradient : linear-gradient(to top, darken($secondary-color,50%) 0% , $secondary-color 100%);
+
+
+
+
+$background-light: #4b3893;
+$background-light-alpha: color.scale($background-light, $alpha: -50%);
+$background-medium:#2e2257;
+$background-medium-alpha: color.scale($background-medium, $alpha: -50%);
+$background-dark: #150f24 !default;
+$background-dark-alpha: color.scale($background-dark, $alpha: -50%);
+
+
+
+$success-color : rgb(30, 134, 30);
+$success-color-dark : darken($success-color, 10%);
+$success-color-shadow: color.scale($success-color, $alpha: -50%);
+
+$warning-color : rgb(205, 154, 3);
+$warning-color-dark : darken($warning-color, 10%);
+$warning-color-shadow: color.scale($warning-color, $alpha: -50%);
+
+$danger-color: #ec3d29;
+$danger-color-dark: darken($danger-color, 10%);
+$danger-color-light: lighten($danger-color, 10%);
+$danger-color-shadow: color.scale($danger-color, $alpha: -50%);
+$danger-color-gradient : linear-gradient(to top, darken($danger-color,50%) 0% , $danger-color 100%);
+
+
+$info-color : rgb(23, 162, 184);
+$info-color-dark : darken($info-color, 10%);
+$info-color-shadow: color.scale($info-color, $alpha: -50%);
+
+
+
+
+// TYPOGRAPHY
+$fontSize: 18px !default;
+$fontFamily: "Poppins";
+$titleFontFamily: "Sora";
+$text-color: white !default;
+
+
+// BREAKPOINTS
+// !! Attention modifier uniquement les valeurs !!
+// La mixin "media(nom du breakpoint)" permet d'inclure 
+// @media (min-width:$valeur) {}
+$breakpoints: (
+  sm-mobile: 374px,
+  md-mobile: 720px,
+  tablet: 920px,
+  desktop: 1200px,
+  large-desktop: 1400px,
+);

@@ -1,0 +1,15 @@
+@use "../../assets/sass/abstracts/variables" as v;
+
+.dashboard {
+  position: relative;
+  display: flex;
+  padding: 0;
+  background-color: v.$background-medium;
+
+  section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -1,0 +1,21 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.btn {
+  background-color: v.$primary-color-dark-alpha;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  cursor: pointer;
+  width: max-content;
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    background-color: v.$primary-color-light-alpha;
+    transform: scale(1.05);
+  }
+}
+
+a.btn {
+  text-decoration: none;
+}

@@ -1,0 +1,27 @@
+@use "../../assets/sass/abstracts/variables" as v;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 1rem;
+  &_nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    .nav_link {
+      text-decoration: none;
+      color: v.$text-color;
+      transition: all 0.25s ease-in-out;
+
+      &:hover {
+        color: v.$primary-color;
+      }
+
+      &.active {
+        color: v.$primary-color;
+        border-bottom: 2px solid v.$primary-color;
+      }
+    }
+  }
+}
