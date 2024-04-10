@@ -25,7 +25,7 @@ describe("CreateActivity", () => {
     );
 
     expect(screen.getByTestId("create-activity")).toBeInTheDocument();
-    expect(screen.getByLabelText("nom de l'activité")).toBeInTheDocument();
+    expect(screen.getByLabelText("Nom de l'activité")).toBeInTheDocument();
     expect(screen.getByLabelText("Description")).toBeInTheDocument();
     expect(screen.getByText("Enregistrer")).toBeInTheDocument();
   });
@@ -37,7 +37,7 @@ describe("CreateActivity", () => {
       </Provider>
     );
 
-    const nomInput = screen.getByLabelText("nom de l'activité");
+    const nomInput = screen.getByLabelText("Nom de l'activité");
     const descriptionInput = screen.getByLabelText("Description");
     const submitButton = screen.getByText("Enregistrer");
 

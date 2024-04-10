@@ -1,15 +1,13 @@
 import { useState } from "react";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ActionDeleteActivity } from "../../redux/actions/activityAction";
 import UpdateActivity from "../updateActivity";
 
-
 import "./allActivities.scss";
 
- //import custom hooks
+//import custom hooks
 import useActivities from "../../hooks/useActivities";
 import useToken from "../../hooks/useToken";
-
 
 /**
  * Component that displays all activities.
@@ -17,8 +15,8 @@ import useToken from "../../hooks/useToken";
  */
 function AllActivities() {
   const dispatch = useDispatch();
-  const  activities  = useActivities();
-  const  token  = useToken();
+  const activities = useActivities();
+  const token = useToken();
   const [onOpen, setOnOpen] = useState(false);
   const [activity, setActivity] = useState(null);
 
@@ -27,7 +25,7 @@ function AllActivities() {
    * @param {string} id - The ID of the activity to delete.
    */
   const handleDelete = (id) => {
-    dispatch(ActionDeleteActivity({ token: token, id: id })); 
+    dispatch(ActionDeleteActivity({ token: token, id: id }));
   };
 
   /**
@@ -47,15 +45,35 @@ function AllActivities() {
           <thead>
             <tr>
               <th>Nom</th>
-              <th>Description</th>
-              <th>Actions</th>
+              {/* <th>Description</th> */}
+              <th>Type de formule</th>
+              <th>Prix</th>
+              <th>Nombre de personnes</th>
+              <th>Age minimum</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {activities.map((activity) => (
               <tr key={activity._id}>
-                <td>{activity.nom}</td>
-                <td>{activity.description}</td>
+                <td>{activity.name}</td>
+                {/* <td>{activity.description}</td> */}
+                <td>
+                  {activity.half_day && "Demi-journée"}
+                  {activity.half_day && activity.full_day && " | "}
+                  {activity.full_day && "Journée"}
+                </td>
+                <td>
+                  {activity.half_day && activity.price_half_day && activity.price_half_day + "€"}
+                  {activity.full_day && activity.half_day && activity.price_half_day && activity.price_full_day && " | "}
+                  {activity.full_day && activity.price_full_day && activity.price_full_day + "€"}
+                </td>
+                <td>
+                  {activity.min_number_of_people && "Min : " + activity.min_number_of_people}
+                  {activity.max_number_of_people && activity.min_number_of_people && " | "}
+                  {activity.max_number_of_people && "Max : " + activity.max_number_of_people}
+                </td>
+                <td>{activity.minimum_age + " ans"}</td>
                 <td className="action">
                   <button
                     onClick={() => handleEdit(activity)}
