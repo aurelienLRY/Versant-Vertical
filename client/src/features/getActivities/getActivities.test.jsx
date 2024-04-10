@@ -12,8 +12,8 @@ describe("AllActivities", () => {
     store = createMockStore({
       activity: {
         activities: [
-          { _id: "1", nom: "Activity 1", description: "Description 1" },
-          { _id: "2", nom: "Activity 2", description: "Description 2" },
+          { _id: "1", name: "Activity 1", description: "Description 1" , minimum_age : 8 },
+          { _id: "2", name: "Activity 2", description: "Description 2" ,minimum_age : 18 },
         ]
       }
     });
@@ -28,8 +28,8 @@ describe("AllActivities", () => {
 
     const activities = store.getState().activity.activities;
     activities.forEach((activity) => {
-      expect(screen.getByText(activity.nom)).toBeInTheDocument();
-      expect(screen.getByText(activity.description)).toBeInTheDocument();
+      expect(screen.getByText(activity.name)).toBeInTheDocument();
+      expect(screen.getByText(`${activity.minimum_age} ans`)).toBeInTheDocument();
     });
   });
 

@@ -13,7 +13,7 @@ export const ActionCreateActivity = createAsyncThunk("creatActivity", async ({to
   });
   if (response.status !== 201) {
     const err = await response.json();
-    throw new Error(err.message);
+    throw new Error(err);
   }
   if (response.status === 201) {
     const json = await response.json();
@@ -26,7 +26,7 @@ export const ActionGetAllActivities = createAsyncThunk("getAllActivities", async
   const response = await fetch(`${import.meta.env.VITE_APP_API}activities/`);
   if (response.status !== 200) {
     const err = await response.json();
-    throw new Error(err.message);
+    throw new Error(err);
   }
   if (response.status === 200) {
     const json = await response.json();
