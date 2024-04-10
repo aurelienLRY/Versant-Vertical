@@ -31,15 +31,23 @@ $background-dark-alpha: color.scale($background-dark, $alpha: -50%);
 
 $success-color : rgb(30, 134, 30);
 $success-color-dark : darken($success-color, 10%);
+$success-color-dark-alpha: color.scale($success-color-dark, $alpha: -50%);
+$success-color-light: lighten($success-color, 10%);
+$success-color-light-alpha: color.scale($success-color-light, $alpha: -50%);
 $success-color-shadow: color.scale($success-color, $alpha: -50%);
 
 $warning-color : rgb(205, 154, 3);
 $warning-color-dark : darken($warning-color, 10%);
+$warning-color-dark-alpha: color.scale($warning-color-dark, $alpha: -50%);
+$warning-color-light: lighten($warning-color, 10%);
+$warning-color-light-alpha: color.scale($warning-color-light, $alpha: -50%);
 $warning-color-shadow: color.scale($warning-color, $alpha: -50%);
 
 $danger-color: #ec3d29;
 $danger-color-dark: darken($danger-color, 10%);
+$danger-color-dark-alpha: color.scale($danger-color-dark, $alpha: -50%);
 $danger-color-light: lighten($danger-color, 10%);
+
 $danger-color-shadow: color.scale($danger-color, $alpha: -50%);
 $danger-color-gradient : linear-gradient(to top, darken($danger-color,50%) 0% , $danger-color 100%);
 

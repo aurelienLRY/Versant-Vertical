@@ -1,0 +1,34 @@
+@use "../../../../assets/sass/abstracts/variables" as v;
+.allActivities {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.5em 1em;
+
+  &_table {
+    width: 100%;
+    border-collapse: collapse;
+
+    tbody {
+      text-align: center;
+
+      tr:hover {
+        background-color: v.$background-light;
+      }
+    }
+    th,
+    td {
+      padding: 0.2em 0.5em; // Ajoute un peu d'espace autour du texte dans chaque cellule
+    }
+
+    td.action {
+      display: flex;
+      gap: 0.5em;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
