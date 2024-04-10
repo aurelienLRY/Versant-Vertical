@@ -8,9 +8,9 @@ jobs:
   check-base-branch:
     runs-on: ubuntu-latest
     steps:
-    - name: Fail if PR base is not 'dev'
+    - name: Fail if PR base is not 'server developpement'
       run: |
-        if [[ "${{ github.base_ref }}" != "dev" ]]; then
+        if [[ "${{ github.base_ref }}" != "Server-Developpement" ]]; then
           echo "Error: Pull requests must be based on 'dev' branch"
           exit 1
         fi
