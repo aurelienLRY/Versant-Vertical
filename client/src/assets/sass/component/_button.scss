@@ -72,3 +72,57 @@ a.btn {
   }
 }
 
+.btn-danger-outline {
+  @extend .btn;
+  background-color: transparent;
+  border: 1px solid v.$danger-color-dark;
+  color: v.$danger-color-dark;
+
+  &:hover {
+    background-color: v.$danger-color-dark;
+    color: white;
+  }
+}
+
+.btn-success {
+  @extend .btn;
+  background-color: v.$success-color-dark;
+
+  &:hover {
+    background-color: v.$success-color-light;
+  }
+}
+
+
+.btn-success-outline {
+  @extend .btn;
+  background-color: transparent;
+  border: 1px solid v.$success-color-dark;
+  color: v.$success-color-dark;
+
+  &:hover {
+    background-color: v.$success-color-dark;
+    color: white;
+  }
+}
+
+.btn-warning {
+  @extend .btn;
+  background-color: v.$warning-color-dark;
+
+  &:hover {
+    background-color: v.$warning-color-light;
+  }
+}
+
+.btn-warning-outline {
+  @extend .btn;
+  background-color: transparent;
+  border: 1px solid v.$warning-color-dark;
+  color: v.$warning-color-dark;
+
+  &:hover {
+    background-color: v.$warning-color-dark;
+    color: white;
+  }
+}

@@ -4,7 +4,10 @@ const autorisation = require('./middleware/tokenValidation');
 
 const cors = require('cors'); // permet de gérer les requêtes entre le front et le back
 
-
+/**
+ * ROUTER
+ */
+const activityRouter = require('./routes/activityRouter');
 
 const dotenv = require('dotenv');
 const reservationController = require('./controllers/reservationController');
@@ -21,7 +24,7 @@ app.use(express.json());
 dbConnection();
 
 
-
+app.use('/activities', activityRouter);
 
 
 

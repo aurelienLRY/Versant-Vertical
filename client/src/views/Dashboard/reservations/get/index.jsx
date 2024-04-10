@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import GetReserve from '../models/getReservation'
-import { formatDate } from '../../../../utils/helper/date';
+import { formatDate } from '../../../../services/date';
 
 function AllReservations() {
   const [reservations, setReservations] = useState([]);

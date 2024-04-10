@@ -1,12 +1,22 @@
-import React from "react";
-import {useSelector} from 'react-redux'
+// Desc: Dashboard view
+import {useSelector , useDispatch} from 'react-redux'
 import { Navigate , Outlet  } from "react-router-dom";
 import SlideBar from "../../components/SlideBar";
 import "./dashboard.scss";
 
-function Dashboard() {
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
+import {ActionGetAllActivities} from "../../redux/actions/activityAction"; //importing the action to get all activities
+
+function Dashboard() {
+  const dispatch = useDispatch();//dispatch function
+  
+  
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated) //getting the isAuthenticated state from the store
+  
+  
+  dispatch(ActionGetAllActivities());//dispatching the action to get all activities
+  
+  
   if (!isAuthenticated) {
     return <Navigate to="/" />;
   }
