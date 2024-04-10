@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ActionCreateActivity } from "../../../../redux/actions/activityAction";
+import { ActionCreateActivity } from "../../redux/actions/activityAction";
 import "./creatActivity.scss";
 
 /**

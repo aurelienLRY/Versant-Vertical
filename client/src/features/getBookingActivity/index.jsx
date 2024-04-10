@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import GetReserve from '../models/getReservation'
-import { formatDate } from '../../../../services/date';
+import  { useState, useEffect } from 'react'
+import GetReserve from '../../views/Dashboard/outletBookingActitivy/models/getReservation'
+import { formatDate } from '../../services/formatDate';
 
-function AllReservations() {
+function BookingActivities() {
   const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
@@ -60,4 +60,4 @@ function AllReservations() {
 
 
 
-export default AllReservations;
+export default BookingActivities;

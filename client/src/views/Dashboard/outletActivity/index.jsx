@@ -1,7 +1,6 @@
-import React from 'react'
-import CreateActivity from './create'
-import AllActivities from './getAllactivities'
-import './activity.scss'
+import CreateActivity from '../../../features/createActivity'
+import AllActivities from '../../../features/getActivities'
+import './outletActivity.scss'
 
 /**
  * Renders the Activity component.
@@ -9,13 +8,13 @@ import './activity.scss'
  *
  * @returns {JSX.Element} The rendered Activity component.
  */
-function Activity() {
+function OutletActivity() {
   return (
-    <div className='activity'>
+    <div className='outletActivity' data-testid='outlet-activity'>
         <AllActivities />
         <CreateActivity />
     </div>
   )
 }
 
-export default Activity
+export default OutletActivity

@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import "./allactivities.scss";
-import { ActionDeleteActivity } from "../../../../redux/actions/activityAction";
+import {  useDispatch } from "react-redux";
+import { ActionDeleteActivity } from "../../redux/actions/activityAction";
 import UpdateActivity from "../updateActivity";
+
+
+import "./allActivities.scss";
+
+ //import custom hooks
+import useActivities from "../../hooks/useActivities";
+import useToken from "../../hooks/useToken";
+
 
 /**
  * Component that displays all activities.
@@ -10,8 +17,8 @@ import UpdateActivity from "../updateActivity";
  */
 function AllActivities() {
   const dispatch = useDispatch();
-  const { activities } = useSelector((state) => state.activity);
-  const { token } = useSelector((state) => state.auth.user);
+  const  activities  = useActivities();
+  const  token  = useToken();
   const [onOpen, setOnOpen] = useState(false);
   const [activity, setActivity] = useState(null);
 
@@ -20,7 +27,7 @@ function AllActivities() {
    * @param {string} id - The ID of the activity to delete.
    */
   const handleDelete = (id) => {
-    dispatch(ActionDeleteActivity({ token: token, id: id })); // Supprime l'activité
+    dispatch(ActionDeleteActivity({ token: token, id: id })); 
   };
 
   /**
@@ -30,7 +37,6 @@ function AllActivities() {
   const handleEdit = (activity) => {
     setActivity(activity);
     setOnOpen(true);
-    // dispatch(setCurrentActivity(activity)); // Définit l'activité actuelle pour l'édition
   };
 
   return (
