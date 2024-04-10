@@ -1,7 +1,7 @@
-import Modal from "../../../../components/modal";
+import Modal from "../../components/modal";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { ActionUpdateActivity } from "../../../../redux/actions/activityAction";
+import { ActionUpdateActivity } from "../../redux/actions/activityAction";
 import PropTypes from "prop-types";
 
 

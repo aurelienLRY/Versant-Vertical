@@ -1,10 +1,12 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import CreateReserve from "../models/createReservation";
-import "./createreservation.scss";
+import CreateReserve from "../../views/Dashboard/outletBookingActitivy/models/createReservation";
+import useToken from "../../hooks/useToken";
 
-function CreateReservation() {
-  const { token } = useSelector((state) => state.auth.user);
+
+import "./createreservation.scss"
+
+function CreateBookingActivity() {
+  const  token  = useToken();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,4 +57,4 @@ function CreateReservation() {
   );
 }
 
-export default CreateReservation;
+export default CreateBookingActivity;
