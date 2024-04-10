@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - Server-Developpement
-      paths:
+    paths:
         - 'client/**'
       
       
   pull_request:
     branches:
       - Server-Developpement
-      paths:
+    paths:
         - 'client/**'
 
 jobs:
