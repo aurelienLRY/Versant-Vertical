@@ -27,15 +27,15 @@ const activitySchema = new mongoose.Schema({
     required: false,
   }, 
 
-  minimum_age: {
+  min_age: {
     type: Number,
     required: true,
   },
-  max_number_of_people: {
+  max_OfPeople: {
     type: Number,
     required: true,
   },
-  min_number_of_people: {
+  min_OfPeople: {
     type: Number,
     required: true,
   },

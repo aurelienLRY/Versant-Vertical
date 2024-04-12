@@ -1,0 +1,81 @@
+@use "../../assets/sass/abstracts/variables" as v;
+@use "../../assets/sass/abstracts/mixins" as m;
+
+.createSpot {
+  min-width: 300px;
+  width: 80%;
+  max-width: 600px;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8em;
+
+  background-color: v.$background-dark-alpha;
+  box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 1em;
+
+  &_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8em;
+    width: 100%;
+
+    .group-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.3em;
+      width: 80%;
+    }
+
+    .numberPeople {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      gap: 1em;
+      width: 80%;
+    }
+
+    .practicedActivities {
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(100px, 1fr));
+      align-items: center;
+      gap: 1em;
+      width: 80%;
+      label {
+        justify-content: space-between;
+        font-size: small;
+      }
+    }
+
+
+    .formule_type {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+      width: 100%;
+
+      .group-form {
+        flex-direction: row;
+        gap: 1em;
+      }
+    }
+
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+    }
+  }
+}

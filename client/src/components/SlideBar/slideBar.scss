@@ -1,18 +1,57 @@
 @use "../../assets/sass/abstracts/variables" as v;
+
+
 .slidebar {
+  position : relative;
   display: flex;
   flex-direction: column;
   gap: 0.8em;
   background: v.$background-light;
   padding: 0.2em 0.3em;
+animation: isOpened 0.3s linear both;
+  &.closed{
+    animation: isClosed 0.3s linear both;
+    align-items: end;
+  }
 
   a {
     color: v.$text-color;
     text-decoration: none;
-    transition: all 0.250ms ease-in-out;
+    transition: all 1ms ease-in-out;
 
     &:hover {
       color: v.$primary-color;
     }
   }
+
+  .icon{
+    position: absolute;
+    right: -10px;
+    top: 50%;
+  }
+
+  .link_icon{
+    width: 2em;
+    height: 2em;
+  }
+}
+
+
+@keyframes isClosed {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+     transform: translateX(-65%);
+  }
+  
+}
+@keyframes isOpened {
+  0% {
+    transform: translateX(-65%);
+  }
+  100% {
+     transform: translateX(0%);
+  }
+  
 }

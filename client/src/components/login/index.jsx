@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../../redux/actions/authActions";
-import { IoWarningOutline } from "react-icons/io5";
 
 import "./login.scss";
+import Feedback from "../FeedBack";
 
 function Login({ isConnect }) {
   const [username, setUsername] = useState("");
@@ -36,12 +36,8 @@ function Login({ isConnect }) {
   return (
     <div className="login">
       <span>Login</span>
-      {Err && (
-        <p className="error">
-          <IoWarningOutline />{" "}
-          {Err}
-        </p>
-      )}
+      <Feedback err={Err} />
+
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Username: </label>

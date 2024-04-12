@@ -2,6 +2,7 @@ import Modal from "../../components/modal";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { ActionUpdateActivity } from "../../redux/actions/activityAction";
+import Feedback from "../../components/FeedBack";
 import PropTypes from "prop-types";
 import "./updateActivity.scss";
 
@@ -28,9 +29,9 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
     full_day: activ.full_day,
     price_half_day: activ.price_half_day,
     price_full_day: activ.price_full_day,
-    min_number_of_people: activ.min_number_of_people,
-    max_number_of_people: activ.max_number_of_people,
-    minimum_age: activ.minimum_age,
+    min_OfPeople: activ.min_OfPeople,
+    max_OfPeople: activ.max_OfPeople,
+    min_age: activ.min_age,
   });
 
   useEffect(() => {
@@ -46,9 +47,9 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
       full_day: activ.full_day,
       price_half_day: activ.price_half_day,
       price_full_day: activ.price_full_day,
-      min_number_of_people: activ.min_number_of_people,
-      max_number_of_people: activ.max_number_of_people,
-      minimum_age: activ.minimum_age,
+      min_OfPeople: activ.min_OfPeople,
+      max_OfPeople: activ.max_OfPeople,
+      min_age: activ.min_age,
     });
     setHalfDayIsChecked(activ.half_day);
     setFullDayIsChecked(activ.full_day);
@@ -63,14 +64,23 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
       ...formValues,
       [event.target.name]: event.target.value,
     });
+    if (error) {
+      setError(null);
+    }
   };
 
   const handleHalfDayChange = (event) => {
-    setHalfDayIsChecked(event.target.checked);
+    setHalfDayIsChecked(event.target.checked);  
+    if (error) {
+      setError(null);
+    }
   };
 
   const handleFullDayChange = (event) => {
-    setFullDayIsChecked(event.target.checked);
+    setFullDayIsChecked(event.target.checked);  
+    if (error) {
+      setError(null);
+    }
   };
 
   /**
@@ -87,7 +97,7 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
 
     try {
       const action = await dispatch(
-        ActionUpdateActivity({ token, data: formValuesCopy})
+        ActionUpdateActivity({ token, data: formValuesCopy })
       );
 
       if (action.type.endsWith("fulfilled")) {
@@ -96,9 +106,11 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
         setHalfDayIsChecked(null);
         modalClosed(false);
       }
+      if (action.type.endsWith("rejected")) {
+        setError(action.error.message);
+      }
     } catch (err) {
-      console.error(err.message);
-      setError(err.message);
+      console.log("err", err);
     }
   };
 
@@ -116,7 +128,7 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
     <>
       <Modal isOpened={open} Closed={handleModalClosed}>
         <form onSubmit={handleSubmit} className="createactivity_form">
-          {error && <div className="error">{error}</div>}
+          <Feedback err={error} />
           <div className="group-form">
             <label htmlFor="name">Nom de l'activité</label>
             <input
@@ -191,36 +203,36 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
 
           <div className="numberPeople">
             <span>Gestion des groupes</span>
-            <label htmlFor="min_number_of_people">
+            <label htmlFor="min_OfPeople">
               Minimum
               <input
                 type="number"
-                name="min_number_of_people"
-                id="min_number_of_people"
-                value={formValues.min_number_of_people}
+                name="min_OfPeople"
+                id="min_OfPeople"
+                value={formValues.min_OfPeople}
                 onChange={handleChange}
                 required
               />
             </label>
-            <label htmlFor="max_number_of_people">
+            <label htmlFor="max_OfPeople">
               Maximum
               <input
                 type="number"
-                name="max_number_of_people"
-                id="max_number_of_people"
-                value={formValues.max_number_of_people}
+                name="max_OfPeople"
+                id="max_OfPeople"
+                value={formValues.max_OfPeople}
                 onChange={handleChange}
                 required
               />
             </label>
 
-            <label htmlFor="minimum_age">
+            <label htmlFor="min_age">
               Âge minimum
               <input
                 type="number"
-                name="minimum_age"
-                id="minimum_age"
-                value={formValues.minimum_age}
+                name="min_age"
+                id="min_age"
+                value={formValues.min_age}
                 onChange={handleChange}
                 required
               />

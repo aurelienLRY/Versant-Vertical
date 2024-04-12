@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ActionDeleteActivity } from "../../redux/actions/activityAction";
 import UpdateActivity from "../updateActivity";
+import Feedback from "../../components/FeedBack";
 
 import "./allActivities.scss";
 
@@ -19,13 +20,21 @@ function AllActivities() {
   const token = useToken();
   const [onOpen, setOnOpen] = useState(false);
   const [activity, setActivity] = useState(null);
+ const [FeedBack , setFeedBack] = useState(null);
 
   /**
    * Handles the delete action for an activity.
    * @param {string} id - The ID of the activity to delete.
    */
   const handleDelete = (id) => {
-    dispatch(ActionDeleteActivity({ token: token, id: id }));
+   const action =  dispatch(ActionDeleteActivity({ token: token, id: id }));
+  
+  if(action.type.endsWith("fulfilled")){
+    setFeedBack("Activité supprimée avec succès");
+    setTimeout(() => {
+      setFeedBack(null);
+    }, 3000);
+  }
   };
 
   /**
@@ -41,6 +50,7 @@ function AllActivities() {
     <>
       <article className="allActivities">
         <h3>Activities enregistrées</h3>
+        <Feedback err={FeedBack} /> 
         <table className="allActivities_table">
           <thead>
             <tr>
@@ -69,11 +79,11 @@ function AllActivities() {
                   {activity.full_day && activity.price_full_day && activity.price_full_day + "€"}
                 </td>
                 <td>
-                  {activity.min_number_of_people && "Min : " + activity.min_number_of_people}
-                  {activity.max_number_of_people && activity.min_number_of_people && " | "}
-                  {activity.max_number_of_people && "Max : " + activity.max_number_of_people}
+                  {activity.min_OfPeople&& "Min : " + activity. min_OfPeople}
+                  {activity.max_OfPeople && activity.min_OfPeople&& " | "}
+                  {activity.max_OfPeople && "Max : " + activity.max_OfPeople}
                 </td>
-                <td>{activity.minimum_age + " ans"}</td>
+                <td>{activity.min_age + " ans"}</td>
                 <td className="action">
                   <button
                     onClick={() => handleEdit(activity)}

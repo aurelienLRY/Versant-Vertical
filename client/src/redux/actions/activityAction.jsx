@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
 export const ActionCreateActivity = createAsyncThunk("creatActivity", async ({token , data}) => {
-  console.log("data", data);
   const response = await fetch(`${import.meta.env.VITE_APP_API}activities/`, {
     method: "POST",
     headers: {
@@ -13,7 +12,8 @@ export const ActionCreateActivity = createAsyncThunk("creatActivity", async ({to
   });
   if (response.status !== 201) {
     const err = await response.json();
-    throw new Error(err);
+    console.error("Erreur! voir les détails",err);
+    throw new Error(err.message);
   }
   if (response.status === 201) {
     const json = await response.json();
@@ -26,7 +26,8 @@ export const ActionGetAllActivities = createAsyncThunk("getAllActivities", async
   const response = await fetch(`${import.meta.env.VITE_APP_API}activities/`);
   if (response.status !== 200) {
     const err = await response.json();
-    throw new Error(err);
+    console.error("Erreur! voir les détails",err);
+    throw new Error(err.message);
   }
   if (response.status === 200) {
     const json = await response.json();
@@ -45,6 +46,7 @@ export const ActionDeleteActivity = createAsyncThunk("deleteActivity", async ({t
   });
   if (response.status  !== 200) {
     const err = await response.json();
+    console.error("Erreur! voir les détails",err);
     throw new Error(err.message);
   }
   if (response.status === 200) {
@@ -65,6 +67,7 @@ export const ActionUpdateActivity = createAsyncThunk("putActivity", async ({toke
   });
   if (response.status !== 200) {
     const err = await response.json();
+    console.error("Erreur! voir les détails",err);
     throw new Error(err.message);
   }
   if (response.status === 200) {

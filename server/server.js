@@ -1,6 +1,7 @@
 const express = require('express');
 const dbConnection = require('./database/connection')
 const autorisation = require('./middleware/tokenValidation');
+const {errorHandler}  = require('./middleware/errorHandler');
 
 const cors = require('cors'); // permet de gérer les requêtes entre le front et le back
 
@@ -8,6 +9,7 @@ const cors = require('cors'); // permet de gérer les requêtes entre le front e
  * ROUTER
  */
 const activityRouter = require('./routes/activityRouter');
+const spotRouter = require('./routes/spotRouter');
 
 const dotenv = require('dotenv');
 const reservationController = require('./controllers/reservationController');
@@ -25,6 +27,7 @@ dbConnection();
 
 
 app.use('/activities', activityRouter);
+app.use('/spots', spotRouter);
 
 
 
@@ -41,22 +44,12 @@ app.delete('/reservations/:id', permission, reservationController.deleteReservat
 
 
 
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
 
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Express API avec Swagger',
-      version: '1.0.0',
-    },
-  },
-  apis: ['./server.js'], // chemin vers les fichiers contenant les docstrings de swagger
-};
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+app.use(errorHandler);//middleware pour gérer les erreurs
+
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
