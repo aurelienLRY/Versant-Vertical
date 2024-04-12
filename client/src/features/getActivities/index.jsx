@@ -20,21 +20,21 @@ function AllActivities() {
   const token = useToken();
   const [onOpen, setOnOpen] = useState(false);
   const [activity, setActivity] = useState(null);
- const [FeedBack , setFeedBack] = useState(null);
+  const [FeedBack, setFeedBack] = useState(null);
 
   /**
    * Handles the delete action for an activity.
    * @param {string} id - The ID of the activity to delete.
    */
   const handleDelete = (id) => {
-   const action =  dispatch(ActionDeleteActivity({ token: token, id: id }));
-  
-  if(action.type.endsWith("fulfilled")){
-    setFeedBack("Activité supprimée avec succès");
-    setTimeout(() => {
-      setFeedBack(null);
-    }, 3000);
-  }
+    const action = dispatch(ActionDeleteActivity({ token: token, id: id }));
+
+    if (action.type.endsWith("fulfilled")) {
+      setFeedBack("Activité supprimée avec succès");
+      setTimeout(() => {
+        setFeedBack(null);
+      }, 3000);
+    }
   };
 
   /**
@@ -50,7 +50,7 @@ function AllActivities() {
     <>
       <article className="allActivities">
         <h3>Activities enregistrées</h3>
-        <Feedback err={FeedBack} /> 
+        <Feedback err={FeedBack} />
         <table className="allActivities_table">
           <thead>
             <tr>
@@ -74,29 +74,39 @@ function AllActivities() {
                   {activity.full_day && "Journée"}
                 </td>
                 <td>
-                  {activity.half_day && activity.price_half_day && activity.price_half_day + "€"}
-                  {activity.full_day && activity.half_day && activity.price_half_day && activity.price_full_day && " | "}
-                  {activity.full_day && activity.price_full_day && activity.price_full_day + "€"}
+                  {activity.half_day &&
+                    activity.price_half_day &&
+                    activity.price_half_day + "€"}
+                  {activity.full_day &&
+                    activity.half_day &&
+                    activity.price_half_day &&
+                    activity.price_full_day &&
+                    " | "}
+                  {activity.full_day &&
+                    activity.price_full_day &&
+                    activity.price_full_day + "€"}
                 </td>
                 <td>
-                  {activity.min_OfPeople&& "Min : " + activity. min_OfPeople}
-                  {activity.max_OfPeople && activity.min_OfPeople&& " | "}
+                  {activity.min_OfPeople && "Min : " + activity.min_OfPeople}
+                  {activity.max_OfPeople && activity.min_OfPeople && " | "}
                   {activity.max_OfPeople && "Max : " + activity.max_OfPeople}
                 </td>
                 <td>{activity.min_age + " ans"}</td>
-                <td className="action">
-                  <button
-                    onClick={() => handleEdit(activity)}
-                    className="btn-warning-outline small"
-                  >
-                    Modifier
-                  </button>
-                  <button
-                    onClick={() => handleDelete(activity._id)}
-                    className="btn-danger-outline small"
-                  >
-                    Supprimer
-                  </button>
+                <td>
+                  <div className="td_action">
+                    <button
+                      onClick={() => handleEdit(activity)}
+                      className="btn-warning-outline small"
+                    >
+                      Modifier
+                    </button>
+                    <button
+                      onClick={() => handleDelete(activity._id)}
+                      className="btn-danger-outline small"
+                    >
+                      Supprimer
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

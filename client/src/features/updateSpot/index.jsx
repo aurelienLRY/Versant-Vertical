@@ -1,79 +1,94 @@
-import { useState } from "react";
+//modal update spot
+// Path: client/src/features/updateSpot/index.jsx
+
+import Modal from "../../components/modal";
 import { useSelector, useDispatch } from "react-redux";
-import { ActionCreateSpot } from "../../redux/actions/spotAction";
-import "./createSpot.scss";
+import { useState, useEffect } from "react";
+import { ActionUpdateSpot } from "../../redux/actions/spotAction";
 import Feedback from "../../components/FeedBack";
+import useToken  from "../../hooks/useToken";
+import PropTypes from "prop-types";
+import "./updateSpot.scss";
 import useActivities from "../../hooks/useActivities";
 
-function CreateSpot() {
-  const { token } = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
-  const [error, setError] = useState(null);
-  const [fullDayIsChecked, setFullDayIsChecked] = useState();
-  const [halfDayIsChecked, setHalfDayIsChecked] = useState();
-  const activities = useActivities();
+/**
+ * Component for updating a spot.
+ * @param {Object} props - The component props.
+ * @param {boolean} props.onOpen - Flag indicating whether the modal is open.
+ * @param {Object} props.spot - The spot object to be updated.
+ *  @param {Function} props.modalClosed - Callback function to be called when the modal is closed.
+ * @returns {JSX.Element} - The rendered component.
+ */
+function UpdateSpot({ onOpen, spot, modalClosed }) {
 
-  const handleFullDayChange = (event) => {
-    setFullDayIsChecked(event.target.checked);
+  /*
+  * CONSOLE.LOG
+  */
+
+  console.log("UpdateSpot -spot", spot);
+
+
+
+
+
+  const token = useToken();
+  const dispatch = useDispatch();
+  const activities = useActivities();
+  const [Open, setOpen] = useState(false);
+  const [error, setError] = useState(null);
+  const [half_dayIsChecked, setHalfDayIsChecked] = useState(false);
+  const [full_dayIsChecked, setFullDayIsChecked] = useState(false);
+
+
+  const [formValues, setFormValues] = useState();
+
+
+  useEffect(() => {
+    setFormValues({
+        name: spot.name,
+        description: spot.description,
+        gpsCoordinates: spot.gpsCoordinates,
+        practicedActivities: spot.practicedActivities,
+        photos: spot.photos,
+        half_day: spot.half_day,
+        full_day: spot.full_day,
+        max_OfPeople: spot.max_OfPeople,
+        min_OfPeople: spot.min_OfPeople,
+        meetingPoint: spot.meetingPoint,
+        estimatedDuration: spot.estimatedDuration,
+    });
+    setHalfDayIsChecked(spot.half_day);
+    setFullDayIsChecked(spot.full_day);
+}, [spot]);
+
+
+ useEffect(() => {
+    setOpen(onOpen);
+    }, [onOpen]);
+
+      /**
+   * Event handler for modal closed.
+   */
+  const handleModalClosed = () => {
+    setOpen(false);
+    setFullDayIsChecked(null);
+    setHalfDayIsChecked(null);
+    modalClosed(true);
   };
+
+  const handleSubmit = async (event) => {}
 
   const handleHalfDayChange = (event) => {
     setHalfDayIsChecked(event.target.checked);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const data = Array.from(formData.entries()).reduce(
-      (acc, [key, value]) => {
-        const activity = activities.find((activity) => activity.name === key);
-
-        if (key === "half_day" || key === "full_day") {
-          value = value === "on";
-          acc[key] = value;
-        } else if (activity) {
-          // Initialize the practicedActivities array if it doesn't exist
-          if (!acc.practicedActivities) {
-            acc.practicedActivities = [];
-          }
-          // Add the activity to the practicedActivities array
-          acc.practicedActivities.push({
-            activityName: activity.name,
-            activityId: activity._id,
-          });
-        } else {
-          acc[key] = value;
-        }
-
-        return acc;
-      },
-      { half_day: false, full_day: false }
-    );
-
-    console.log("OnSubmit createSpot > data >>>", data);
-    
-    try {
-      const action = await dispatch(
-        ActionCreateSpot({ token: token, data: data })
-      );
-
-      if (action.type.endsWith("fulfilled")) {
-        event.target.reset();
-      }
-      if (action.type.endsWith("rejected")) {
-        console.log("Erreur! ", action.error);
-        setError(action.error.message);
-      }
-    } catch (err) {
-      setError(err.message);
-    }
+  const handleFullDayChange = (event) => {
+    setFullDayIsChecked(event.target.checked);
   };
 
   return (
-    <article className="createSpot" data-testid="create-spot">
-      <h4>Ajouter un spot</h4>
-      <Feedback err={error} />
+    <>
+      <Modal isOpened={Open} Close={handleModalClosed}>
       <form onSubmit={handleSubmit} className="createSpot_form">
         <label htmlFor="name">
           Nom du spot
@@ -88,7 +103,7 @@ function CreateSpot() {
         <div className="practicedActivities">
           {activities.map((activity) => {
             return (
-              <label htmlFor={activity.name} key={activity._id}>
+              <label htmlFor={activity.name} key={activity._Id}>
                 {activity.name}
                 <input
                   type="checkbox"
@@ -112,7 +127,7 @@ function CreateSpot() {
                 type="checkbox"
                 name="half_day"
                 id="half_day"
-                checked={halfDayIsChecked}
+                checked={half_dayIsChecked}
                 onChange={handleHalfDayChange}
               />
             </label>
@@ -122,7 +137,7 @@ function CreateSpot() {
                 type="checkbox"
                 name="full_day"
                 id="full_day"
-                checked={fullDayIsChecked}
+                checked={full_dayIsChecked}
                 onChange={handleFullDayChange}
               />
             </label>
@@ -180,8 +195,22 @@ function CreateSpot() {
           Enregistrer
         </button>
       </form>
-    </article>
+
+
+
+
+
+
+
+
+      </Modal>
+    </>
   );
 }
+UpdateSpot.propTypes = {
+  onOpen: PropTypes.bool.isRequired,
+  spot: PropTypes.object.isRequired,
+  modalClosed: PropTypes.func.isRequired,
+};
 
-export default CreateSpot;
+export default UpdateSpot;

@@ -1,6 +1,7 @@
 import Modal from "../../components/modal";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import  useToken  from "../../hooks/useToken";
 import { ActionUpdateActivity } from "../../redux/actions/activityAction";
 import Feedback from "../../components/FeedBack";
 import PropTypes from "prop-types";
@@ -15,7 +16,7 @@ import "./updateActivity.scss";
  * @returns {JSX.Element} - The rendered component.
  */
 function UpdateActivity({ onOpen, activ, modalClosed }) {
-  const { token } = useSelector((state) => state.auth.user);
+  const token  =useToken();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);

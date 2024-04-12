@@ -65,7 +65,7 @@ exports.updateSpot = async (req, res, next) => {
 // Delete a spot
 exports.deleteSpot = async (req, res, next) => {
   try {
-    const spot = await Spot.findByIdAndRemove(req.params.id);
+    const spot = await Spot.findByIdAndDelete(req.params.id);
     if (!spot) {
       const error = new Error('lieu non trouvé');
       error.statusCode = 404;
