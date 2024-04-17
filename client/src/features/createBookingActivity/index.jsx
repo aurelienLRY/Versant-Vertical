@@ -1,9 +1,17 @@
-import useToken from "../../hooks/useToken";
+import useToken from "../../hooks/useToken";// Custom hook
 import "./createBooking.scss"
 
+/**
+ * Component for creating a booking activity.
+ * @component
+ */
 function CreateBookingActivity() {
   const  token  = useToken();
 
+  /**
+   * Handles the form submission.
+   * @param {Event} event - The form submission event.
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;

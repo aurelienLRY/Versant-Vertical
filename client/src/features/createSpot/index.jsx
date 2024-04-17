@@ -1,12 +1,20 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { ActionCreateSpot } from "../../redux/actions/spotAction";
+import { useEffect, useState } from "react"; // React hooks
+import { useDispatch } from "react-redux"; // Redux hook
+import { ActionCreateSpot } from "../../redux/actions/spotAction"; // Redux action
 import "./createSpot.scss";
-import Feedback from "../../components/FeedBack";
-import Modal from "../../components/modal";
-import useActivities from "../../hooks/useActivities";
-import useToken from "../../hooks/useToken";
-
+import Feedback from "../../components/FeedBack"; // Feedback component
+import Modal from "../../components/modal"; // Modal component
+import useActivities from "../../hooks/useActivities"; // Custom hook
+import useToken from "../../hooks/useToken"; // Custom hook
+/**
+ * CreateSpot component.
+ * 
+ * @component
+ * @param {Object} props - The component props.
+ * @param {boolean} props.isOpened - Indicates whether the modal is opened or not.
+ * @param {Function} props.modalClosed - Callback function to close the modal.
+ * @returns {JSX.Element} The CreateSpot component.
+ */
 function CreateSpot({ isOpened, modalClosed }) {
   const  token  = useToken(); // Get the token from the custom hook
   const dispatch = useDispatch(); // Dispatch the action
@@ -16,14 +24,30 @@ function CreateSpot({ isOpened, modalClosed }) {
   const [halfDayIsChecked, setHalfDayIsChecked] = useState();
   const activities = useActivities();
 
+/*
+  * Event handler for full day change.
+  * @param {Object} event - The event object.
+    */
   const handleFullDayChange = (event) => {
     setFullDayIsChecked(event.target.checked);
   };
 
+
+/*
+  * Event handler for half day change.
+  * @param {Object} event - The event object.
+   */
   const handleHalfDayChange = (event) => {
     setHalfDayIsChecked(event.target.checked);
   };
 
+
+
+/*
+  * Event handler for form submission.
+  * @param {Object} event - The event object.
+  * @returns {Promise<void>} The async function.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -73,18 +97,24 @@ function CreateSpot({ isOpened, modalClosed }) {
     }
   };
 
+
+  /*
+  * Event handler for modal closed.
+  */
   const handleModalClosed = () => {
     setOpen(false);
     modalClosed(true);
   };
 
+  /*
+  * Effect hook to set the modal state.
+  */
   useEffect(() => { 
     setOpen(isOpened);
   }, [isOpened]);
 
 
   return (
-
     <Modal isOpened={isOpen} Closed={handleModalClosed}  >  
     <article className="createSpot" data-testid="create-spot">
       <h4>Ajouter un spot</h4>

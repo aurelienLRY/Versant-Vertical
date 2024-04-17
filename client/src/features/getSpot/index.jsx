@@ -1,25 +1,29 @@
-// component that displays all spot .
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { ActionDeleteSpot } from "../../redux/actions/spotAction";
-import { Tooltip } from "antd";
+/**
+ * Component that displays all spots.
+ * @component
+ */
+import { useState } from "react"; // React hooks
+import { useDispatch } from "react-redux"; // Redux hook
+import { ActionDeleteSpot } from "../../redux/actions/spotAction"; // Redux action
+import { Tooltip } from "antd"; // Ant design 
 
-import UpdateSpot from "../updateSpot";
-import CreateSpot from "../createSpot";
+import UpdateSpot from "../updateSpot"; // Update spot component
+import CreateSpot from "../createSpot"; // Create spot component
 
-import Feedback from "../../components/FeedBack";
+import Feedback from "../../components/FeedBack"; // Feedback component
 //import custom hooks
-import useSpots from "../../hooks/useSpot";
-import useToken from "../../hooks/useToken";
+import useSpots from "../../hooks/useSpot"; // Custom hook
+import useToken from "../../hooks/useToken"; // Custom hook
 
 /* import icons */
-import { IoAddCircleOutline } from "react-icons/io5";
+import { IoAddCircleOutline } from "react-icons/io5"; // Icon
 
 import "./allSpots.scss";
 
-
-
-
+/**
+ * Component that displays all spots.
+ * @returns {JSX.Element} JSX representation of the component.
+ */
 function AllSpot() {
   //Data
   const token = useToken();
@@ -32,6 +36,10 @@ function AllSpot() {
   const [spot, setSpot] = useState(null);
 
   //Handlers
+  /**
+   * Handles spot deletion.
+   * @param {string} id - The ID of the spot to be deleted.
+   */
   const handleDelete = (id) => {
     const action = dispatch(ActionDeleteSpot({ token: token, id: id }));
     if (action.type.endsWith("fulfilled")) {
@@ -42,11 +50,18 @@ function AllSpot() {
     }
   };
 
+  /**
+   * Handles spot editing.
+   * @param {Object} spot - The spot object to be edited.
+   */
   const handleEdit = (spot) => {
     setSpot(spot);
     setModalUpdateIsOpen(true);
   };
 
+  /**
+   * Handles spot creation.
+   */
   const handleCreate = () => {
     setModalCreateIsOpen(true);
   };

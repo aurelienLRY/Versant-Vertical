@@ -1,15 +1,17 @@
-//modal update spot
-// Path: client/src/features/updateSpot/index.jsx
+/*
+  Ce composant est utilisé pour mettre à jour un spot.
+  Il est utilisé dans le composant SpotList pour mettre à jour un spot.
+  */
 
-import Modal from "../../components/modal";
-import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import { ActionUpdateSpot } from "../../redux/actions/spotAction";
-import Feedback from "../../components/FeedBack";
-import PropTypes from "prop-types";
-import "./updateSpot.scss";
-import useActivities from "../../hooks/useActivities";
-import useToken from "../../hooks/useToken";
+import Modal from "../../components/modal"; // Modal component
+import { useDispatch } from "react-redux"; // Redux hook 
+import { useState, useEffect } from "react"; // React hooks
+import { ActionUpdateSpot } from "../../redux/actions/spotAction"; // Redux action
+import Feedback from "../../components/FeedBack";   // Feedback component
+import PropTypes from "prop-types"; // Prop types
+import "./updateSpot.scss"; // Styles
+import useActivities from "../../hooks/useActivities"; // Custom hook
+import useToken from "../../hooks/useToken"; // Custom hook
 /**
  * Component for updating a spot.
  * @param {Object} props - The component props.
@@ -39,6 +41,11 @@ function UpdateSpot({ onOpen, spot, modalClosed }) {
     modalClosed(true);
   };
 
+
+  /*
+    * Event handler for form submission.
+    * @param {Object} event - The event object.
+    */
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("UpdateSpot -handleSubmit", formValues);
@@ -53,6 +60,10 @@ function UpdateSpot({ onOpen, spot, modalClosed }) {
     }
   };
 
+  /*
+    * Event handler for form change.
+    * @param {Object} event - The event object.
+    */
   const handleChange = (event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
