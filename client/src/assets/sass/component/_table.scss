@@ -1,0 +1,31 @@
+@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as mix;
+
+table {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 5px !important;
+  border: 1px solid var.$text-color;
+
+  thead {
+    background-color: var.$background-dark;
+    color: var.$text-color;
+    font-size: var.$fontSize * 1.2;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 5px !important;
+  }
+
+  tbody {
+    tr:hover {
+      background-color: var.$background-light;
+    }
+  }
+
+  td,
+  th {
+    text-align: center; // aligne le contenu horizontalement au centre
+    vertical-align: middle; // aligne le contenu verticalement au milieu
+    padding: 0.3em 0.5em;
+  }
+}

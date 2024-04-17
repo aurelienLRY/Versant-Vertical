@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ActionCreateActivity } from "../../redux/actions/activityAction";
 import "./creatActivity.scss";
+import Feedback from "../../components/FeedBack";
 
 /**
  * Component for creating a new activity.
@@ -42,6 +43,7 @@ function CreateActivity() {
       },
       { half_day: false, full_day: false }
     );
+    console.log("data", data);
 
     // Create the activity
     try {
@@ -53,6 +55,10 @@ function CreateActivity() {
       if (action.type.endsWith("fulfilled")) {
         event.target.reset();
       }
+      if (action.type.endsWith("rejected")) {
+        console.log("Erreur! ", action.error);
+        setError(action.error.message);
+      }
     } catch (err) {
       // Error handling
       setError(err.message);
@@ -61,94 +67,101 @@ function CreateActivity() {
 
   // Render the form
   return (
-    <article className="createactivity" data-testid="create-activity">
-      <h4>Ajouter une activité</h4>
-      {error && <div className="error">{error}</div>}
-      <form onSubmit={handleSubmit} className="createactivity_form">
-        <div className="group-form">
-          <label htmlFor="name">Nom de l'activité</label>
-          <input type="text" name="name" id="name" required />
-        </div>
+    <article className="createActivity" data-testid="create-activity">
+      <div className="createActivity_header">
+        <h4>Ajouter une activité</h4>
+        <Feedback err={error} />
+      </div>
 
-        <div className="group-form">
-          <label htmlFor="description">Description</label>
-          <textarea name="description" id="description" />
-        </div>
-
-        <div className="formule_content">
-          <div className="formule_type">
-            <span>Type de formule </span>
+      <form onSubmit={handleSubmit} className="createActivity_form">
+        
+        <div className="createActivity_body">
+          <div className="body_bloc">
             <div className="group-form">
-              <label htmlFor="half_day">
-                Demi journée{" "}
-                <input
-                  type="checkbox"
-                  name="half_day"
-                  id="half_day"
-                  checked={half_dayIsChecked}
-                  onChange={handleHalfDayChange}
-                />
-              </label>
-              <label htmlFor="full_day">
-                Journée
-                <input
-                  type="checkbox"
-                  name="full_day"
-                  id="full_day"
-                  checked={full_dayIsChecked}
-                  onChange={handleFullDayChange}
-                />
-              </label>
+              <label htmlFor="name">Nom de l'activité</label>
+              <input type="text" name="name" id="name" required />
+            </div>
+
+            <div className="group-form">
+              <label htmlFor="description">Description</label>
+              <textarea name="description" id="description" />
             </div>
           </div>
-          <div className="formule_pricing">
-            <span>Tarification</span>
-            <div className="group-form">
-              <input
-                type="number"
-                name="price_half_day"
-                id="price-half_day"
-                placeholder=" prix de la demi-journée"
-                disabled={!half_dayIsChecked}
-              />
-              <input
-                type="number"
-                name="price_full_day"
-                id="price-full_day"
-                placeholder=" prix de la journée"
-                disabled={!full_dayIsChecked}
-              />
+
+          <div className="formule_content body_bloc">
+            <div className="formule_type">
+              <span>Type de formule </span>
+              <div className="group-form">
+                <label htmlFor="half_day">
+                  Demi journée{" "}
+                  <input
+                    type="checkbox"
+                    name="half_day"
+                    id="half_day"
+                    checked={half_dayIsChecked}
+                    onChange={handleHalfDayChange}
+                  />
+                </label>
+                <label htmlFor="full_day">
+                  Journée
+                  <input
+                    type="checkbox"
+                    name="full_day"
+                    id="full_day"
+                    checked={full_dayIsChecked}
+                    onChange={handleFullDayChange}
+                  />
+                </label>
+              </div>
+            </div>
+            <div className="formule_pricing">
+              <span>Tarification</span>
+              <div className="group-form">
+                <input
+                  type="number"
+                  name="price_half_day"
+                  id="price-half_day"
+                  placeholder=" prix de la demi-journée"
+                  disabled={!half_dayIsChecked}
+                />
+                <input
+                  type="number"
+                  name="price_full_day"
+                  id="price-full_day"
+                  placeholder=" prix de la journée"
+                  disabled={!full_dayIsChecked}
+                />
+              </div>
             </div>
           </div>
+
+          <div className="numberPeople body_bloc">
+            <span>Gestion des groupes</span>
+            <label htmlFor=" min_OfPeople:">
+              Minimum
+              <input
+                type="number"
+                name="min_OfPeople"
+                id="min_OfPeople"
+                required
+              />
+            </label>
+            <label htmlFor="max_OfPeople">
+              Maximum
+              <input
+                type="number"
+                name="max_OfPeople"
+                id="max_OfPeople"
+                required
+              />
+            </label>
+
+            <label htmlFor="min_age">
+              Âge minimum
+              <input type="number" name="min_age" id="min_age" required />
+            </label>
+          </div>
         </div>
-
-        <div className="numberPeople">
-          <span>Gestion des groupes</span>
-          <label htmlFor="min_number_of_people">
-            Minimum
-            <input
-              type="number"
-              name="min_number_of_people"
-              id="min_number_of_people"
-              required
-            />
-          </label>
-          <label htmlFor="max_number_of_people">
-            Maximum
-            <input
-              type="number"
-              name="max_number_of_people"
-              id="max_number_of_people"
-              required
-            />
-          </label>
-
-          <label htmlFor="minimum_age">
-            Âge minimum
-            <input type="number" name="minimum_age" id="minimum_age" required />
-          </label>
-        </div>
-
         <button type="submit" className="btn-secondary-outline small">
           Enregistrer
         </button>

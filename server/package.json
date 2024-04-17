@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "export-db": "mongoexport --db=reservationDB --out server/database/saveDatabase/reservationDB.json",
+    "import-db": "mongorestore --db reservationDB server/database/saveDatabase/reservationDB"
   },
   "keywords": [],
   "author": "",

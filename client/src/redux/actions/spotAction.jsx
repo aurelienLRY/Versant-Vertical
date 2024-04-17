@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
-export const ActionCreateActivity = createAsyncThunk("createActivity", async ({token , data}) => {
-  const response = await fetch(`${import.meta.env.VITE_APP_API}activities/`, {
+export const ActionCreateSpot = createAsyncThunk("createSpot", async ({token , data}) => {
+  const response = await fetch(`${import.meta.env.VITE_APP_API}spots/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,13 +17,18 @@ export const ActionCreateActivity = createAsyncThunk("createActivity", async ({t
   }
   if (response.status === 201) {
     const json = await response.json();
-    return json.activity;
+    return json.spot;
   }
 });
 
-
-export const ActionGetAllActivities = createAsyncThunk("getAllActivities", async () => {
-  const response = await fetch(`${import.meta.env.VITE_APP_API}activities/`);
+export const  ActionGetAllSpots = createAsyncThunk("getAllSpots", async (token) => {
+  const response = await fetch(`${import.meta.env.VITE_APP_API}spots/`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+  });
   if (response.status !== 200) {
     const err = await response.json();
     console.error("Erreur! voir les détails",err);
@@ -36,8 +41,8 @@ export const ActionGetAllActivities = createAsyncThunk("getAllActivities", async
 });
 
 
-export const ActionDeleteActivity = createAsyncThunk("deleteActivity", async ({token , id}) => {
-  const response = await fetch(`${import.meta.env.VITE_APP_API}activities/${id}`, {
+export const ActionDeleteSpot = createAsyncThunk("deleteSpot", async ({token , id}) => {
+  const response = await fetch(`${import.meta.env.VITE_APP_API}spots/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -55,9 +60,9 @@ export const ActionDeleteActivity = createAsyncThunk("deleteActivity", async ({t
   }
 });
 
-export const ActionUpdateActivity = createAsyncThunk("putActivity", async ({token , data}) => {
-  console.log("data action update", data);
-  const response = await fetch(`${import.meta.env.VITE_APP_API}activities/${data.id}`, {
+
+export const ActionUpdateSpot = createAsyncThunk("updateSpot", async ({token , data}) => {
+  const response = await fetch(`${import.meta.env.VITE_APP_API}spots/${data._id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

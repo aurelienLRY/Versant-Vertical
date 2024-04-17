@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import AllSpot from "../../../features/getSpot";
+import CreateSpot from "../../../features/createSpot";
 
 function Spot() {
   return (
-    <div>Spot</div>
-  )
+    <>
+      <AllSpot />
+      <CreateSpot />
+    </>
+  );
 }
 
-export default Spot
+export default Spot;

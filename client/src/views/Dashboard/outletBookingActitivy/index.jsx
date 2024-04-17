@@ -1,6 +1,6 @@
 
 import CreateBookingActivity from "../../../features/createBookingActivity";
-import AllReservations from "../../../features/getBookingActivity";
+import BookingActivities from "../../../features/getBookingActivity";
 import "./reservation.scss";
 
 
@@ -8,7 +8,7 @@ import "./reservation.scss";
 function OutletBooking() {
   return (
     <div className="outletReservation">
-      <AllReservations />
+      <BookingActivities />
       <CreateBookingActivity />
     </div>
   );

@@ -11,5 +11,9 @@ module.exports.permission = (req, res, next) => {
       next();
     } catch (e) {
       res.status(401).send({message: 'Invalid token'});
+      const err = new Error('Vous n\'avez pas les droits pour effectuer cette action.');
+      err.statusCode = 401;
+      err.details = null;
+      return next(err);
     }
   }

@@ -1,13 +1,17 @@
-import { useSelector } from "react-redux";
-import CreateReserve from "../../views/Dashboard/outletBookingActitivy/models/createReservation";
-import useToken from "../../hooks/useToken";
+import useToken from "../../hooks/useToken";// Custom hook
+import "./createBooking.scss"
 
-
-import "./createreservation.scss"
-
+/**
+ * Component for creating a booking activity.
+ * @component
+ */
 function CreateBookingActivity() {
   const  token  = useToken();
 
+  /**
+   * Handles the form submission.
+   * @param {Event} event - The form submission event.
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -18,7 +22,7 @@ function CreateBookingActivity() {
     }, {});
 
     console.log("handlesoumit", data);
-    CreateReserve(data, token);
+    //CreateReserve(data, token);
   };
 
   return (
