@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ActionCreateSpot } from "../actions/spotAction";
 import { ActionGetAllSpots } from "../actions/spotAction";
 import { ActionDeleteSpot } from "../actions/spotAction";
+import { ActionUpdateSpot } from "../actions/spotAction";
 
 
 
@@ -53,6 +54,18 @@ const spotSlice = createSlice({
       .addCase(ActionDeleteSpot.rejected, (state, action) => {
         state.error = action.error.message;
       });
+
+      builder
+      .addCase(ActionUpdateSpot.fulfilled, (state, action) => {
+        state.spots = state.spots.map((spot) =>
+          spot._id === action.payload._id ? action.payload : spot
+        );
+        state.error = null;
+      })
+      .addCase(ActionUpdateSpot.rejected, (state, action) => {
+        state.error = action.error.message;
+      });
+      
 
   },
 });

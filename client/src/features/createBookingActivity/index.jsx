@@ -1,9 +1,5 @@
-import { useSelector } from "react-redux";
-import CreateReserve from "../../views/Dashboard/outletBookingActitivy/models/createReservation";
 import useToken from "../../hooks/useToken";
-
-
-import "./createreservation.scss"
+import "./createBooking.scss"
 
 function CreateBookingActivity() {
   const  token  = useToken();
@@ -18,7 +14,7 @@ function CreateBookingActivity() {
     }, {});
 
     console.log("handlesoumit", data);
-    CreateReserve(data, token);
+    //CreateReserve(data, token);
   };
 
   return (

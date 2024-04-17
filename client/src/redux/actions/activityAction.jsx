@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
-export const ActionCreateActivity = createAsyncThunk("creatActivity", async ({token , data}) => {
+export const ActionCreateActivity = createAsyncThunk("createActivity", async ({token , data}) => {
   const response = await fetch(`${import.meta.env.VITE_APP_API}activities/`, {
     method: "POST",
     headers: {

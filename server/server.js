@@ -10,9 +10,9 @@ const cors = require('cors'); // permet de gérer les requêtes entre le front e
  */
 const activityRouter = require('./routes/activityRouter');
 const spotRouter = require('./routes/spotRouter');
+const bookingsRouter = require('./routes/bookingsRouter');
 
 const dotenv = require('dotenv');
-const reservationController = require('./controllers/reservationController');
 const userController = require('./controllers/userController');
 const authController = require('./controllers/authController');
 
@@ -28,6 +28,7 @@ dbConnection();
 
 app.use('/activities', activityRouter);
 app.use('/spots', spotRouter);
+app.use('/bookings', bookingsRouter);
 
 
 
@@ -35,11 +36,6 @@ app.post('/login', authController.login);//
 
 app.post('/user', userController.createUser);
 
-app.post('/reservations', autorisation.permission, reservationController.createReservation);
-app.get('/reservations', reservationController.getAllReservations);
-/*app.get('/reservations/:id', permission, reservationController.getOneReservation);
-app.put('/reservations/:id', permission, reservationController.updateReservation);
-app.delete('/reservations/:id', permission, reservationController.deleteReservation);*/
 
 
 

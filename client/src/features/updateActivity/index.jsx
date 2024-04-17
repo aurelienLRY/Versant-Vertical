@@ -1,5 +1,5 @@
 import Modal from "../../components/modal";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import  useToken  from "../../hooks/useToken";
 import { ActionUpdateActivity } from "../../redux/actions/activityAction";

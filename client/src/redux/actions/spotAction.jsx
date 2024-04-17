@@ -62,7 +62,7 @@ export const ActionDeleteSpot = createAsyncThunk("deleteSpot", async ({token , i
 
 
 export const ActionUpdateSpot = createAsyncThunk("updateSpot", async ({token , data}) => {
-  const response = await fetch(`${import.meta.env.VITE_APP_API}spots/${data.id}`, {
+  const response = await fetch(`${import.meta.env.VITE_APP_API}spots/${data._id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -77,6 +77,6 @@ export const ActionUpdateSpot = createAsyncThunk("updateSpot", async ({token , d
   }
   if (response.status === 200) {
     const json = await response.json();
-    return json.spot;
+    return json;
   }
 });

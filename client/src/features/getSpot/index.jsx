@@ -2,16 +2,23 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ActionDeleteSpot } from "../../redux/actions/spotAction";
+import { Tooltip } from "antd";
+
 import UpdateSpot from "../updateSpot";
+import CreateSpot from "../createSpot";
 
 import Feedback from "../../components/FeedBack";
 //import custom hooks
 import useSpots from "../../hooks/useSpot";
 import useToken from "../../hooks/useToken";
 
+/* import icons */
+import { IoAddCircleOutline } from "react-icons/io5";
+
 import "./allSpots.scss";
 
-import React from "react";
+
+
 
 function AllSpot() {
   //Data
@@ -20,7 +27,8 @@ function AllSpot() {
   //State
   const dispatch = useDispatch();
   const [FeedBack, setFeedBack] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState(false);
+  const [ModalCreateIsOpen, setModalCreateIsOpen] = useState(false);
   const [spot, setSpot] = useState(null);
 
   //Handlers
@@ -35,15 +43,18 @@ function AllSpot() {
   };
 
   const handleEdit = (spot) => {
-    console.log("handler edit");
     setSpot(spot);
-    setIsOpen(true);
+    setModalUpdateIsOpen(true);
+  };
+
+  const handleCreate = () => {
+    setModalCreateIsOpen(true);
   };
 
   return (
     <>
     <article className="allSpots">
-      <h3>Spots enregistrés</h3>
+      <h3>Lieu </h3>
       <Feedback err={FeedBack} />
       <table className="allSpots_table">
         <thead>
@@ -54,9 +65,11 @@ function AllSpot() {
             <th>Localisation</th>
             <th>point de rendez vous</th>
             <th>durée estimé</th>
-            <th></th>
+            <Tooltip title="Ajouter un lieu"  placement="right">
+            <th onClick={(e)=> setModalCreateIsOpen(true)}> <IoAddCircleOutline className="spotAdd"/> </th>
+            </Tooltip>
           </tr>
-        </thead>
+        </thead> 
         <tbody>
           {spots.map((spot) => (
             <tr key={spot._id}>
@@ -96,10 +109,11 @@ function AllSpot() {
         </tbody>
       </table>
     </article>
-    {isOpen &&
-    <UpdateSpot spot={spot} onOpen={isOpen} modalClosed={(e) => setIsOpen(e)} />
+    {modalUpdateIsOpen &&
+    <UpdateSpot spot={spot} onOpen={modalUpdateIsOpen} modalClosed={(e) => setModalUpdateIsOpen(false)} />
     }
-    
+    {ModalCreateIsOpen && 
+    <CreateSpot isOpened={ModalCreateIsOpen} modalClosed={(e) => setModalCreateIsOpen(false)} />}
     </>
   );
 }

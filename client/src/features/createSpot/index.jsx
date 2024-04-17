@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { ActionCreateSpot } from "../../redux/actions/spotAction";
 import "./createSpot.scss";
 import Feedback from "../../components/FeedBack";
+import Modal from "../../components/modal";
 import useActivities from "../../hooks/useActivities";
+import useToken from "../../hooks/useToken";
 
-function CreateSpot() {
-  const { token } = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
+function CreateSpot({ isOpened, modalClosed }) {
+  const  token  = useToken(); // Get the token from the custom hook
+  const dispatch = useDispatch(); // Dispatch the action
+  const [isOpen, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [fullDayIsChecked, setFullDayIsChecked] = useState();
   const [halfDayIsChecked, setHalfDayIsChecked] = useState();
@@ -70,7 +73,19 @@ function CreateSpot() {
     }
   };
 
+  const handleModalClosed = () => {
+    setOpen(false);
+    modalClosed(true);
+  };
+
+  useEffect(() => { 
+    setOpen(isOpened);
+  }, [isOpened]);
+
+
   return (
+
+    <Modal isOpened={isOpen} Closed={handleModalClosed}  >  
     <article className="createSpot" data-testid="create-spot">
       <h4>Ajouter un spot</h4>
       <Feedback err={error} />
@@ -131,7 +146,7 @@ function CreateSpot() {
 
         <div className="numberPeople">
           <span>Gestion des groupes</span>
-          <label htmlFor=" min_OfPeople:">
+          <label htmlFor="min_OfPeople">
             Minimum
             <input
               type="number"
@@ -181,6 +196,7 @@ function CreateSpot() {
         </button>
       </form>
     </article>
+    </Modal>
   );
 }
 
