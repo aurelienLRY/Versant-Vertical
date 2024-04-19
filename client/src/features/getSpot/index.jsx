@@ -2,15 +2,22 @@
  * Component that displays all spots.
  * @component
  */
+
+/* react */
 import { useState } from "react"; // React hooks
+
+/* redux */
 import { useDispatch } from "react-redux"; // Redux hook
 import { ActionDeleteSpot } from "../../redux/actions/spotAction"; // Redux action
-import { Tooltip } from "antd"; // Ant design 
 
+/* ant design */
+import { Tooltip } from "antd"; // Ant design tooltip
+
+/* components */
 import UpdateSpot from "../updateSpot"; // Update spot component
 import CreateSpot from "../createSpot"; // Create spot component
-
 import Feedback from "../../components/FeedBack"; // Feedback component
+
 //import custom hooks
 import useSpots from "../../hooks/useSpot"; // Custom hook
 import useToken from "../../hooks/useToken"; // Custom hook
@@ -18,7 +25,9 @@ import useToken from "../../hooks/useToken"; // Custom hook
 /* import icons */
 import { IoAddCircleOutline } from "react-icons/io5"; // Icon
 
+/* styles */
 import "./allSpots.scss";
+import moduleStyle from "../../assets/sass/main.module.scss";
 
 /**
  * Component that displays all spots.
@@ -68,67 +77,84 @@ function AllSpot() {
 
   return (
     <>
-    <article className="allSpots">
-      <h3>Lieu </h3>
-      <Feedback err={FeedBack} />
-      <table className="allSpots_table">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Activités pratiqués</th>
-            <th>Nombre de personnes</th>
-            <th>Localisation</th>
-            <th>point de rendez vous</th>
-            <th>durée estimé</th>
-            <Tooltip title="Ajouter un lieu"  placement="right">
-            <th onClick={(e)=> setModalCreateIsOpen(true)}> <IoAddCircleOutline className="spotAdd"/> </th>
-            </Tooltip>
-          </tr>
-        </thead> 
-        <tbody>
-          {spots.map((spot) => (
-            <tr key={spot._id}>
-              <td>{spot.name}</td>
-              <td className="td_activities">
-                {spot.practicedActivities.map((activity, index) => (
-                  <span key={activity.activityId}>{activity.activityName}</span>
-                ))}
-              </td>
-              <td>
-                {spot.min_OfPeople && "Min : " + spot.min_OfPeople}
-                {spot.max_OfPeople && spot.min_OfPeople && " | "}
-                {spot.max_OfPeople && "Max : " + spot.max_OfPeople}
-              </td>
+      <article className="allSpots">
+        <h3>Lieu </h3>
+        <Feedback err={FeedBack} />
+        <table className="allSpots_table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Activités pratiqués</th>
+              <th>Nombre de personnes</th>
+              <th>Localisation</th>
+              <th>point de rendez vous</th>
+              <th>durée estimé</th>
 
-              <td>{spot.gpsCoordinates}</td>
-              <td>{spot.meetingPoint}</td>
-              <td>{spot.estimatedDuration}</td>
-              <td >
-                <div className="td_action">
-                  <button
-                    onClick={() => handleEdit(spot)}
-                    className="btn-warning-outline small"
-                  >
-                   Modifier
-                  </button>
-                  <button
-                    onClick={() => handleDelete(spot._id)}
-                    className="btn-danger-outline small"
-                  >
-                    Supprimer
-                  </button>
-                </div>
-              </td>
+              <th onClick={(e) => setModalCreateIsOpen(true)}>
+                <Tooltip
+                  title="Ajouter un lieu"
+                  placement="right"
+                  color={moduleStyle.toolTipBackground}
+                >
+                  <IoAddCircleOutline className="spotAdd" />
+                </Tooltip>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </article>
-    {modalUpdateIsOpen &&
-    <UpdateSpot spot={spot} onOpen={modalUpdateIsOpen} modalClosed={(e) => setModalUpdateIsOpen(false)} />
-    }
-    {ModalCreateIsOpen && 
-    <CreateSpot isOpened={ModalCreateIsOpen} modalClosed={(e) => setModalCreateIsOpen(false)} />}
+          </thead>
+          <tbody>
+            {spots.map((spot) => (
+              <tr key={spot._id}>
+                <td>{spot.name}</td>
+                <td className="td_activities">
+                  {spot.practicedActivities.map((activity, index) => (
+                    <span key={activity.activityId}>
+                      {activity.activityName}
+                    </span>
+                  ))}
+                </td>
+                <td>
+                  {spot.min_OfPeople && "Min : " + spot.min_OfPeople}
+                  {spot.max_OfPeople && spot.min_OfPeople && " | "}
+                  {spot.max_OfPeople && "Max : " + spot.max_OfPeople}
+                </td>
+
+                <td>{spot.gpsCoordinates}</td>
+                <td>{spot.meetingPoint}</td>
+                <td>{spot.estimatedDuration}</td>
+                <td>
+                  <div className="td_action">
+                    <button
+                      onClick={() => handleEdit(spot)}
+                      className="btn-warning-outline small"
+                    >
+                      Modifier
+                    </button>
+                    <button
+                      onClick={() => handleDelete(spot._id)}
+                      className="btn-danger-outline small"
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </article>
+      {modalUpdateIsOpen && (
+        <UpdateSpot
+          spot={spot}
+          onOpen={modalUpdateIsOpen}
+          modalClosed={(e) => setModalUpdateIsOpen(false)}
+        />
+      )}
+      {ModalCreateIsOpen && (
+        <CreateSpot
+          isOpened={ModalCreateIsOpen}
+          modalClosed={(e) => setModalCreateIsOpen(false)}
+        />
+      )}
     </>
   );
 }

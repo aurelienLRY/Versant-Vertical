@@ -1,10 +1,12 @@
-import useBooking from '../../hooks/useBooking'; // 
-import { useState } from 'react'; //
-import { formatDate } from '../../services/formatDate'; //
-import { IoAddCircleOutline } from "react-icons/io5"; // Icon 
-import './getBookingActivity.scss'
-import { Tooltip } from "antd"; // Ant design 
-import CreateBookingActivity from '../createBookingActivity'
+import useBooking from "../../hooks/useBooking"; //
+import { useState } from "react"; //
+import { formatDate } from "../../services/formatDate"; //
+import { IoAddCircleOutline } from "react-icons/io5"; // Icon
+import "./getBookingActivity.scss";
+import { Tooltip } from "antd"; // Ant design
+import CreateBookingActivity from "../createBookingActivity";
+
+import moduleStyle from "../../assets/sass/main.module.scss";
 
 /**
  * Component for displaying booking activities.
@@ -33,15 +35,13 @@ function BookingActivities() {
     console.log(`Delete booking with id ${id}`);
   };
 
-
-const handleCreate = () => {
-  setModalCreateIsOpen(true);
-}
-
+  const handleCreate = () => {
+    setModalCreateIsOpen(true);
+  };
 
   return (
     <>
-      <article className='Activity_table'>
+      <article className="Activity_table">
         <h3>Activités programmées </h3>
         <table>
           <thead>
@@ -51,9 +51,16 @@ const handleCreate = () => {
               <th>Spot</th>
               <th>User Max</th>
               <th>Places Reserved</th>
-              <Tooltip title="Enregistrer un créneau"  placement="right">
-            <th onClick={(e)=> setModalCreateIsOpen(true)}> <IoAddCircleOutline className="bookingAdd"/> </th>
-            </Tooltip>
+
+              <th onClick={(e) => setModalCreateIsOpen(true)}>
+                <Tooltip
+                  title="Enregistrer un créneau"
+                  placement="right"
+                  color={moduleStyle.toolTipBackground}
+                >
+                  <IoAddCircleOutline className="bookingAdd" />
+                </Tooltip>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -65,18 +72,30 @@ const handleCreate = () => {
                 <td>{booking.userMax}</td>
                 <td>{booking.placesReserved}</td>
                 <td className="td_action">
-                  <button onClick={() => handleEdit(booking._id)} className='btn-warning-outline small'>Modifier</button>
-                  <button onClick={() => handleDelete(booking._id)} className='btn-danger-outline small'>Supprimer</button>
+                  <button
+                    onClick={() => handleEdit(booking._id)}
+                    className="btn-warning-outline small"
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    onClick={() => handleDelete(booking._id)}
+                    className="btn-danger-outline small"
+                  >
+                    Supprimer
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </article>
-      {modalCreateIsOpen && 
-      <CreateBookingActivity isOpened={modalCreateIsOpen} modalClosed={() => setModalCreateIsOpen(false)} />
-      
-      }
+      {modalCreateIsOpen && (
+        <CreateBookingActivity
+          isOpened={modalCreateIsOpen}
+          modalClosed={() => setModalCreateIsOpen(false)}
+        />
+      )}
     </>
   );
 }

@@ -8,6 +8,7 @@ import "./createBooking.scss";
 /* import action */
 import { ActionCreateBooking } from "../../redux/actions/bookingAction";
 import useActivities from "../../hooks/useActivities";
+import useSpots from "../../hooks/useSpot";
 
 /**
  * Component for creating a booking activity.
@@ -18,7 +19,11 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [activitySelect, setActivitySelect] = useState(null);
+  const [spotSelect, setSpotSelect] = useState(null);
+  const [maxOfPeople, setMaxOfPeople] = useState(null);
   const activities = useActivities();
+  const spots = useSpots();
 
   /**
    * Handles the form submission.
@@ -45,6 +50,20 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
     }
   };
 
+  useEffect(() => {
+    if (activitySelect !== null && spotSelect !== null) {
+      const activity = activities.find((a) => a._id === activitySelect);
+      const spot = spots.find((s) => s._id === spotSelect);
+      const b = Math.min(activity.max_OfPeople, spot.max_OfPeople);
+      setMaxOfPeople(b);
+    }
+  }, [activitySelect, spotSelect]);
+
+
+  const handleMaxOfPeople = (e) => {
+    setMaxOfPeople(e.target.value);
+  };
+
   /*
    * Event handler for modal closed.
    */
@@ -59,6 +78,9 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
   useEffect(() => {
     setIsOpen(isOpened);
   }, [isOpened]);
+
+  /*console.log*/
+  //console.log("activitySelect", activitySelect);
 
   return (
     <Modal isOpened={isOpen} Closed={handleModalClosed}>
@@ -76,22 +98,52 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
             </div>
             <div className="group-form">
               <label htmlFor="activity">Activité</label>
-              <select name="activity" id="activity" required>
-                <option value={""} disabled>Choisir une activité</option>
+              <select
+                name="activity"
+                id="activity"
+                required
+                onChange={(e) => setActivitySelect(e.target.value)}
+              >
+                <option value={""}>Choisir une activité</option>
                 {activities.map((activity) => (
-                  <option value={activity._id} key={activity._id} >{activity.name}</option>
-                ))
-                }
+                  <option value={activity._id} key={activity._id}>
+                    {activity.name}
+                  </option>
+                ))}
               </select>
             </div>
-            <div className="group-form">
-              <label htmlFor="spot">Nombre de places</label>
-              <input type="number" id="spot" name="spot" required />
+            <div>
+              <label htmlFor="spot">Lieu</label>
+              <select
+                name="spot"
+                id="spot"
+                required
+                onChange={(e) => setSpotSelect(e.target.value)}
+              >
+                <option value={""}>Choisir un spot</option>
+                {spots.map((spot) => {
+                  if (
+                    spot.practicedActivities.some(
+                      (a) => a.activityId === activitySelect
+                    ) ||
+                    activitySelect === null
+                  ) {
+                    return (
+                      <option value={spot._id} key={spot._id}>
+                        {spot.name}
+                      </option>
+                    );
+                  }
+                  return null;
+                })}
+              </select>
             </div>
+
             <div className="group-form">
               <label htmlFor="userMax">Nombre de participants maximum</label>
-              <input type="number" id="userMax" name="userMax" required />
+              <input type="number" id="userMax" name="userMax" required value={maxOfPeople} onChange={handleMaxOfPeople}/>
             </div>
+
             <div className="group-form">
               <label htmlFor="placesReserved">Nombre de places réservées</label>
               <input
