@@ -1,5 +1,10 @@
-import useBooking from '../../hooks/useBooking';
-import { formatDate } from '../../services/formatDate';
+import useBooking from '../../hooks/useBooking'; // 
+import { useState } from 'react'; //
+import { formatDate } from '../../services/formatDate'; //
+import { IoAddCircleOutline } from "react-icons/io5"; // Icon 
+import './getBookingActivity.scss'
+import { Tooltip } from "antd"; // Ant design 
+import CreateBookingActivity from '../createBookingActivity'
 
 /**
  * Component for displaying booking activities.
@@ -7,6 +12,8 @@ import { formatDate } from '../../services/formatDate';
  */
 function BookingActivities() {
   const Bookings = useBooking();
+  const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState(false);
+  const [modalCreateIsOpen, setModalCreateIsOpen] = useState(false);
 
   /**
    * Handles the edit action for a booking.
@@ -26,6 +33,12 @@ function BookingActivities() {
     console.log(`Delete booking with id ${id}`);
   };
 
+
+const handleCreate = () => {
+  setModalCreateIsOpen(true);
+}
+
+
   return (
     <>
       <article className='Activity_table'>
@@ -38,7 +51,9 @@ function BookingActivities() {
               <th>Spot</th>
               <th>User Max</th>
               <th>Places Reserved</th>
-              <th>Actions</th>
+              <Tooltip title="Enregistrer un créneau"  placement="right">
+            <th onClick={(e)=> setModalCreateIsOpen(true)}> <IoAddCircleOutline className="bookingAdd"/> </th>
+            </Tooltip>
             </tr>
           </thead>
           <tbody>
@@ -49,15 +64,19 @@ function BookingActivities() {
                 <td>{booking.spot}</td>
                 <td>{booking.userMax}</td>
                 <td>{booking.placesReserved}</td>
-                <td>
-                  <button onClick={() => handleEdit(booking._id)}>Modifier</button>
-                  <button onClick={() => handleDelete(booking._id)}>Supprimer</button>
+                <td className="td_action">
+                  <button onClick={() => handleEdit(booking._id)} className='btn-warning-outline small'>Modifier</button>
+                  <button onClick={() => handleDelete(booking._id)} className='btn-danger-outline small'>Supprimer</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </article>
+      {modalCreateIsOpen && 
+      <CreateBookingActivity isOpened={modalCreateIsOpen} modalClosed={() => setModalCreateIsOpen(false)} />
+      
+      }
     </>
   );
 }
