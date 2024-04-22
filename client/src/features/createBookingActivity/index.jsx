@@ -1,14 +1,21 @@
-import useToken from "../../hooks/useToken"; // Custom hook
-import { useDispatch } from "react-redux";
+/* import librairies */
 import { useState, useEffect } from "react";
+/* import custom hooks */
+import useToken from "../../hooks/useToken";
+import useActivities from "../../hooks/useActivities";
+import useBookings from "../../hooks/useBooking";
+import useSpots from "../../hooks/useSpot";
+/* import components */
 import Feedback from "../../components/FeedBack"; // Feedback component
 import Modal from "../../components/modal"; // Modal component
-import "./createBooking.scss";
-
+/* import redux */
+import { useDispatch } from "react-redux";
 /* import action */
 import { ActionCreateBooking } from "../../redux/actions/bookingAction";
-import useActivities from "../../hooks/useActivities";
-import useSpots from "../../hooks/useSpot";
+import { checkAvailabilityBook } from "../../services/checkAvailabilityBook";
+
+/* styles*/
+import "./createBooking.scss";
 
 /**
  * Component for creating a booking activity.
@@ -23,6 +30,7 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
   const [spotSelect, setSpotSelect] = useState(null);
   const [maxOfPeople, setMaxOfPeople] = useState(null);
   const activities = useActivities();
+  const bookings = useBookings();
   const spots = useSpots();
 
   /**
@@ -38,7 +46,18 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
       return acc;
     }, {});
 
-    console.log("handlesoumit", data);
+    const check = checkAvailabilityBook(
+      data.date,
+      data.startTime,
+      data.endTime,
+      bookings
+    );
+    if (check) {
+      setError("La réservation est en conflit avec une autre réservation");
+      console.log(error);
+      return;
+    }
+
     const action = await dispatch(ActionCreateBooking({ token, data }));
 
     if (action.type.endsWith("fulfilled")) {
@@ -54,11 +73,12 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
     if (activitySelect !== null && spotSelect !== null) {
       const activity = activities.find((a) => a._id === activitySelect);
       const spot = spots.find((s) => s._id === spotSelect);
-      const b = Math.min(activity.max_OfPeople, spot.max_OfPeople);
-      setMaxOfPeople(b);
+      if (activity && spot) {
+        const b = Math.min(activity.max_OfPeople, spot.max_OfPeople);
+        setMaxOfPeople(b);
+      }
     }
   }, [activitySelect, spotSelect]);
-
 
   const handleMaxOfPeople = (e) => {
     setMaxOfPeople(e.target.value);
@@ -96,6 +116,31 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
               <label htmlFor="date">Date </label>
               <input type="date" id="date" name="date" required />
             </div>
+
+            <div className="group-form">
+              <label htmlFor="startTime">Heure de début</label>
+              <input
+                type="time"
+                id="startTime"
+                name="startTime"
+                required
+                min="08:00"
+                max="18:00"
+                step="900"
+              />
+
+              <label htmlFor="endTime">Heure de fin</label>
+              <input
+                type="time"
+                id="endTime"
+                name="endTime"
+                required
+                min="08:00"
+                max="18:00"
+                step="900"
+              />
+            </div>
+
             <div className="group-form">
               <label htmlFor="activity">Activité</label>
               <select
@@ -141,7 +186,14 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
 
             <div className="group-form">
               <label htmlFor="userMax">Nombre de participants maximum</label>
-              <input type="number" id="userMax" name="userMax" required value={maxOfPeople} onChange={handleMaxOfPeople}/>
+              <input
+                type="number"
+                id="userMax"
+                name="userMax"
+                required
+                value={maxOfPeople}
+                onChange={handleMaxOfPeople}
+              />
             </div>
 
             <div className="group-form">

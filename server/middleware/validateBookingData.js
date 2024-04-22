@@ -1,20 +1,31 @@
+/**
+ * Middleware function to validate booking data.
+ * @module validateBookingData
+ */
+
 const { body, validationResult } = require('express-validator');
 const xss = require('xss');
 
+/**
+ * Array of validation and sanitization functions for booking data.
+ * @type {Array<function>}
+ */
 exports.validateBookingData = [
   // Validation
-  body('description').optional().trim(),
-  body('gpsCoordinates').trim().isLength({ min: 1 }).withMessage('GPS coordinates are required.'),
-  body('practicedActivities').isArray().withMessage('Practiced activities must be an array.'),
-  body('practicedActivities.*.activityName').trim().isLength({ min: 1 }).withMessage('Activity name is required.'),
-  body('practicedActivities.*.activityId').isMongoId().withMessage('Activity ID must be a valid Mongo ID.'),
-  body('half_day').isBoolean().withMessage('Half day must be a boolean.'),
-  body('full_day').isBoolean().withMessage('Full day must be a boolean.'),
-  body('max_OfPeople').isNumeric().withMessage('Max number of people must be a number.'),
-  body('min_OfPeople').isNumeric().withMessage('Min number of people must be a number.'),
-  body('meetingPoint').trim().isLength({ min: 1 }).withMessage('Meeting point is required.'),
+  body('date').isISO8601().withMessage('La date doit être au format ISO 8601 valide.'),
+  body('startTime').isString().withMessage('L\'heure de début doit être une chaîne de caractères.'),
+  body('endTime').isString().withMessage('L\'heure de fin doit être une chaîne de caractères.'),
+  body('activity').isString().withMessage('L\'activité doit être une chaîne de caractères.'),
+  body('spot').isString().withMessage('L\'emplacement doit être une chaîne de caractères.'),
+  body('userMax').isString().withMessage('Le nombre maximum d\'utilisateurs doit être une chaîne de caractères.'),
+  body('placesReserved').isString().withMessage('Les places réservées doivent être une chaîne de caractères.'),
 
   // Sanitization
+  /**
+   * Custom sanitizer function to sanitize all request body values using XSS.
+   * @param {*} value - The value to be sanitized.
+   * @returns {*} - The sanitized value.
+   */
   body('*').customSanitizer(value => {
     if (typeof value === 'string') {
       return xss(value);
@@ -22,19 +33,25 @@ exports.validateBookingData = [
     return value;
   }),
 
-// Error handling
-(req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const errorObject = errors.array().reduce((acc, error) => {
-      acc[error.param] = error.msg;
-      return acc;
-    }, {});
-    const err = new Error('Validation failed.');
-    err.statusCode = 400;
-    err.details = errorObject;
-    return next(err);
-  }
-  next();
-},
+  // Error handling
+  /**
+   * Error handling middleware function.
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @param {function} next - The next middleware function.
+   */
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const errorObject = errors.array().reduce((acc, error) => {
+        acc[error.param] = error.msg;
+        return acc;
+      }, {});
+      const err = new Error('Validation failed.');
+      err.statusCode = 400;
+      err.details = errorObject;
+      return next(err);
+    }
+    next();
+  },
 ];
