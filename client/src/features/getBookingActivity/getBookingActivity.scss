@@ -1,0 +1,18 @@
+@use '../../assets/sass/abstracts/variables' as v ; 
+
+.td_action {
+    display: flex;
+    gap: 0.8em;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .bookingAdd{
+    width: 1.5em;
+    height: 1.5em;
+    transition: all 0.250s  ease-in-out;
+    &:hover{
+        color : v.$primary-color;
+    }
+}
