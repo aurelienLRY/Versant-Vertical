@@ -1,17 +1,40 @@
-@use '../../assets/sass/abstracts/variables' as v;
+@use "../../assets/sass/abstracts/variables" as v;
 
-.Booking_create{
-    box-sizing: border-box;
+.Booking_create {
+  min-width: 300px;
+  width: 60VW;
+  max-width: 600px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8em;
+
+  &_body {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: 0.8em;
-   /*
-   
-    width: 60%;
-    background-color: v.$background-dark-alpha;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+    gap: 1em;
+     
+    .timestamp {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+    }
+
+    .group-form{
+        display: flex;
+        gap: 0.8em;
+        
+    }
+
+    label {
+      display: flex;
+      gap: 0.5em;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
 }

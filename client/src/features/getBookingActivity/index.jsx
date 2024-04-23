@@ -49,8 +49,8 @@ function BookingActivities() {
 
   return (
     <>
-      <article className="Activity_table">
-        <h3>Activités programmées </h3>
+      <article className="activities_program">
+        <h3>Activités programmées</h3>
         <table>
           <thead>
             <tr>

@@ -1,5 +1,5 @@
 input , textarea {
-  padding: 0.3em 0.2em;
+  padding: 0.1em 0.2em;
   border-radius: 0.4em;
   transition: all 250ms ease-in-out;
 
@@ -7,4 +7,9 @@ input , textarea {
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   }
+}
+
+select {
+  padding: 0.1em 0.2em;
+  border-radius: 0.4em;
 }

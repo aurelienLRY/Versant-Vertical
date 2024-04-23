@@ -16,7 +16,6 @@ import Feedback from "../../components/FeedBack"; // Feedback component
 import { formatDateToInput } from "../../services/formatDate"; // formatDateToInput function
 import { checkAvailabilityBook } from "../../services/checkAvailabilityBook";
 
-
 /* Custom hooks */
 import useBooking from "../../hooks/useBooking"; // Custom hook
 import useSpots from "../../hooks/useSpot"; // Custom hook
@@ -25,13 +24,10 @@ import useToken from "../../hooks/useToken"; // Custom hook
 /* Styles */
 import "./updateBooking.scss"; // Styles
 
-
-
 function findItemById(items, id) {
-    const foundItem = items.find((item) => item._id === id);
-    return foundItem ? foundItem.name : "";
-  }
-
+  const foundItem = items.find((item) => item._id === id);
+  return foundItem ? foundItem.name : "";
+}
 
 /**
  * Component for updating a booking.
@@ -75,12 +71,18 @@ function UpdateBooking({ onOpen, booking, modalClosed }) {
    */
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const check = checkAvailabilityBook( formValues.date, formValues.startTime, formValues.endTime, bookings, formValues._id);
-    if (check) {  
+    const check = checkAvailabilityBook(
+      formValues.date,
+      formValues.startTime,
+      formValues.endTime,
+      bookings,
+      formValues._id
+    );
+    if (check) {
       setError("La réservation est en conflit avec une autre réservation");
       return;
     }
-    
+
     const action = await dispatch(
       ActionUpdateBooking({ token, data: formValues })
     );
@@ -113,89 +115,110 @@ function UpdateBooking({ onOpen, booking, modalClosed }) {
           </div>
 
           <div className="Booking_create_body">
-            <div className="group-form">
-              <label htmlFor="date">Date </label>
-              <input type="date" id="date" name="date" required value={formatDateToInput(formValues.date)} onChange={handleChange}/>
+            <div className="timestamp">
+              <label htmlFor="date">
+                Date
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  required
+                  value={formatDateToInput(formValues.date)}
+                  onChange={handleChange}
+                />
+              </label>
+
+              <div className="group-form">
+                <label htmlFor="startTime">
+                  Heure de début
+                  <input
+                    type="time"
+                    id="startTime"
+                    name="startTime"
+                    required
+                    min="08:00"
+                    max="18:00"
+                    step="900"
+                    value={formValues.startTime}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label htmlFor="endTime">
+                  Heure de fin
+                  <input
+                    type="time"
+                    id="endTime"
+                    name="endTime"
+                    required
+                    min="08:00"
+                    max="18:00"
+                    step="900"
+                    value={formValues.endTime}
+                    onChange={handleChange}
+                  />
+                </label>
+              </div>
             </div>
 
             <div className="group-form">
-              <label htmlFor="startTime">Heure de début</label>
-              <input
-                type="time"
-                id="startTime"
-                name="startTime"
-                required
-                min="08:00"
-                max="18:00"
-                step="900"
-                value={formValues.startTime}
-                onChange={handleChange}
-              />
-
-              <label htmlFor="endTime">Heure de fin</label>
-              <input
-                type="time"
-                id="endTime"
-                name="endTime"
-                required
-                min="08:00"
-                max="18:00"
-                step="900"
-                value={formValues.endTime}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="group-form">
-              <label htmlFor="activity">Activité</label>
-              <select
-                name="activity"
-                id="activity"
-                required
-                onChange={handleChange}
-              >
-                <option value={formValues.activity}>{findItemById(activities,formValues.activity )}</option>
-                {activities.map((activity) => (
-                  <option value={activity._id} key={activity._id}>
-                    {activity.name}
+              <label htmlFor="activity">
+                Activité
+                <select
+                  name="activity"
+                  id="activity"
+                  required
+                  onChange={handleChange}
+                >
+                  <option value={formValues.activity}>
+                    {findItemById(activities, formValues.activity)}
                   </option>
-                ))}
-              </select>
+                  {activities.map((activity) => (
+                    <option value={activity._id} key={activity._id}>
+                      {activity.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label htmlFor="spot">
+                Lieu
+                <select name="spot" id="spot" required onChange={handleChange}>
+                  <option value={formValues.spot}>
+                    {findItemById(spots, formValues.spot)}
+                  </option>
+                  {spots.map((spot) => {
+                    if (
+                      spot.practicedActivities.some(
+                        (a) => a.activityId === activitySelect
+                      ) ||
+                      activitySelect === null
+                    ) {
+                      return (
+                        <option value={spot._id} key={spot._id}>
+                          {spot.name}
+                        </option>
+                      );
+                    }
+                    return null;
+                  })}
+                </select>
+              </label>
             </div>
-            <div>
-              <label htmlFor="spot">Lieu</label>
-              <select
-                name="spot"
-                id="spot"
+
+            <label htmlFor="userMax">
+              Nombre de participants maximum
+              <input
+                type="number"
+                id="userMax"
+                name="userMax"
                 required
+                value={formValues.userMax}
                 onChange={handleChange}
-              >
-                <option value={formValues.spot}>{findItemById(spots,formValues.spot )}</option>
-                {spots.map((spot) => {
-                  if (
-                    spot.practicedActivities.some(
-                      (a) => a.activityId === activitySelect
-                    ) ||
-                    activitySelect === null
-                  ) {
-                    return (
-                      <option value={spot._id} key={spot._id}>
-                        {spot.name}
-                      </option>
-                    );
-                  }
-                  return null;
-                })}
-              </select>
-            </div>
+              />
+            </label>
 
-            <div className="group-form">
-              <label htmlFor="userMax">Nombre de participants maximum</label>
-              <input type="number" id="userMax" name="userMax" required  value={formValues.userMax} onChange={handleChange}/>
-            </div>
-
-            <div className="group-form">
-              <label htmlFor="placesReserved">Nombre de places réservées</label>
+            <label htmlFor="placesReserved">
+              Nombre de places réservées
               <input
                 type="number"
                 id="placesReserved"
@@ -204,7 +227,7 @@ function UpdateBooking({ onOpen, booking, modalClosed }) {
                 value={formValues.placesReserved}
                 onChange={handleChange}
               />
-            </div>
+            </label>
           </div>
           <div className="Booking_create_footer">
             <button type="submit" className=" btn-secondary-outline ">

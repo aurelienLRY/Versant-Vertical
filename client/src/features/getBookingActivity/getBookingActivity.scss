@@ -1,11 +1,20 @@
 @use '../../assets/sass/abstracts/variables' as v ; 
 
+
+.activities_program{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8em;
+
+
+}
 .td_action {
     display: flex;
     gap: 0.8em;
     justify-content: center;
     align-items: center;
-
   }
 
   .bookingAdd{

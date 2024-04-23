@@ -112,80 +112,88 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
           </div>
 
           <div className="Booking_create_body">
-            <div className="group-form">
-              <label htmlFor="date">Date </label>
-              <input type="date" id="date" name="date" required />
+            <div className="timestamp">
+              <label htmlFor="date">
+                Date
+                <input type="date" id="date" name="date" required />
+              </label>
+
+              <div className="group-form">
+                <label htmlFor="startTime">
+                  Heure de début
+                  <input
+                    type="time"
+                    id="startTime"
+                    name="startTime"
+                    required
+                    min="08:00"
+                    max="18:00"
+                    step="900"
+                  />
+                </label>
+
+                <label htmlFor="endTime">
+                  Heure de fin
+                  <input
+                    type="time"
+                    id="endTime"
+                    name="endTime"
+                    required
+                    min="08:00"
+                    max="18:00"
+                    step="900"
+                  />
+                </label>
+              </div>
             </div>
 
             <div className="group-form">
-              <label htmlFor="startTime">Heure de début</label>
-              <input
-                type="time"
-                id="startTime"
-                name="startTime"
-                required
-                min="08:00"
-                max="18:00"
-                step="900"
-              />
-
-              <label htmlFor="endTime">Heure de fin</label>
-              <input
-                type="time"
-                id="endTime"
-                name="endTime"
-                required
-                min="08:00"
-                max="18:00"
-                step="900"
-              />
+              <label htmlFor="activity">
+                Activité
+                <select
+                  name="activity"
+                  id="activity"
+                  required
+                  onChange={(e) => setActivitySelect(e.target.value)}
+                >
+                  <option value={""}>Choisir une activité</option>
+                  {activities.map((activity) => (
+                    <option value={activity._id} key={activity._id}>
+                      {activity.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label htmlFor="spot">
+                Lieu
+                <select
+                  name="spot"
+                  id="spot"
+                  required
+                  onChange={(e) => setSpotSelect(e.target.value)}
+                >
+                  <option value={""}>Choisir un spot</option>
+                  {spots.map((spot) => {
+                    if (
+                      spot.practicedActivities.some(
+                        (a) => a.activityId === activitySelect
+                      ) ||
+                      activitySelect === null
+                    ) {
+                      return (
+                        <option value={spot._id} key={spot._id}>
+                          {spot.name}
+                        </option>
+                      );
+                    }
+                    return null;
+                  })}
+                </select>
+              </label>
             </div>
 
-            <div className="group-form">
-              <label htmlFor="activity">Activité</label>
-              <select
-                name="activity"
-                id="activity"
-                required
-                onChange={(e) => setActivitySelect(e.target.value)}
-              >
-                <option value={""}>Choisir une activité</option>
-                {activities.map((activity) => (
-                  <option value={activity._id} key={activity._id}>
-                    {activity.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="spot">Lieu</label>
-              <select
-                name="spot"
-                id="spot"
-                required
-                onChange={(e) => setSpotSelect(e.target.value)}
-              >
-                <option value={""}>Choisir un spot</option>
-                {spots.map((spot) => {
-                  if (
-                    spot.practicedActivities.some(
-                      (a) => a.activityId === activitySelect
-                    ) ||
-                    activitySelect === null
-                  ) {
-                    return (
-                      <option value={spot._id} key={spot._id}>
-                        {spot.name}
-                      </option>
-                    );
-                  }
-                  return null;
-                })}
-              </select>
-            </div>
-
-            <div className="group-form">
-              <label htmlFor="userMax">Nombre de participants maximum</label>
+            <label htmlFor="userMax">
+              Nombre de participants maximum
               <input
                 type="number"
                 id="userMax"
@@ -194,17 +202,17 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
                 value={maxOfPeople}
                 onChange={handleMaxOfPeople}
               />
-            </div>
+            </label>
 
-            <div className="group-form">
-              <label htmlFor="placesReserved">Nombre de places réservées</label>
+            <label htmlFor="placesReserved">
+              Nombre de places réservées
               <input
                 type="number"
                 id="placesReserved"
                 name="placesReserved"
                 required
               />
-            </div>
+            </label>
           </div>
           <div className="Booking_create_footer">
             <button type="submit" className=" btn-secondary-outline ">

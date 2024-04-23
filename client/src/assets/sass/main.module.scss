@@ -1,5 +1,16 @@
 @use "./abstracts/variables" as v;
 
 :export {
-    toolTipBackground: v.$background-medium,
+    toolTipBackground: v.$background-medium;
+    bodyBg: v.$background-light;
+
+    primaryColor: v.$primary-color;
+    primaryColorDark: v.$primary-color-dark;
+    primaryColorLight: v.$primary-color-light;
+
+    secondaryColor: v.$secondary-color;
+    secondaryColorDark: v.$secondary-color-dark;
+    secondaryColorLight: v.$secondary-color-light;
+
+    fontFamily : v.$fontFamily;
   }
