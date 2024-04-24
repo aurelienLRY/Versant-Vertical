@@ -1,16 +1,26 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { ActionCreateActivity } from "../../redux/actions/activityAction";
-import "./creatActivity.scss";
-import Feedback from "../../components/FeedBack";
+/* import librairies */
+import { useState, useEffect } from "react";
+/* import custom hooks */
+import useToken from "../../hooks/useToken";
 
+/* import redux */
+import { useSelector, useDispatch } from "react-redux";
+/* action*/
+import { ActionCreateActivity } from "../../redux/actions/activityAction";
+/* components */
+import Feedback from "../../components/FeedBack";
+import Modal from "../../components/modal"; // Modal component
+
+/* styles*/
+import "./creatActivity.scss";
 /**
  * Component for creating a new activity.
  * @returns {JSX.Element} The CreateActivity component.
  */
-function CreateActivity() {
-  const { token } = useSelector((state) => state.auth.user); // Retrieves the user's token
+function CreateActivity({ isOpened, modalClosed }) {
+  const { token } = useToken(); // Get the token from the custom hook
   const dispatch = useDispatch(); // Dispatch to send the action
+  const [isOpen, setIsOpen] = useState(false); // State for the modal
   const [error, setError] = useState(null); // Error handling
   const [full_dayIsChecked, setFull_dayIsChecked] = useState(); // State for the full day checkbox
   const [half_dayIsChecked, setHalf_dayIsChecked] = useState(); // State for the half day checkbox]
@@ -43,7 +53,6 @@ function CreateActivity() {
       },
       { half_day: false, full_day: false }
     );
-    console.log("data", data);
 
     // Create the activity
     try {
@@ -65,57 +74,75 @@ function CreateActivity() {
     }
   };
 
+  /*
+   * Event handler for modal closed.
+   */
+  const handleModalClosed = () => {
+    setIsOpen(false);
+    modalClosed(true);
+  };
+
+  /*
+   * Effect hook to set the modal state.
+   */
+  useEffect(() => {
+    setIsOpen(isOpened);
+  }, [isOpened]);
+
   // Render the form
   return (
-    <article className="createActivity" data-testid="create-activity">
-      <div className="createActivity_header">
-        <h4>Ajouter une activité</h4>
-        <Feedback err={error} />
-      </div>
+    <Modal isOpened={isOpen} Closed={handleModalClosed}>
+      <form
+        onSubmit={handleSubmit}
+        className=" createActivity"
+        data-testid="create-activity"
+      >
+        <div className="createActivity_header">
+          <h3>Ajouter une activité</h3>
+          <Feedback err={error} />
+        </div>
 
-      <form onSubmit={handleSubmit} className="createActivity_form">
-        
         <div className="createActivity_body">
-          <div className="body_bloc">
-            <div className="group-form">
-              <label htmlFor="name">Nom de l'activité</label>
+          <div className="group-form ni">
+            <label htmlFor="name">
+              Nom de l'activité
               <input type="text" name="name" id="name" required />
-            </div>
+            </label>
 
-            <div className="group-form">
-              <label htmlFor="description">Description</label>
+            <label htmlFor="description">
+              Description
               <textarea name="description" id="description" />
-            </div>
+            </label>
           </div>
 
-          <div className="formule_content body_bloc">
-            <div className="formule_type">
-              <span>Type de formule </span>
-              <div className="group-form">
-                <label htmlFor="half_day">
-                  Demi journée{" "}
-                  <input
-                    type="checkbox"
-                    name="half_day"
-                    id="half_day"
-                    checked={half_dayIsChecked}
-                    onChange={handleHalfDayChange}
-                  />
-                </label>
-                <label htmlFor="full_day">
-                  Journée
-                  <input
-                    type="checkbox"
-                    name="full_day"
-                    id="full_day"
-                    checked={full_dayIsChecked}
-                    onChange={handleFullDayChange}
-                  />
-                </label>
+          <div className="formule_type border-secondary">
+            <h4>Type de formule </h4>
+            <div className="formule_type_content">
+              <div className="group-form checkbox">
+                <input
+                  type="checkbox"
+                  name="half_day"
+                  id="half_day"
+                  checked={half_dayIsChecked}
+                  onChange={handleHalfDayChange}
+                />
+                <label htmlFor="half_day">Demi journée</label>
+              </div>
+
+              <div className="group-form checkbox">
+                <input
+                  type="checkbox"
+                  name="full_day"
+                  id="full_day"
+                  checked={full_dayIsChecked}
+                  onChange={handleFullDayChange}
+                />
+                <label htmlFor="full_day">Journée</label>
               </div>
             </div>
+
             <div className="formule_pricing">
-              <span>Tarification</span>
+              <h4>Tarification</h4>
               <div className="group-form">
                 <input
                   type="number"
@@ -135,26 +162,29 @@ function CreateActivity() {
             </div>
           </div>
 
-          <div className="numberPeople body_bloc">
-            <span>Gestion des groupes</span>
-            <label htmlFor=" min_OfPeople:">
-              Minimum
-              <input
-                type="number"
-                name="min_OfPeople"
-                id="min_OfPeople"
-                required
-              />
-            </label>
-            <label htmlFor="max_OfPeople">
-              Maximum
-              <input
-                type="number"
-                name="max_OfPeople"
-                id="max_OfPeople"
-                required
-              />
-            </label>
+          
+          <div className="numberPeople">
+            <h4>Gestion des groupes</h4>
+            <div className="group-form">
+              <label htmlFor=" min_OfPeople:">
+                Minimum
+                <input
+                  type="number"
+                  name="min_OfPeople"
+                  id="min_OfPeople"
+                  required
+                />
+              </label>
+              <label htmlFor="max_OfPeople">
+                Maximum
+                <input
+                  type="number"
+                  name="max_OfPeople"
+                  id="max_OfPeople"
+                  required
+                />
+              </label>
+            </div>
 
             <label htmlFor="min_age">
               Âge minimum
@@ -166,7 +196,7 @@ function CreateActivity() {
           Enregistrer
         </button>
       </form>
-    </article>
+    </Modal>
   );
 }
 

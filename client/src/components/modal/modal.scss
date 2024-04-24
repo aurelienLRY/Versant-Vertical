@@ -38,13 +38,14 @@
       padding: 0.2em 0.4em;
       svg {
         cursor: pointer;
-        width: 1.5em;
-        height: 1.5em;
+        width: 2em;
+        height: 2em;
         color: v.$text-color;
         transition: all 0.3s ease-in-out;
 
         &:hover {
           color: v.$primary-color;
+          transform: scale(1.2);
         }
       }
     }

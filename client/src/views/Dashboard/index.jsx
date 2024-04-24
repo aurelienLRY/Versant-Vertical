@@ -5,21 +5,12 @@ import SlideBar from "../../components/SlideBar";
 import "./dashboard.scss";
 
 
-import {ActionGetAllActivities} from "../../redux/actions/activityAction"; //importing the action to get all activities
-import { ActionGetAllSpots } from '../../redux/actions/spotAction';
-import { ActionGetAllBookings } from '../../redux/actions/bookingAction';
-
 
 function Dashboard() {
-  const dispatch = useDispatch();//dispatch function
-  
-  
+ 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated) //getting the isAuthenticated state from the store
   
-  
-  dispatch(ActionGetAllActivities());//dispatching the action to get all activities
-  dispatch(ActionGetAllSpots());//dispatching the action to get all spots
-  dispatch(ActionGetAllBookings());//dispatching the action to get all Bookings
+
   
   
   if (!isAuthenticated) {

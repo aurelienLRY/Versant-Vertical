@@ -1,7 +1,7 @@
 import Modal from "../../components/modal";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import  useToken  from "../../hooks/useToken";
+import useToken from "../../hooks/useToken";
 import { ActionUpdateActivity } from "../../redux/actions/activityAction";
 import Feedback from "../../components/FeedBack";
 import PropTypes from "prop-types";
@@ -16,7 +16,7 @@ import "./updateActivity.scss";
  * @returns {JSX.Element} - The rendered component.
  */
 function UpdateActivity({ onOpen, activ, modalClosed }) {
-  const token  =useToken();
+  const token = useToken();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
@@ -71,14 +71,14 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
   };
 
   const handleHalfDayChange = (event) => {
-    setHalfDayIsChecked(event.target.checked);  
+    setHalfDayIsChecked(event.target.checked);
     if (error) {
       setError(null);
     }
   };
 
   const handleFullDayChange = (event) => {
-    setFullDayIsChecked(event.target.checked);  
+    setFullDayIsChecked(event.target.checked);
     if (error) {
       setError(null);
     }
@@ -128,35 +128,40 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
   return (
     <>
       <Modal isOpened={open} Closed={handleModalClosed}>
-        <form onSubmit={handleSubmit} className="createactivity_form">
-          <Feedback err={error} />
-          <div className="group-form">
-            <label htmlFor="name">Nom de l'activité</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              required
-              value={formValues.name}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="group-form">
-            <label htmlFor="description">Description</label>
-            <textarea
-              name="description"
-              id="description"
-              value={formValues.description}
-              onChange={handleChange}
-            />
+        <form onSubmit={handleSubmit} className="createActivity">
+          <div className="createActivity_header">
+            <h3>Modifier une activité</h3>
+            <Feedback err={error} />
           </div>
 
-          <div className="formule_content">
-            <div className="formule_type">
-              <span>Type de formule </span>
-              <div className="group-form">
-                <label htmlFor="half_day">
-                  Demi journée{" "}
+          <div className="createActivity_body">
+            <div className="group-form ni">
+              <label htmlFor="name">
+                Nom de l'activité
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  required
+                  value={formValues.name}
+                  onChange={handleChange}
+                />
+              </label>
+
+              <label htmlFor="description">
+                Description
+                <textarea
+                  name="description"
+                  id="description"
+                  value={formValues.description}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className="formule_type border-secondary">
+              <h4>Type de formule </h4>
+              <div className="formule_content">
+                <div className="group-form checkbox">
                   <input
                     type="checkbox"
                     name="half_day"
@@ -164,80 +169,84 @@ function UpdateActivity({ onOpen, activ, modalClosed }) {
                     checked={half_dayIsChecked}
                     onChange={handleHalfDayChange}
                   />
-                </label>
-                <label htmlFor="full_day">
-                  Journée
+                  <label htmlFor="half_day">Demi journée</label>
+
+                  <div className="group-form checkbox">
+                    <input
+                      type="checkbox"
+                      name="full_day"
+                      id="full_day"
+                      checked={full_dayIsChecked}
+                      onChange={handleFullDayChange}
+                    />
+                    <label htmlFor="full_day">Journée</label>
+                  </div>
+                </div>
+              </div>
+              <div className="formule_pricing">
+                <h4>Tarification</h4>
+                <div className="group-form">
                   <input
-                    type="checkbox"
-                    name="full_day"
-                    id="full_day"
-                    checked={full_dayIsChecked}
-                    onChange={handleFullDayChange}
+                    type="number"
+                    name="price_half_day"
+                    id="price-half_day"
+                    placeholder=" prix de la demi-journée"
+                    disabled={!half_dayIsChecked}
+                    value={formValues.price_half_day}
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="number"
+                    name="price_full_day"
+                    id="price-full_day"
+                    placeholder=" prix de la journée"
+                    disabled={!full_dayIsChecked}
+                    value={formValues.price_full_day}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="numberPeople">
+              <h4>Gestion des groupes</h4>
+              <div className="group-form">
+                <label htmlFor="min_OfPeople">
+                  Minimum
+                  <input
+                    type="number"
+                    name="min_OfPeople"
+                    id="min_OfPeople"
+                    value={formValues.min_OfPeople}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+                <label htmlFor="max_OfPeople">
+                  Maximum
+                  <input
+                    type="number"
+                    name="max_OfPeople"
+                    id="max_OfPeople"
+                    value={formValues.max_OfPeople}
+                    onChange={handleChange}
+                    required
                   />
                 </label>
               </div>
-            </div>
-            <div className="formule_pricing">
-              <span>Tarification</span>
-              <div className="group-form">
+
+              <label htmlFor="min_age">
+                Âge minimum
                 <input
                   type="number"
-                  name="price_half_day"
-                  id="price-half_day"
-                  placeholder=" prix de la demi-journée"
-                  disabled={!half_dayIsChecked}
-                  value={formValues.price_half_day}
+                  name="min_age"
+                  id="min_age"
+                  value={formValues.min_age}
                   onChange={handleChange}
+                  required
                 />
-                <input
-                  type="number"
-                  name="price_full_day"
-                  id="price-full_day"
-                  placeholder=" prix de la journée"
-                  disabled={!full_dayIsChecked}
-                  value={formValues.price_full_day}
-                  onChange={handleChange}
-                />
-              </div>
+              </label>
             </div>
-          </div>
-
-          <div className="numberPeople">
-            <span>Gestion des groupes</span>
-            <label htmlFor="min_OfPeople">
-              Minimum
-              <input
-                type="number"
-                name="min_OfPeople"
-                id="min_OfPeople"
-                value={formValues.min_OfPeople}
-                onChange={handleChange}
-                required
-              />
-            </label>
-            <label htmlFor="max_OfPeople">
-              Maximum
-              <input
-                type="number"
-                name="max_OfPeople"
-                id="max_OfPeople"
-                value={formValues.max_OfPeople}
-                onChange={handleChange}
-                required
-              />
-            </label>
-
-            <label htmlFor="min_age">
-              Âge minimum
-              <input
-                type="number"
-                name="min_age"
-                id="min_age"
-                value={formValues.min_age}
-                onChange={handleChange}
-                required
-              />
-            </label>
           </div>
 
           <button type="submit" className="btn-secondary-outline small">

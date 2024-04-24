@@ -77,7 +77,7 @@ function AllSpot() {
 
   return (
     <>
-      <article className="allSpots">
+      <article className="allSpots outlet">
         <h3>Lieu </h3>
         <Feedback err={FeedBack} />
         <table className="allSpots_table">
@@ -96,7 +96,7 @@ function AllSpot() {
                   placement="right"
                   color={moduleStyle.toolTipBackground}
                 >
-                  <IoAddCircleOutline className="spotAdd" />
+                  <IoAddCircleOutline className="icon add" />
                 </Tooltip>
               </th>
             </tr>

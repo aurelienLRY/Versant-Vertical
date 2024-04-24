@@ -6,17 +6,13 @@ import { Layout, Menu } from "antd";
 
 import "./slideBar.scss";
 
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+
 
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { TbBrandBooking } from "react-icons/tb";
+import { MdOutlineLocalActivity } from "react-icons/md";
+
 
 
 
@@ -57,21 +53,21 @@ const items = [
     "Dashboard",
     "1",
     <Link to="/dashboard">
-    <LuLayoutDashboard />
+    <LuLayoutDashboard className="icon slideBar" />
     </Link>
   ),
   getItem(
     "Mes activités",
     "2",
     <Link to="/dashboard/activities" >
-      <DesktopOutlined />
+      <MdOutlineLocalActivity className="icon slideBar" />
     </Link>
   ),
   getItem(
     "Mes lieux",
     "3",
     <Link to="/dashboard/Spot" >
-      <FaMapMarkerAlt />
+      <FaMapMarkerAlt className="icon slideBar" />
     </Link>
   ),
 
@@ -79,7 +75,7 @@ const items = [
     "Programmation",
     "4",
     <Link to="/dashboard/reservation" >
-      <TbBrandBooking />
+      <TbBrandBooking className="icon slideBar" />
     </Link>
   ),
 ];

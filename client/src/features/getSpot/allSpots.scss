@@ -1,40 +1,26 @@
-@use '../../assets/sass/abstracts/variables' as v;
+@use "../../assets/sass/abstracts/variables" as v;
 
-.allSpots{
-    box-sizing: border-box;
-    width: 100%;
-    display : flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
+.allSpots {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
 
-    .spotAdd{
-        width: 1.5em;
-        height: 1.5em;
-        transition: all 0.250s  ease-in-out;
-        &:hover{
-            color : v.$primary-color;
-        }
-    }
-
-
-&_table{
-
-    .td_activities{
-        display: flex;
-        flex-direction: column;
-        gap: 0.2em;
+  &_table {
+    .td_activities {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2em;
     }
 
     .td_action {
-        display: flex;
-        gap: 0.8em;
-        justify-content: center;
-        align-items: center;
- 
-      }
-}
-
-
+      display: flex;
+      gap: 0.8em;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }

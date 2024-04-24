@@ -13,8 +13,12 @@ const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
       </div>
 
     <nav className='header_nav' data-testid="header_nav">
-        <NavLink to="/" className="nav_link">Home</NavLink>
-        {isAuthenticated && <NavLink to="/dashboard" className="nav_link">Dashboard</NavLink>}
+      {isAuthenticated && <NavLink to="/dashboard" className="nav_link">Mon espace</NavLink>}
+        <NavLink to="/" className="nav_link">Accueil</NavLink>
+        <NavLink to="/activities" className="nav_link">Activités</NavLink>
+        <NavLink to="/book" className="nav_link">Réserver</NavLink>
+        <NavLink to="/contact" className="nav_link">contact</NavLink>
+        
 
       
     </nav>

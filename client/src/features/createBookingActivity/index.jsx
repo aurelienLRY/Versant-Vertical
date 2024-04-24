@@ -29,6 +29,7 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
   const [activitySelect, setActivitySelect] = useState(null);
   const [spotSelect, setSpotSelect] = useState(null);
   const [maxOfPeople, setMaxOfPeople] = useState(null);
+  const [placesReserved, setPlacesReserved] = useState(0);
   const activities = useActivities();
   const bookings = useBookings();
   const spots = useSpots();
@@ -62,6 +63,7 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
 
     if (action.type.endsWith("fulfilled")) {
       event.target.reset();
+      setMaxOfPeople(null);
     }
     if (action.type.endsWith("rejected")) {
       console.log("Erreur! ", action.error);
@@ -84,6 +86,10 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
     setMaxOfPeople(e.target.value);
   };
 
+  const handlePlacesReserved = (e) => {
+    setPlacesReserved(e.target.value);
+  };
+
   /*
    * Event handler for modal closed.
    */
@@ -99,26 +105,26 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
     setIsOpen(isOpened);
   }, [isOpened]);
 
-  /*console.log*/
-  //console.log("activitySelect", activitySelect);
+
 
   return (
     <Modal isOpened={isOpen} Closed={handleModalClosed}>
-      <form onSubmit={handleSubmit}>
-        <div className="Booking_create">
-          <div className="Booking_create_header">
-            <h3> Ajouter une activité </h3>
-            <Feedback err={error} />
-          </div>
+      <form onSubmit={handleSubmit} className="Booking_create">
+        <div className="Booking_create_header">
+          <h3> Ajouter une activité </h3>
+          <Feedback err={error} />
+        </div>
 
-          <div className="Booking_create_body">
-            <div className="timestamp">
+        <div className="Booking_create_body">
+          <div className="timestamp border-secondary ">
+            <h4>Créneau horaire</h4>
+            <div className="group-form">
               <label htmlFor="date">
                 Date
                 <input type="date" id="date" name="date" required />
               </label>
 
-              <div className="group-form">
+              <div className="group-form hourly">
                 <label htmlFor="startTime">
                   Heure de début
                   <input
@@ -146,7 +152,10 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
                 </label>
               </div>
             </div>
+          </div>
 
+          <div className="practice">
+            <h4>Practice</h4>
             <div className="group-form">
               <label htmlFor="activity">
                 Activité
@@ -164,6 +173,7 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
                   ))}
                 </select>
               </label>
+
               <label htmlFor="spot">
                 Lieu
                 <select
@@ -191,34 +201,42 @@ function CreateBookingActivity({ isOpened, modalClosed }) {
                 </select>
               </label>
             </div>
-
-            <label htmlFor="userMax">
-              Nombre de participants maximum
-              <input
-                type="number"
-                id="userMax"
-                name="userMax"
-                required
-                value={maxOfPeople}
-                onChange={handleMaxOfPeople}
-              />
-            </label>
-
-            <label htmlFor="placesReserved">
-              Nombre de places réservées
-              <input
-                type="number"
-                id="placesReserved"
-                name="placesReserved"
-                required
-              />
-            </label>
           </div>
-          <div className="Booking_create_footer">
-            <button type="submit" className=" btn-secondary-outline ">
-              Enregistrer
-            </button>
+
+          <div className="numberPeople border-secondary">
+            <h4>Gestion des groupes</h4>
+            <div className="group-form">
+              <label htmlFor="userMax">
+                Personnes maximums
+                <input
+                  type="number"
+                  id="userMax"
+                  name="userMax"
+                  required
+                  value={maxOfPeople}
+                  onChange={handleMaxOfPeople}
+                />
+              </label>
+
+              <label htmlFor="placesReserved">
+                Places réservées
+                <input
+                  type="number"
+                  id="placesReserved"
+                  name="placesReserved"
+                  required
+                  value={placesReserved}
+                  onChange={handlePlacesReserved}
+                />
+              </label>
+            </div>
           </div>
+        </div>
+
+        <div className="Booking_create_footer">
+          <button type="submit" className=" btn-secondary-outline ">
+            Enregistrer
+          </button>
         </div>
       </form>
     </Modal>

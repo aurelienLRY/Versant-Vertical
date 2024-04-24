@@ -2,9 +2,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ActionDeleteActivity } from "../../redux/actions/activityAction";
 import UpdateActivity from "../updateActivity";
+import CreateActivity from "../createActivity";
 import Feedback from "../../components/FeedBack";
 
+import { IoAddCircleOutline } from "react-icons/io5"; // IoAddCircleOutline is a component from react-icons library
+import { Tooltip } from "antd"; // Tooltip is a component from antd library
+
 import "./allActivities.scss";
+import moduleStyle from "../../assets/sass/main.module.scss";
 
 //import custom hooks
 import useActivities from "../../hooks/useActivities";
@@ -18,7 +23,8 @@ function AllActivities() {
   const dispatch = useDispatch();
   const activities = useActivities();
   const token = useToken();
-  const [onOpen, setOnOpen] = useState(false);
+  const [modalUpadateIsopen, setModalUpdateIsOpen] = useState(false);
+  const [modalCreateIsopen, setModalCreateIsOpen] = useState(false);
   const [activity, setActivity] = useState(null);
   const [FeedBack, setFeedBack] = useState(null);
 
@@ -43,12 +49,14 @@ function AllActivities() {
    */
   const handleEdit = (activity) => {
     setActivity(activity);
-    setOnOpen(true);
+    setModalUpdateIsOpen(true);
   };
+
+  const handleCreate = () => setModalCreateIsOpen(true);
 
   return (
     <>
-      <article className="allActivities">
+      <article className="allActivities outlet">
         <h3>Activities enregistrées</h3>
         <Feedback err={FeedBack} />
         <table className="allActivities_table">
@@ -60,7 +68,15 @@ function AllActivities() {
               <th>Prix</th>
               <th>Nombre de personnes</th>
               <th>Age minimum</th>
-              <th></th>
+              <th onClick={handleCreate} >
+              <Tooltip
+                  title="Ajouter une activité"
+                  placement="right"
+                  color={moduleStyle.toolTipBackground}
+                >
+                  <IoAddCircleOutline className="icon add" />
+                </Tooltip>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -113,11 +129,18 @@ function AllActivities() {
           </tbody>
         </table>
       </article>
-      {onOpen && (
+      {modalUpadateIsopen && (
         <UpdateActivity
-          onOpen={onOpen}
-          modalClosed={(e) => setOnOpen(e)}
+          onOpen={modalUpadateIsopen}
+          modalClosed={(e) => setModalUpdateIsOpen(e)}
           activ={activity}
+        />
+      )}
+
+      {modalCreateIsopen && (
+        <CreateActivity
+          isOpened={modalCreateIsopen}
+          modalClosed={() => setModalCreateIsOpen(false)}
         />
       )}
     </>

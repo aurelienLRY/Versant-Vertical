@@ -1,4 +1,3 @@
-import CreateActivity from '../../../features/createActivity'
 import AllActivities from '../../../features/getActivities'
 import './outletActivity.scss'
 
@@ -10,10 +9,7 @@ import './outletActivity.scss'
  */
 function OutletActivity() {
   return (
-    <div className='outletActivity' data-testid='outlet-activity'>
-        <AllActivities />
-        <CreateActivity />
-    </div>
+        <AllActivities/>
   )
 }
 

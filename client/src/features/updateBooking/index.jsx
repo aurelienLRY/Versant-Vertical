@@ -107,15 +107,16 @@ function UpdateBooking({ onOpen, booking, modalClosed }) {
 
   return (
     <Modal isOpened={Open} Closed={handleModalClosed}>
-      <form onSubmit={handleSubmit}>
-        <div className="Booking_create">
-          <div className="Booking_create_header">
-            <h3> Ajouter une activité </h3>
-            <Feedback err={error} />
-          </div>
+      <form onSubmit={handleSubmit} className="Booking_create">
+        <div className="Booking_create_header">
+          <h3>Modifier une activité </h3>
+          <Feedback err={error} />
+        </div>
 
-          <div className="Booking_create_body">
-            <div className="timestamp">
+        <div className="Booking_create_body">
+          <div className="timestamp border-secondary">
+            <h4>Créneau horaire</h4>
+            <div className="group-form">
               <label htmlFor="date">
                 Date
                 <input
@@ -128,7 +129,7 @@ function UpdateBooking({ onOpen, booking, modalClosed }) {
                 />
               </label>
 
-              <div className="group-form">
+              <div className="group-form hourly">
                 <label htmlFor="startTime">
                   Heure de début
                   <input
@@ -160,7 +161,10 @@ function UpdateBooking({ onOpen, booking, modalClosed }) {
                 </label>
               </div>
             </div>
+          </div>
 
+          <div className="practice">
+            <h4>Practice</h4>
             <div className="group-form">
               <label htmlFor="activity">
                 Activité
@@ -180,6 +184,7 @@ function UpdateBooking({ onOpen, booking, modalClosed }) {
                   ))}
                 </select>
               </label>
+
               <label htmlFor="spot">
                 Lieu
                 <select name="spot" id="spot" required onChange={handleChange}>
@@ -204,36 +209,42 @@ function UpdateBooking({ onOpen, booking, modalClosed }) {
                 </select>
               </label>
             </div>
-
-            <label htmlFor="userMax">
-              Nombre de participants maximum
-              <input
-                type="number"
-                id="userMax"
-                name="userMax"
-                required
-                value={formValues.userMax}
-                onChange={handleChange}
-              />
-            </label>
-
-            <label htmlFor="placesReserved">
-              Nombre de places réservées
-              <input
-                type="number"
-                id="placesReserved"
-                name="placesReserved"
-                required
-                value={formValues.placesReserved}
-                onChange={handleChange}
-              />
-            </label>
           </div>
-          <div className="Booking_create_footer">
-            <button type="submit" className=" btn-secondary-outline ">
-              Enregistrer
-            </button>
+
+          <div className="numberPeople border-secondary">
+            <h4>Gestion des groupes</h4>
+            <div className="group-form">
+              <label htmlFor="userMax">
+                Personnes maximums
+                <input
+                  type="number"
+                  id="userMax"
+                  name="userMax"
+                  required
+                  value={formValues.userMax}
+                  onChange={handleChange}
+                />
+              </label>
+
+              <label htmlFor="placesReserved">
+                Places réservées
+                <input
+                  type="number"
+                  id="placesReserved"
+                  name="placesReserved"
+                  required
+                  value={formValues.placesReserved}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
           </div>
+        </div>
+        
+        <div className="Booking_create_footer">
+          <button type="submit" className=" btn-secondary-outline ">
+            Enregistrer
+          </button>
         </div>
       </form>
     </Modal>

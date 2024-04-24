@@ -21,8 +21,8 @@ describe("CreateBookingActivity", () => {
     expect(screen.getByLabelText("Heure de fin")).toBeInTheDocument();
     expect(screen.getByLabelText("Activité")).toBeInTheDocument();
     expect(screen.getByLabelText("Lieu")).toBeInTheDocument();
-    expect(screen.getByLabelText("Nombre de participants maximum")).toBeInTheDocument();
-    expect(screen.getByLabelText("Nombre de places réservées")).toBeInTheDocument();
+    expect(screen.getByLabelText("Personnes maximums")).toBeInTheDocument();
+    expect(screen.getByLabelText("Places réservées")).toBeInTheDocument();
     expect(screen.getByText("Enregistrer")).toBeInTheDocument();
   });
 
@@ -38,8 +38,8 @@ describe("CreateBookingActivity", () => {
     const endTimeInput = screen.getByLabelText("Heure de fin");
     const activitySelect = screen.getByLabelText("Activité");
     const spotSelect = screen.getByLabelText("Lieu");
-    const maxOfPeopleInput = screen.getByLabelText("Nombre de participants maximum");
-    const placesReservedInput = screen.getByLabelText("Nombre de places réservées");
+    const maxOfPeopleInput = screen.getByLabelText("Personnes maximums");
+    const placesReservedInput = screen.getByLabelText("Places réservées");
     const submitButton = screen.getByText("Enregistrer");
 
     fireEvent.change(dateInput, { target: { value: "2022-01-03" } });

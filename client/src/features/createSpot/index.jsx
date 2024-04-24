@@ -112,13 +112,12 @@ function CreateSpot({ isOpened, modalClosed }) {
   return (
     <Modal isOpened={isOpen} Closed={handleModalClosed}>
       <article className="createSpot" data-testid="create-spot">
-        <h3>Ajouter un spot</h3>
-        <Feedback err={error} />
-
         <form onSubmit={handleSubmit} className="createSpot_form">
+          <h3>Ajouter un lieu</h3>
+          <Feedback err={error} />
           <div className="group-form">
             <label htmlFor="name">
-              Nom du spot
+              Nom du lieu
               <input type="text" name="name" id="name" required />
             </label>
 
@@ -128,27 +127,31 @@ function CreateSpot({ isOpened, modalClosed }) {
             </label>
           </div>
 
-          <div className="practicedActivities">
-            {activities.map((activity) => {
-              return (
-                <label htmlFor={activity.name} key={activity._id}>
-                  {activity.name}
-                  <input
-                    type="checkbox"
-                    name={activity.name}
-                    id={activity.name}
-                    value={activity._id}
-                  />
-                </label>
-              );
-            })}
+          <div className="practicedActivities border-secondary ">
+            <h4>Activités pratiqués</h4>
+            <div className="practicedActivities_grill">
+              {activities.map((activity) => {
+                return (
+                  <div className="group-form checkbox">
+                    <input
+                      type="checkbox"
+                      name={activity.name}
+                      id={activity.name}
+                      value={activity._id}
+                    />
+                    <label htmlFor={activity.name} key={activity._id}>
+                      {activity.name}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div className="formule_type">
-            <span>Type de formule </span>
-            <div className="group-form">
-              <label htmlFor="half_day">
-                Demi journée
+            <h4>Type de formule </h4>
+            <div className="formule_type_content">
+              <div className="group-form checkbox">
                 <input
                   type="checkbox"
                   name="half_day"
@@ -156,9 +159,9 @@ function CreateSpot({ isOpened, modalClosed }) {
                   checked={halfDayIsChecked}
                   onChange={handleHalfDayChange}
                 />
-              </label>
-              <label htmlFor="full_day">
-                Journée
+                <label htmlFor="half_day">Demi journée </label>
+              </div>
+              <div className="group-form checkbox">
                 <input
                   type="checkbox"
                   name="full_day"
@@ -166,66 +169,79 @@ function CreateSpot({ isOpened, modalClosed }) {
                   checked={fullDayIsChecked}
                   onChange={handleFullDayChange}
                 />
-              </label>
+                <label htmlFor="full_day">Journée </label>
+              </div>
             </div>
           </div>
 
-          <div className="numberPeople">
-            <span>Gestion des groupes</span>
-            <div className="group-form">
+          <div className="numberPeople border-secondary">
+            <h4>Gestion des groupes</h4>
+            <div className="group-form ">
               <label htmlFor="min_OfPeople">
-                Minimum
+                Personnes Minimum
                 <input
                   type="number"
                   name="min_OfPeople"
                   id="min_OfPeople"
                   required
-                  placeholder="Nombre de personnes min"
+                  placeholder="Nombre min"
                 />
               </label>
+
               <label htmlFor="max_OfPeople">
-                Maximum
+                Personnes Maximum
                 <input
                   type="number"
                   name="max_OfPeople"
                   id="max_OfPeople"
                   required
-                  placeholder="Nombre de personnes max"
+                  placeholder="Nombre max"
                 />
               </label>
             </div>
           </div>
 
-          <div className="group-form">
-            <label htmlFor="gpsCoordinates">
-              Coordonnées GPS
-              <input
-                type="text"
-                name="gpsCoordinates"
-                id="gpsCoordinates"
-                required
-              />
-            </label>
+          <div className="geography">
+            <h4>Géographie</h4>
+            <div className="group-form">
+              <label htmlFor="gpsCoordinates">
+                Coordonnées GPS
+                <input
+                  type="text"
+                  name="gpsCoordinates"
+                  id="gpsCoordinates"
+                  required
+                />
+              </label>
 
-            <label htmlFor="meetingPoint">
-              Point de rencontre
-              <input
-                type="text"
-                name="meetingPoint"
-                id="meetingPoint"
-                required
-              />
-            </label>
+              <label htmlFor="meetingPoint">
+                Coordonnées du lieu de rdv
+                <input
+                  type="text"
+                  name="meetingPoint"
+                  id="meetingPoint"
+                  required
+                />
+              </label>
+            </div>
           </div>
-          <label htmlFor="estimatedDuration">
-            Durée estimée
-            <input
-              type="text"
-              name="estimatedDuration"
-              id="estimatedDuration"
-              required
-            />
-          </label>
+
+
+          <div className="cotation border-secondary">
+            <h4>Cotation</h4>
+            <div className="cotation_content">
+              <label htmlFor="estimatedDuration">
+                Durée estimée
+                <input
+                  type="text"
+                  name="estimatedDuration"
+                  id="estimatedDuration"
+                  required
+                  placeholder="Exemple: 2h30"
+                />
+              </label>
+            </div>
+          </div>
 
           <button type="submit" className="btn-secondary-outline small">
             Enregistrer

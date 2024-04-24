@@ -4,12 +4,13 @@
   */
 
 import Modal from "../../components/modal"; // Modal component
-import { useDispatch } from "react-redux"; // Redux hook 
+import { useDispatch } from "react-redux"; // Redux hook
 import { useState, useEffect } from "react"; // React hooks
 import { ActionUpdateSpot } from "../../redux/actions/spotAction"; // Redux action
-import Feedback from "../../components/FeedBack";   // Feedback component
+import Feedback from "../../components/FeedBack"; // Feedback component
 import PropTypes from "prop-types"; // Prop types
 import "./updateSpot.scss"; // Styles
+import "../createSpot/createSpot.scss"; // Styles
 import useActivities from "../../hooks/useActivities"; // Custom hook
 import useToken from "../../hooks/useToken"; // Custom hook
 /**
@@ -41,15 +42,16 @@ function UpdateSpot({ onOpen, spot, modalClosed }) {
     modalClosed(true);
   };
 
-
   /*
-    * Event handler for form submission.
-    * @param {Object} event - The event object.
-    */
+   * Event handler for form submission.
+   * @param {Object} event - The event object.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("UpdateSpot -handleSubmit", formValues);
-    const action = await dispatch(ActionUpdateSpot({ token, data: formValues }));
+    const action = await dispatch(
+      ActionUpdateSpot({ token, data: formValues })
+    );
     if (action.type.endsWith("rejected")) {
       setError(action.error.message);
     }
@@ -61,9 +63,9 @@ function UpdateSpot({ onOpen, spot, modalClosed }) {
   };
 
   /*
-    * Event handler for form change.
-    * @param {Object} event - The event object.
-    */
+   * Event handler for form change.
+   * @param {Object} event - The event object.
+   */
   const handleChange = (event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -105,58 +107,63 @@ function UpdateSpot({ onOpen, spot, modalClosed }) {
   return (
     <>
       <Modal isOpened={Open} Closed={handleModalClosed}>
-        <Feedback err={error} />
-        <form onSubmit={handleSubmit} className="createSpot_form">
-          <label htmlFor="name">
-            Nom du spot
-            <input
-              type="text"
-              name="name"
-              id="name"
-              required
-              value={formValues.name}
-              onChange={handleChange}
-            />
-          </label>
+        <form onSubmit={handleSubmit} className="create-spot createSpot_form">
+          <h3>Modifier un lieu</h3>
+          <Feedback err={error} />
+          <div className="group-form">
+            <label htmlFor="name">
+              Nom du spot
+              <input
+                type="text"
+                name="name"
+                id="name"
+                required
+                value={formValues.name}
+                onChange={handleChange}
+              />
+            </label>
 
-          <label htmlFor="description">
-            Description
-            <textarea
-              name="description"
-              id="description"
-              value={formValues.description}
-              onChange={handleChange}
-            />
-          </label>
-
-          <div className="practicedActivities">
-            {activities.map((activity) => {
-              return (
-                <label htmlFor={activity.name} key={activity._id}>
-                  {activity.name}
-                  <input
-                    type="checkbox"
-                    data-practiced={true}
-                    name={activity.name}
-                    id={activity.name}
-                    value={activity._id}
-                    checked={formValues.practicedActivities.some(
-                      (act) => act.activityId === activity._id
-                    )}
-                    onChange={handleChange}
-                  />
-                </label>
-              );
-            })}
+            <label htmlFor="description">
+              Description
+              <textarea
+                name="description"
+                id="description"
+                value={formValues.description}
+                onChange={handleChange}
+              />
+            </label>
           </div>
 
-          {/* Ajoutez ici les champs de formulaire pour practicedActivities et photos */}
+          <div className="practicedActivities border-secondary">
+            <h4>Activités pratiqués</h4>
+            <div className="practicedActivities_grill">
+              {activities.map((activity) => {
+                return (
+                  <div className="group-form checkbox">
+                    <input
+                      type="checkbox"
+                      data-practiced={true}
+                      name={activity.name}
+                      id={activity.name}
+                      value={activity._id}
+                      checked={formValues.practicedActivities.some(
+                        (act) => act.activityId === activity._id
+                      )}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor={activity.name} key={activity._id}>
+                      {activity.name}{" "}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
 
           <div className="formule_type">
-            <span>Type de formule </span>
-            <div className="group-form">
-              <label htmlFor="half_day">
-                Demi journée
+            <h4>Type de formule </h4>
+            <div className="formule_type_content">
+              <div className="group-form checkbox">
                 <input
                   type="checkbox"
                   name="half_day"
@@ -164,9 +171,9 @@ function UpdateSpot({ onOpen, spot, modalClosed }) {
                   checked={formValues.half_day}
                   onChange={handleChange}
                 />
-              </label>
-              <label htmlFor="full_day">
-                Journée
+                <label htmlFor="half_day">Demi journée</label>
+              </div>
+              <div className="group-form checkbox">
                 <input
                   type="checkbox"
                   name="full_day"
@@ -174,71 +181,84 @@ function UpdateSpot({ onOpen, spot, modalClosed }) {
                   checked={formValues.full_day}
                   onChange={handleChange}
                 />
+                <label htmlFor="full_day">Journée</label>
+              </div>
+            </div>
+          </div>
+
+          <div className="numberPeople border-secondary">
+            <h4>Gestion des groupes</h4>
+            <div className="group-form ">
+              <label htmlFor=" min_OfPeople">
+                Personnes Minimum
+                <input
+                  type="number"
+                  name="min_OfPeople"
+                  id="min_OfPeople"
+                  required
+                  value={formValues.min_OfPeople}
+                  onChange={handleChange}
+                />
+              </label>
+              <label htmlFor="max_OfPeople">
+                Personnes Maximum
+                <input
+                  type="number"
+                  name="max_OfPeople"
+                  id="max_OfPeople"
+                  required
+                  value={formValues.max_OfPeople}
+                  onChange={handleChange}
+                />
               </label>
             </div>
           </div>
 
-          <div className="numberPeople">
-            <span>Gestion des groupes</span>
-            <label htmlFor=" min_OfPeople">
-              Minimum
-              <input
-                type="number"
-                name="min_OfPeople"
-                id="min_OfPeople"
-                required
-                value={formValues.min_OfPeople}
-                onChange={handleChange}
-              />
-            </label>
-            <label htmlFor="max_OfPeople">
-              Maximum
-              <input
-                type="number"
-                name="max_OfPeople"
-                id="max_OfPeople"
-                required
-                value={formValues.max_OfPeople}
-                onChange={handleChange}
-              />
-            </label>
+          <div className="geography">
+            <h4>Géographie</h4>
+            <div className="group-form">
+              <label htmlFor="gpsCoordinates">
+                Coordonnées GPS
+                <input
+                  type="text"
+                  name="gpsCoordinates"
+                  id="gpsCoordinates"
+                  required
+                  value={formValues.gpsCoordinates}
+                  onChange={handleChange}
+                />
+              </label>
+
+              <label htmlFor="meetingPoint">
+                Coordonnées du lieu de rdv
+                <input
+                  type="text"
+                  name="meetingPoint"
+                  id="meetingPoint"
+                  required
+                  value={formValues.meetingPoint}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
           </div>
 
-          <label htmlFor="gpsCoordinates">
-            Coordonnées GPS
-            <input
-              type="text"
-              name="gpsCoordinates"
-              id="gpsCoordinates"
-              required
-              value={formValues.gpsCoordinates}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label htmlFor="meetingPoint">
-            Point de rencontre
-            <input
-              type="text"
-              name="meetingPoint"
-              id="meetingPoint"
-              required
-              value={formValues.meetingPoint}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label htmlFor="estimatedDuration">
-            Durée estimée
-            <input
-              type="text"
-              name="estimatedDuration"
-              id="estimatedDuration"
-              required
-              value={formValues.estimatedDuration}
-              onChange={handleChange}
-            />
-          </label>
+          <div className="cotation border-secondary">
+            <h4>Cotation</h4>
+            <div className="cotation_content">
+              <label htmlFor="estimatedDuration">
+                Durée estimée
+                <input
+                  type="text"
+                  name="estimatedDuration"
+                  id="estimatedDuration"
+                  required
+                  value={formValues.estimatedDuration}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+          </div>
 
           <button type="submit" className="btn-secondary-outline small">
             Modifier

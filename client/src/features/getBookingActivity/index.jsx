@@ -49,7 +49,7 @@ function BookingActivities() {
 
   return (
     <>
-      <article className="activities_program">
+      <article className="activities_program outlet">
         <h3>Activités programmées</h3>
         <table>
           <thead>
@@ -66,7 +66,7 @@ function BookingActivities() {
                   placement="right"
                   color={moduleStyle.toolTipBackground}
                 >
-                  <IoAddCircleOutline className="bookingAdd" />
+                  <IoAddCircleOutline className="icon add" />
                 </Tooltip>
               </th>
             </tr>
