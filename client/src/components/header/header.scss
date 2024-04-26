@@ -4,11 +4,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.2rem 1rem;
+  padding: 0.5em 6em;
+  height: 5vh;
+  background-color: v.$background-dark;
   &_nav {
     display: flex;
     align-items: center;
-    gap: 0.5em;
+    gap: 1em;
     .nav_link {
       text-decoration: none;
       color: v.$text-color;

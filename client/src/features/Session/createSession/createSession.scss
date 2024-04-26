@@ -1,0 +1,71 @@
+@use "../../../assets/sass/abstracts/variables" as v;
+@use "../../../assets/sass/abstracts/mixins" as m;
+
+.Booking_create {
+  min-width: 300px;
+  width: 80vw;
+  max-width: 700px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8em;
+
+  &_header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  &_body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+
+    .timestamp {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap:0.5em;
+
+      .hourly {
+        display: flex;
+        flex-direction: row;
+        @include m.media("md-mobile") {
+          flex-direction: column;
+        }
+      }
+    }
+
+    .practice{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .numberPeople{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+    }
+  }
+}
+
+
+.Booking_create_success{
+
+
+  &-cta{
+    display: flex;
+   padding: 1em 0.5em;
+    align-items: center;
+    gap: 1em;
+  }
+}

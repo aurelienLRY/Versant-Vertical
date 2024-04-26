@@ -1,0 +1,42 @@
+@use "../abstracts/mixins" as m;
+@use "../abstracts/variables" as v;
+
+form{
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .group-form {
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0.5em;
+
+        @include m.media('tablet') {
+            flex-direction: column;
+            gap: 0.5em;
+        }
+
+        &.checkbox {
+          flex-direction: row;
+        }
+      }
+
+
+
+      h3{
+        font-size: x-large ;
+      }
+
+      h4{
+        font-size: medium;
+        color: v.$text-color ;
+       // border-bottom: 1px solid v.$text-color ;
+       // padding-bottom: 0.2em;
+        font-weight: bold;
+      }
+}

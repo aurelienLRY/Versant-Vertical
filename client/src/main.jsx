@@ -25,6 +25,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <ConfigProvider 
         theme={{
+          token: {
+            fontFamilyCode : moduleStyle.fontFamily,
+            colorText : moduleStyle.textColor,
+          },
+          components: {
+            Layout: {
+              siderBg: moduleStyle.bodyBg,
+              triggerBg: moduleStyle.bodyBg
+            },
+            Menu: {
+              itemBg: moduleStyle.bodyBg,
+              itemActiveBg: moduleStyle.secondaryColor,
+            }, 
+          },
      
        
         }}

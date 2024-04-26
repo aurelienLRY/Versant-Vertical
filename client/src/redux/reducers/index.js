@@ -3,13 +3,15 @@ import { combineReducers } from 'redux';
 import authReducer from './authSlice';
 import activityReducer from './activitySlice';
 import spotReducer from './spotSlice';
-import bookingReducer from './bookingSlice';
+import sessionReducer from './sessionSlice';
+import sessionCustomerReducer from './customerSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   activity: activityReducer,
   spot: spotReducer,
-  booking: bookingReducer,
+  session: sessionReducer,
+  customerSession : sessionCustomerReducer
 });
 
 export default rootReducer;

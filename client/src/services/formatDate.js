@@ -29,3 +29,11 @@ export function formatDate(dateString) {
     const time = new Date(`1970-01-01T${timeString}`);
     return time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
   }
+
+
+// fonction qui permet de formater une dates à  partir d'un objet date ("2024-04-25T20:09:35.337Z") en format français et retoun  dd/mm/yyyy à hh:mm
+export function formatDateTime(dateTimeString) {
+  const dateTime = new Date(dateTimeString);
+  const options = {day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'};
+  return dateTime.toLocaleDateString(undefined, options);
+}

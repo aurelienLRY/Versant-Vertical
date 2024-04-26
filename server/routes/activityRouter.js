@@ -1,7 +1,7 @@
 const express = require('express');
 const activityController = require('../controllers/activityController');
-const autorisation = require('../middleware/tokenValidation'); // Import the tokenValidation.js file
-const  {validateActivityData } = require('../middleware/valideActivityData'); // Import the validateAndCleanActivityData function from the valideActivityData.js file
+const autorisation = require('../middleware/validate/tokenValidation'); // Import the tokenValidation.js file
+const  {validateActivityData } = require('../middleware/validate/valideActivityData'); // Import the validateAndCleanActivityData function from the valideActivityData.js file
 
 const router = express.Router();
 

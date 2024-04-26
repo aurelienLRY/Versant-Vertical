@@ -1,0 +1,57 @@
+.createActivity {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  &_body{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+
+
+  .formule_type {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8em;
+
+    &_content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8em;
+      width: 100%;
+      .group-form {
+        width: auto;
+      }
+    }
+
+    .formule_pricing{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      gap: 0.8em;
+    }
+  }
+
+  .numberPeople{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8em;
+  }
+
+
+
+}

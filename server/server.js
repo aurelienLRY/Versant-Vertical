@@ -1,6 +1,6 @@
 const express = require('express');
 const dbConnection = require('./database/connection')
-const autorisation = require('./middleware/tokenValidation');
+const autorisation = require('./middleware/validate/tokenValidation');
 const {errorHandler}  = require('./middleware/errorHandler');
 
 const cors = require('cors'); // permet de gérer les requêtes entre le front et le back
@@ -10,7 +10,8 @@ const cors = require('cors'); // permet de gérer les requêtes entre le front e
  */
 const activityRouter = require('./routes/activityRouter');
 const spotRouter = require('./routes/spotRouter');
-const bookingsRouter = require('./routes/bookingsRouter');
+const sessionRouter = require('./routes/sessionRouter');
+const customerSessionRouter = require('./routes/customerSessionRoutes');
 
 const dotenv = require('dotenv');
 const userController = require('./controllers/userController');
@@ -28,7 +29,8 @@ dbConnection();
 
 app.use('/activities', activityRouter);
 app.use('/spots', spotRouter);
-app.use('/bookings', bookingsRouter);
+app.use('/sessions', sessionRouter);
+app.use('/customerSessions', customerSessionRouter);
 
 
 

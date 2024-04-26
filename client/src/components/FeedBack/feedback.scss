@@ -1,13 +1,35 @@
 @use "../../assets/sass/abstracts/variables" as v;
-.error{
-    color: v.$warning-color;
-    font-weight: 400;
-    font-size: medium;
-    display: flex;
-    align-items: center;
-    gap: 0.2em;
-    svg{
-        width: 1.2em;
-        height: 1.2em;
-    }
+.error {
+  box-sizing: border-box;
+  width: 100%;
+
+  color: v.$warning-color;
+  font-weight: 400;
+  font-size: medium;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2em;
+  padding: 0em 0em 1em 0em;
+  svg {
+    width: 1.2em;
+    height: 1.2em;
+  }
+}
+.success {
+  box-sizing: border-box;
+  width: 100%;
+
+  color: v.$success-color;
+  font-weight: 400;
+  font-size: medium;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2em;
+  padding: 0em 0em 1em 0em;
+  svg {
+    width: 1.2em;
+    height: 1.2em;
+  }
 }
