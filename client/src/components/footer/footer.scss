@@ -7,4 +7,11 @@
     align-items: center;
     background-color: v.$background-dark;
     min-height: 5vh;
+
+    .link{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+    }
 }

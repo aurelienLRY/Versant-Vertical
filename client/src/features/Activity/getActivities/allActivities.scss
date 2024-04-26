@@ -1,0 +1,22 @@
+@use "../../../assets/sass/abstracts/variables" as v;
+.allActivities {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+
+  &_table {
+ 
+   .td_action {
+      display: flex;
+      gap: 0.8em;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+

@@ -27,20 +27,20 @@ function Footer() {
       <Modal isOpened={modalIsOpened} Closed={handleModal}>
         <Login isConnect={(e) => setModalIsOpened(e.target)} />
       </Modal>
-      <div>
+      <div className="link">
         <Tooltip
           title="Facebook"
           placement="top"
           color={moduleStyle.toolTipBackground}
         >
-          <FaFacebookSquare />
+          <FaFacebookSquare className="icon"/>
         </Tooltip>
         <Tooltip
           title="Instagram"
           placement="top"
           color={moduleStyle.toolTipBackground}
         >
-          <FaInstagram />
+          <FaInstagram className="icon"/>
         </Tooltip>
       </div>
       <div>occitanie-evasion</div>

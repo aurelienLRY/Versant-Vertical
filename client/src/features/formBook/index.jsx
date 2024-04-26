@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 /* Custom Hooks */
 import useSpots from "../../hooks/useSpot";
 import useActivities from "../../hooks/useActivities";
-import useBookings from "../../hooks/useBooking";
+import useSessions from "../../hooks/useSessions";
 
 /* Services */
 import { formatDate } from "../../services/formatDate";
@@ -12,7 +12,7 @@ import { formatDate } from "../../services/formatDate";
 import "./formBook.scss";
 
 function FormBook() {
-  const bookings = useBookings();
+  const bookings = useSessions();
   const activities = useActivities();
   const spots = useSpots();
   const [selectedActivity, setSelectedActivity] = useState(false);

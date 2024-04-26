@@ -8,9 +8,11 @@ import Dashboard from "../views/Dashboard";
 import NoFoundPage from "../views/Nofound";
 import BookPage from "../views/Book";
 /*outlets*/
-import Spot from "../views/Dashboard/outletSpot";
-import OutletActivity from "../views/Dashboard/outletActivity";
-import OutletBooking from "../views/Dashboard/outletBookingActitivy";
+import GetSpots from "../features/Spots/getSpots";
+import GetActivities from "../features/Activity/getActivities";
+import GetSessions from "../features/Session/getSession";
+import GetCustomer from "../features/customer/getCustomer";
+import OutletMain from "../views/Dashboard/outletMain";
 /**
  * Renders the router component for handling different routes.
  * @returns {JSX.Element} The router component.
@@ -23,9 +25,11 @@ function Routeur() {
       <Route path="/" element={<HomePage />} />
       <Route path="/book" element={<BookPage />} />
       <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/"/>} >
-        <Route path="spot" element={<Spot />} />
-        <Route path="reservation" element={<OutletBooking />} />
-        <Route path="activities" element={<OutletActivity/>} />
+        <Route  index element={<OutletMain/>} />
+        <Route path="spot" element={<GetSpots />} />
+        <Route path="sessions" element={<GetSessions/>} />
+       < Route path="customer-session" element={<GetCustomer/>} />
+        <Route path="activities" element={<GetActivities/>} />
       </Route>
       <Route path="*" element={<NoFoundPage/>} />
     </Routes>

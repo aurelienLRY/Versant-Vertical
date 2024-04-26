@@ -27,6 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         theme={{
           token: {
             fontFamilyCode : moduleStyle.fontFamily,
+            colorText : moduleStyle.textColor,
           },
           components: {
             Layout: {
@@ -34,8 +35,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               triggerBg: moduleStyle.bodyBg
             },
             Menu: {
-              darkItemBg: moduleStyle.bodyBg,
-              darkItemSelectedBg: moduleStyle.secondaryColor,
+              itemBg: moduleStyle.bodyBg,
+              itemActiveBg: moduleStyle.secondaryColor,
             }, 
           },
      

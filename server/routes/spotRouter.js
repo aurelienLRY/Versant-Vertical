@@ -1,7 +1,7 @@
 const express = require('express');
 const spotController = require('../controllers/spotController');
-const autorisation = require('../middleware/tokenValidation'); // Import the tokenValidation.js file
-const  {validateSpotData } = require('../middleware/validateSpotData'); // Import the validateAndCleanSpotData function from the validateSpotData.js file
+const autorisation = require('../middleware/validate/tokenValidation'); // Import the tokenValidation.js file
+const  {validateSpotData } = require('../middleware/validate/validateSpotData'); // Import the validateAndCleanSpotData function from the validateSpotData.js file
 
 const router = express.Router();
 
