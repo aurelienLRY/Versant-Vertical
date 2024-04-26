@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { createMockStore } from "../../../test/mocksRedux";
+import { createMockStore } from "../../../../test/mocksRedux";
 import UpdateActivity from "./index";
 import { vi } from 'vitest'
 
