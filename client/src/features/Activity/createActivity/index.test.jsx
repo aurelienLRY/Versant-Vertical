@@ -20,7 +20,7 @@ describe("CreateActivity", () => {
   test("renders the form correctly", () => {
     render(
       <Provider store={store}>
-        <CreateActivity />
+        <CreateActivity isOpened={true} />
       </Provider>
     );
 
@@ -33,7 +33,7 @@ describe("CreateActivity", () => {
   test("submits the form successfully", () => {
     render(
       <Provider store={store}>
-        <CreateActivity />
+        <CreateActivity isOpened={true}/>
       </Provider>
     );
 
