@@ -36,3 +36,13 @@
         gap: 0.5em;
     }
 }
+
+.selectorSession{
+    min-width: 50vw;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em
+}

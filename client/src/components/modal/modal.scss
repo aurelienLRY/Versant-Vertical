@@ -52,11 +52,12 @@
     .modal_body {
       box-sizing: border-box;
       padding: 0.2em 1.8em 1em 1.8em;
+      overflow: auto;
     }
   }
 }
 
-@-webkit-keyframes bounceInLeft {
+@keyframes bounceInLeft {
   from,
   to {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);

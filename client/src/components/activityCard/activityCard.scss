@@ -1,0 +1,8 @@
+@use "../../assets/sass/abstracts/variables" as v;
+@use "../../assets/sass/abstracts/mixins" as m;
+
+.activityCard {
+  .card_header  {
+    background-color: v.$grey-700;
+  }
+}

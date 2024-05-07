@@ -17,6 +17,7 @@ import { Tooltip } from "antd"; // Ant design tooltip
 import UpdateSpot from "../updateSpot"; // Update spot component
 import CreateSpot from "../createSpot"; // Create spot component
 import Feedback from "../../../components/FeedBack"; // Feedback component
+import SpotCard from "../../../components/spotCard";
 
 //import custom hooks
 import useSpots from "../../../hooks/useSpot"; // Custom hook
@@ -79,70 +80,25 @@ function GetSpots() {
 
   return (
     <>
-      <article className="allSpots outlet">
-        <h3>Lieu </h3>
-        <Feedback err={FeedBack} />
-        <table className="allSpots_table">
-          <thead>
-            <tr>
-              <th>Nom</th>
-              <th>Activités pratiqués</th>
-              <th>Nombre de personnes</th>
-              <th>Localisation</th>
-              <th>point de rendez vous</th>
-              <th>durée estimé</th>
-
-              <th onClick={(e) => setModalCreateIsOpen(true)}>
-                <Tooltip
-                  title="Ajouter un lieu"
-                  placement="right"
-                  color={moduleStyle.toolTipBackground}
-                >
-                  <IoAddCircleOutline className="icon add" />
-                </Tooltip>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {spots.map((spot) => (
-              <tr key={spot._id}>
-                <td>{spot.name}</td>
-                <td className="td_activities">
-                  {spot.practicedActivities.map((activity, index) => (
-                    <span key={activity.activityId}>
-                      {activity.activityName}
-                    </span>
-                  ))}
-                </td>
-                <td>
-                  {spot.min_OfPeople && "Min : " + spot.min_OfPeople}
-                  {spot.max_OfPeople && spot.min_OfPeople && " | "}
-                  {spot.max_OfPeople && "Max : " + spot.max_OfPeople}
-                </td>
-
-                <td>{spot.gpsCoordinates}</td>
-                <td>{spot.meetingPoint}</td>
-                <td>{spot.estimatedDuration}</td>
-                <td>
-                  <div className="td_action">
-                    <button
-                      onClick={() => handleEdit(spot)}
-                      className="btn-warning-outline small"
-                    >
-                      Modifier
-                    </button>
-                    <button
-                      onClick={() => handleDelete(spot._id)}
-                      className="btn-danger-outline small"
-                    >
-                      Supprimer
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <article className="allSpots">
+        <div className="allSpots_header">
+          <h2>Gestion des lieux</h2>
+          <Feedback err={FeedBack} />
+          <button className="btn-secondary xl" onClick={() => setModalCreateIsOpen(true)}>
+            Ajouter un lieu
+          </button>
+        </div>
+        <div className="allSpots_body">
+          {spots.map((spot) => (
+            <SpotCard
+              key={spot._id}
+              spot={spot}
+              updateSpot={() => handleEdit(spot)}
+              deleteSpot={() => handleDelete(spot._id)}
+            />
+          ))}
+        </div>
+        <div className="allSpots_footer"></div>
       </article>
       {modalUpdateIsOpen && (
         <UpdateSpot

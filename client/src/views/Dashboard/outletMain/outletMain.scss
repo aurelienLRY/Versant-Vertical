@@ -1,0 +1,22 @@
+@use "../../../assets/sass/abstracts/variables" as *;
+.dashboard_session {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
+  padding: 1em;
+  border-radius: 0.5em;
+  box-shadow:  0 0 1em rgba(0, 0, 0, 0.1);
+
+  .dashboard_session-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    justify-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+  }
+}

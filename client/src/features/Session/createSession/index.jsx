@@ -8,7 +8,7 @@ import useSpots from "../../../hooks/useSpot";
 /* import components */
 import Feedback from "../../../components/FeedBack"; // Feedback component
 import Modal from "../../../components/modal"; // Modal component
-import AddCustomer from "../../customer/addCustomer";
+import AddCustomerSession from "../../customerSession/addCustomerSession";
 /* import redux */
 import { useDispatch } from "react-redux";
 /* import action */
@@ -38,7 +38,7 @@ function CreateSession({ isOpened, modalClosed }) {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const activities = useActivities();
-  const bookings = useSession();
+  const { activeSessions } = useSession();
   const spots = useSpots();
 
   /**
@@ -48,18 +48,19 @@ function CreateSession({ isOpened, modalClosed }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    console.log("form", form);
     const formData = new FormData(form);
     const data = Array.from(formData.entries()).reduce((acc, [key, value]) => {
       acc[key] = value;
       return acc;
-    }, {});
+    }, {status: "active"});
+
+    console.log(data);
 
     const check = checkAvailabilityBook(
       data.date,
       data.startTime,
       data.endTime,
-      bookings
+      activeSessions
     );
     if (check) {
       setError("Une session est déjà programmée sur ce créneau ");
@@ -72,11 +73,9 @@ function CreateSession({ isOpened, modalClosed }) {
       return;
     }
 
-    const action = await dispatch(ActionCreateSession({ token, data }));
+  const action = await dispatch(ActionCreateSession({ token, data }));
 
     if (action.type.endsWith("fulfilled")) {
-      //TODO: handle the fulfilled action
-      // mettre en place addCustomer
       setError(null);
       const session = action.payload;
       setThisSession(session);
@@ -114,6 +113,7 @@ function CreateSession({ isOpened, modalClosed }) {
    */
   const handleModalClosed = () => {
     setIsOpen(false);
+    setSlideIndex(0);
     modalClosed(true);
   };
 
@@ -266,8 +266,8 @@ function CreateSession({ isOpened, modalClosed }) {
       )}
 
       {slideIndex === 2 && (
-        <AddCustomer
-          session={thisSession}
+        <AddCustomerSession
+          thisSession={thisSession}
           newSession={() => setSlideIndex(0)}
           closed={ handleModalClosed}
           

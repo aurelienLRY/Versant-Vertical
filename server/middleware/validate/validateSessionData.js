@@ -12,6 +12,7 @@ const xss = require('xss');
  */
 exports.validateSessionData = [
   // Validation
+  body('status').isString().withMessage('Le statut doit être une chaîne de caractères.'),
   body('date').isISO8601().withMessage('La date doit être au format ISO 8601 valide.'),
   body('startTime').isString().withMessage('L\'heure de début doit être une chaîne de caractères.'),
   body('endTime').isString().withMessage('L\'heure de fin doit être une chaîne de caractères.'),

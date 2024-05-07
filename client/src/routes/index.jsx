@@ -10,9 +10,9 @@ import BookPage from "../views/Book";
 /*outlets*/
 import GetSpots from "../features/Spots/getSpots";
 import GetActivities from "../features/Activity/getActivities";
-import GetSessions from "../features/Session/getSession";
-import GetCustomer from "../features/customer/getCustomer";
+import GetCustomersSession from "../features/customerSession/getCustomerSession";
 import OutletMain from "../views/Dashboard/outletMain";
+import OutletSession from "../views/Dashboard/outletSession";
 /**
  * Renders the router component for handling different routes.
  * @returns {JSX.Element} The router component.
@@ -27,8 +27,8 @@ function Routeur() {
       <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/"/>} >
         <Route  index element={<OutletMain/>} />
         <Route path="spot" element={<GetSpots />} />
-        <Route path="sessions" element={<GetSessions/>} />
-       < Route path="customer-session" element={<GetCustomer/>} />
+        <Route path="sessions" element={<OutletSession/>} />
+       < Route path="customer-session" element={<GetCustomersSession/>} />
         <Route path="activities" element={<GetActivities/>} />
       </Route>
       <Route path="*" element={<NoFoundPage/>} />

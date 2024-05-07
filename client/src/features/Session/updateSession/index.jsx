@@ -17,17 +17,14 @@ import { formatDateToInput } from "../../../services/formatDate"; // formatDateT
 import { checkAvailabilityBook } from "../../../services/checkAvailabilityBook";
 
 /* Custom hooks */
-import useBooking from "../../../hooks/useSessions"; // Custom hook
+import useSessions from "../../../hooks/useSessions";
 import useSpots from "../../../hooks/useSpot"; // Custom hook
 import useActivities from "../../../hooks/useActivities"; // Custom hook
 import useToken from "../../../hooks/useToken"; // Custom hook
 /* Styles */
 import "./updateBooking.scss"; // Styles
-
-function findItemById(items, id) {
-  const foundItem = items.find((item) => item._id === id);
-  return foundItem ? foundItem.name : "";
-}
+import { findItemById, findItemNameById } from "../../../services/relationCollection";
+import { act } from "react";
 
 /**
  * Component for updating a booking.
@@ -42,12 +39,14 @@ function UpdateSession({ onOpen, booking, modalClosed }) {
   const dispatch = useDispatch();
   const spots = useSpots();
   const activities = useActivities();
-  const bookings = useBooking();
+  const { activeSessions } = useSessions();
   const [Open, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [formValues, setFormValues] = useState(booking);
   const [activitySelect, setActivitySelect] = useState(null);
-  const [spotSelect, setSpotSelect] = useState(null);
+
+
+  console.log(formValues);
 
   useEffect(() => {
     setOpen(onOpen);
@@ -75,8 +74,7 @@ function UpdateSession({ onOpen, booking, modalClosed }) {
       formValues.date,
       formValues.startTime,
       formValues.endTime,
-      bookings,
-      formValues._id
+      activeSessions,
     );
     if (check) {
       setError("La réservation est en conflit avec une autre réservation");
@@ -175,7 +173,8 @@ function UpdateSession({ onOpen, booking, modalClosed }) {
                   onChange={handleChange}
                 >
                   <option value={formValues.activity}>
-                    {findItemById(activities, formValues.activity)}
+                    {
+                    findItemNameById(activities, formValues.activity)}
                   </option>
                   {activities.map((activity) => (
                     <option value={activity._id} key={activity._id}>
@@ -189,7 +188,7 @@ function UpdateSession({ onOpen, booking, modalClosed }) {
                 Lieu
                 <select name="spot" id="spot" required onChange={handleChange}>
                   <option value={formValues.spot}>
-                    {findItemById(spots, formValues.spot)}
+                    {findItemNameById(spots, formValues.spot)}
                   </option>
                   {spots.map((spot) => {
                     if (

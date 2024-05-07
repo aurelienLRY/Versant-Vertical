@@ -1,7 +1,21 @@
-import React from "react";
-import BookingActivities from "../../../features/Session/getSession";
+import { useState } from "react";
+
+import CreateSession from "../../../features/Session/createSession";
+import GetActiveSessions from "../../../features/Session/getActiveSession";
+import SessionCard from "../../../components/sessionCard";
+/* Custom hooks */
+import useSessions from "../../../hooks/useSessions";
+
+/* Styles */
+import "./outletMain.scss";
+import Modal from "../../../components/modal";
+import AddCustomerSession from "../../../features/customerSession/addCustomerSession";
 
 function OutletMain() {
+  const [isCreateSessionOpen, setIsCreateSessionOpen] = useState(false);
+  const [modalAddCustomer, SetModalAddCustomer] = useState(false);
+  const { activeSessions } = useSessions();
+  
   return (
     <>
       <h2>Dashboard</h2>
@@ -13,14 +27,34 @@ function OutletMain() {
               className="calendar"
             ></iframe>
           </aside>
-          <BookingActivities />
+          <article className="dashboard_session ">
+            <h3>Les sessions</h3>
+            <GetActiveSessions className="dashboard_session-grid" />
+          </article>
         </div>
         <div className="dashboard_action">
-          <div>Créer une session</div>
-          <div>Ajouter un client sur une session</div>
-          <div>Annuler une session</div>
+          <button
+            onClick={() => setIsCreateSessionOpen(true)}
+            className="btn xl"
+          >
+            Ajouter une session
+          </button>
+          {activeSessions.length > 0 && 
+            <button className="btn xl" onClick={()=> SetModalAddCustomer(true)}>
+              Ajouter un client sur une session
+            </button>
+          }
         </div>
       </div>
+
+      <CreateSession
+        isOpened={isCreateSessionOpen}
+        modalClosed={() => setIsCreateSessionOpen(false)}
+      />
+
+      <Modal isOpened={modalAddCustomer} Closed={() => SetModalAddCustomer(false)}>
+        <AddCustomerSession closed={() => SetModalAddCustomer(false) }/>
+      </Modal>
     </>
   );
 }

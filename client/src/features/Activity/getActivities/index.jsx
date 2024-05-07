@@ -1,17 +1,22 @@
 import { useState } from "react";
+/* redux */
 import { useDispatch } from "react-redux";
 import { ActionDeleteActivity } from "../../../redux/actions/activityAction";
+/* components */
+import Feedback from "../../../components/FeedBack";
+import ActivityCard from "../../../components/activityCard";
 import UpdateActivity from "../updateActivity";
 import CreateActivity from "../createActivity";
-import Feedback from "../../../components/FeedBack";
 
+/* librairie*/
 import { IoAddCircleOutline } from "react-icons/io5"; // IoAddCircleOutline is a component from react-icons library
 import { Tooltip } from "antd"; // Tooltip is a component from antd library
 
+/* styles */
 import "./allActivities.scss";
 import moduleStyle from "../../../assets/sass/main.module.scss";
 
-//import custom hooks
+/* custom hooks */
 import useActivities from "../../../hooks/useActivities";
 import useToken from "../../../hooks/useToken";
 
@@ -23,7 +28,7 @@ function GetActivities() {
   const dispatch = useDispatch();
   const activities = useActivities();
   const token = useToken();
-  const [modalUpadateIsopen, setModalUpdateIsOpen] = useState(false);
+  const [modalUpdateIsopen, setModalUpdateIsOpen] = useState(false);
   const [modalCreateIsopen, setModalCreateIsOpen] = useState(false);
   const [activity, setActivity] = useState(null);
   const [FeedBack, setFeedBack] = useState(null);
@@ -58,82 +63,28 @@ function GetActivities() {
 
   return (
     <>
-      <article className="allActivities outlet">
-        <h3>Activities enregistrées</h3>
-        <Feedback err={FeedBack} />
-        <table className="allActivities_table">
-          <thead>
-            <tr>
-              <th>Nom</th>
-              {/* <th>Description</th> */}
-              <th>Type de formule</th>
-              <th>Prix</th>
-              <th>Nombre de personnes</th>
-              <th>Age minimum</th>
-              <th onClick={handleCreate}>
-                <Tooltip
-                  title="Ajouter une activité"
-                  placement="right"
-                  color={moduleStyle.toolTipBackground}
-                >
-                  <IoAddCircleOutline className="icon add" />
-                </Tooltip>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {activities.map((activity) => (
-              <tr key={activity._id}>
-                <td>{activity.name}</td>
-                {/* <td>{activity.description}</td> */}
-                <td>
-                  {activity.half_day && "Demi-journée"}
-                  {activity.half_day && activity.full_day && " | "}
-                  {activity.full_day && "Journée"}
-                </td>
-                <td>
-                  {activity.half_day &&
-                    activity.price_half_day &&
-                    activity.price_half_day + "€"}
-                  {activity.full_day &&
-                    activity.half_day &&
-                    activity.price_half_day &&
-                    activity.price_full_day &&
-                    " | "}
-                  {activity.full_day &&
-                    activity.price_full_day &&
-                    activity.price_full_day + "€"}
-                </td>
-                <td>
-                  {activity.min_OfPeople && "Min : " + activity.min_OfPeople}
-                  {activity.max_OfPeople && activity.min_OfPeople && " | "}
-                  {activity.max_OfPeople && "Max : " + activity.max_OfPeople}
-                </td>
-                <td>{activity.min_age + " ans"}</td>
-                <td>
-                  <div className="td_action">
-                    <button
-                      onClick={() => handleEdit(activity)}
-                      className="btn-warning-outline small"
-                    >
-                      Modifier
-                    </button>
-                    <button
-                      onClick={() => handleDelete(activity._id)}
-                      className="btn-danger-outline small"
-                    >
-                      Supprimer
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <article className="allActivities ">
+        <div className="allActivities_header">
+          <h2>Gestion des activités </h2>
+          <Feedback err={FeedBack} />
+          <button className="btn-secondary xl" onClick={() => setModalCreateIsOpen(true) }>Ajouter une activité</button>
+        </div>
+        <div className="allActivities_body">
+          {activities.map((activity) => (
+            <ActivityCard
+              key={activity._id}
+              activity={activity}
+              updateActivity={() => handleEdit(activity)}
+              deleteActivity={() => handleDelete(activity._id)}
+            />
+          ))}
+        </div>
+        <div className="allActivities_footer"></div>
       </article>
-      {modalUpadateIsopen && (
+
+      {modalUpdateIsopen && (
         <UpdateActivity
-          onOpen={modalUpadateIsopen}
+          onOpen={modalUpdateIsopen}
           modalClosed={(e) => setModalUpdateIsOpen(e)}
           activ={activity}
         />

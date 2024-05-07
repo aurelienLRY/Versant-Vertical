@@ -1,7 +1,8 @@
 input , textarea , select {
-  padding: 0.1em 0.2em;
-  border-radius: 0.4em;
+  padding: 0.4em 0.6em;
+  border-radius: 0.2em;
   transition: all 250ms ease-in-out;
+  border-color: transparent;
 
   &:focus-visible {
     outline: none;

@@ -8,15 +8,17 @@ import { ActionGetAllSession } from "../redux/actions/sessionAction";
  */
 function useSessions() {
   const dispatch = useDispatch();
-  const bookings = useSelector((state) => state.session.sessions);
+  const allSession = useSelector((state) => state.session.sessions);
+  const activeSessions = allSession.filter( (booking) => booking.status === "active");
+  const archivedSessions = allSession.filter( (booking) => booking.status === "archived");
 
   useEffect(() => {
-    if (bookings.length === 0) {
+    if (allSession.length === 0) {
       dispatch(ActionGetAllSession());
     }
-  }, [bookings, dispatch]);
+  }, [allSession, dispatch]);
 
-  return bookings;
+  return {"allSession" : allSession  , "activeSessions" : activeSessions , 'archivedSessions' :archivedSessions} ;
 }
 
 export default useSessions;

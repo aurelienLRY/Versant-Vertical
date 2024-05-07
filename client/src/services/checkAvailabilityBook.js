@@ -5,11 +5,9 @@
  * @param {string} endTime - The end time of the booking in the format 'HH:MM'.
  * @returns {boolean} - Returns true if there is a conflicting booking, otherwise false.
  */ 
-export function checkAvailabilityBook(date, startTime , endTime , bookings , id = true) {
-    return bookings.some((booking) => {
-        if (id && booking._id === id) {
-            return false;
-        }
+export function checkAvailabilityBook(date, startTime , endTime , activeSessions ) {
+    return activeSessions.some((booking) => {
+
         const bookingDate = new Date(booking.date).toLocaleDateString('fr-CA');
         const isSameDate = bookingDate === new Date(date).toLocaleDateString('fr-CA');
 

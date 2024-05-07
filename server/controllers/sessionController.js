@@ -1,4 +1,5 @@
 const sessions = require("../database/models/session");
+const customersSession = require("../database/models/customerSession");
 
 // Create
 exports.createSession = async (req, res, next) => {
@@ -74,6 +75,17 @@ exports.updateSession = async (req, res, next) => {
 // Delete
 exports.deleteSession = async (req, res, next) => {
   try {
+    const check = await customersSession.find({ sessionId: req.params.id });
+    if (check) {
+      check.forEach((element) => {
+        if (element.status !== "cancelled") {
+          const error = new Error("Vous ne pouvez pas supprimer une session qui a des réservations actives");
+          error.statusCode = 400;
+          return next(error);
+        }
+      });
+    }
+
     const session = await sessions.findByIdAndDelete(req.params.id);
     if (!session) {
       const error = new Error("Session non trouvé");
@@ -81,6 +93,8 @@ exports.deleteSession = async (req, res, next) => {
       return next(error);
     }
     res.status(200).json({ message: "Session supprimé avec succès" });
+ 
+ 
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 400;

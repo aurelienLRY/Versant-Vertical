@@ -45,7 +45,6 @@ export const ActionGetAllSession = createAsyncThunk("getSession", async () => {
   }
   if (response.status === 200) {
     const json = await response.json();
-    console.log("json", json);
     return json;
   }
 });

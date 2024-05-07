@@ -5,7 +5,7 @@ function HomePage() {
   return (
     <main>
       <div className="banner">
-        <img src="https://placehold.it/1920x350" alt="" srcset="" />
+        <img src="https://placehold.it/1920x350" alt=""  />
       </div>
       <h2>Acceuil</h2>
       <p>

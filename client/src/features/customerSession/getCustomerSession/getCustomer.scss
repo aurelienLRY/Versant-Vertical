@@ -1,0 +1,44 @@
+@use "../../../assets/sass/abstracts/variables" as v;
+@use "../../../assets/sass/abstracts/mixins" as m;
+
+.customers_session {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+
+  .ant-collapse {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .session {
+    box-sizing: border-box;
+    width: 100%;
+
+    border-radius: 0.4em;
+    padding: 0.2em 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    border: 2px solid v.$danger-color;
+
+    &_header {
+      display: flex;
+      align-items: center;
+      gap: 0.2em;
+    }
+
+    &_grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      justify-items: center;
+      align-items: center;
+      gap: 1em;
+    }
+  }
+}

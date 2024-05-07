@@ -24,7 +24,6 @@ export const ActionGetAllCustomer = createAsyncThunk(
     }
     if (response.status === 200) {
       const json = await response.json();
-      console.log("json", json);
       return json;
     }
   }
@@ -109,7 +108,7 @@ export const ActionUpdateCustomer = createAsyncThunk(
   "updateCustomer",
   async ({ token, customer }) => {
     const response = await fetch(
-      `${import.meta.env.VITE_APP_API}customerSessions/${customer.id}`,
+      `${import.meta.env.VITE_APP_API}customerSessions/${customer._id}`,
       {
         method: "PUT",
         headers: {
@@ -126,7 +125,7 @@ export const ActionUpdateCustomer = createAsyncThunk(
     }
     if (response.status === 200) {
       const json = await response.json();
-      return json.customer;
+      return json;
     }
   }
 );

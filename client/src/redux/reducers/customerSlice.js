@@ -19,7 +19,7 @@ const customerSlice = createSlice({
     // Add this builder for get all customers
     builder
       .addCase(ActionGetAllCustomer.fulfilled, (state, action) => {
-        state.customers = action.payload;
+        state.customers = action.payload; 
         state.error = null;
       })
       .addCase(ActionGetAllCustomer.rejected, (state, action) => {
@@ -48,9 +48,9 @@ const customerSlice = createSlice({
     // Add this builder for update
     builder
       .addCase(ActionUpdateCustomer.fulfilled, (state, action) => {
-        state.customers = state.customers.map((customer) =>
+        state.customers = state.customers.map((customer) => 
           customer._id === action.payload._id ? action.payload : customer
-        );
+        ); 
         state.error = null;
       })
       .addCase(ActionUpdateCustomer.rejected, (state, action) => {

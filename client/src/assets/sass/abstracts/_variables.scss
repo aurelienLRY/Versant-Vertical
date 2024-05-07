@@ -9,6 +9,21 @@ $primary-color-shadow: color.scale($primary-color, $alpha: -50%);
 $primary-color-gradient : linear-gradient(to top, darken($primary-color,50%) 0% , $primary-color 100%);
 
 
+$primary-color-100 : darken($primary-color, 2%);
+$primary-color-200 : darken($primary-color, 4%);
+$primary-color-300 : darken($primary-color, 6%);
+$primary-color-400 : darken($primary-color, 8%);
+$primary-color-500 : darken($primary-color, 10%);
+$primary-color-600 : darken($primary-color, 12%);
+$primary-color-700 : darken($primary-color, 14%);
+
+
+
+
+
+
+
+
 $secondary-color: #2c62f8;
 $secondary-color-dark: darken($secondary-color, 10%);
 $secondary-color-dark-alpha: color.scale($secondary-color-dark, $alpha: -50%);
@@ -27,6 +42,17 @@ $background-medium-alpha: color.scale($background-medium, $alpha: -50%);
 $background-dark: darken($background-medium, 10%)   !default;
 $background-dark-alpha: color.scale($background-dark, $alpha: -50%);
 
+$grey: #ededed;
+$grey-100: darken($grey, 2%);
+$grey-200: darken($grey, 4%);
+$grey-300: darken($grey, 6%);
+$grey-400: darken($grey, 8%);
+$grey-500: darken($grey, 10%);
+$grey-600: darken($grey, 12%);
+$grey-700: darken($grey, 14%);
+$grey-800: darken($grey, 16%);
+$grey-900: darken($grey, 18%);
+$grey-1000: darken($grey, 20%);
 
 
 $success-color : rgb(30, 134, 30);

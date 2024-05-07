@@ -11,7 +11,7 @@ import "./feedback.scss";
  */
 function Feedback({ err, success }) {
   return (
-    <>
+    <div className="feedback">
 
       {err && (
         <p className="error">
@@ -24,7 +24,7 @@ function Feedback({ err, success }) {
           <FaCircleCheck /> {success}
         </p>
       )}
-    </>
+    </div>
   );
 }
 

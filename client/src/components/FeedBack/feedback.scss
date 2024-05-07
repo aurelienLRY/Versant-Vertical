@@ -1,4 +1,6 @@
 @use "../../assets/sass/abstracts/variables" as v;
+
+.feedback{
 .error {
   box-sizing: border-box;
   width: 100%;
@@ -32,4 +34,5 @@
     width: 1.2em;
     height: 1.2em;
   }
+}
 }

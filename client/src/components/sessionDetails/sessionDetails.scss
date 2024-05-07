@@ -1,0 +1,38 @@
+@use "../../assets/sass/abstracts/variables" as v;
+@use "../../assets/sass/abstracts/mixins" as m;
+.sessionDetails{
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+&_header{
+  box-sizing: border-box;
+  width: 100%;
+  display : flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+}
+.customerSession {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  align-items: center;
+
+  &_group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    gap: 1em;
+
+    @include m.media("tablet") {
+      grid-template-columns: repeat(1 ,minmax(200px, 1fr));
+      gap: 0.5em;
+    }
+  }
+}
