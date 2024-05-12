@@ -23,33 +23,19 @@ function Footer() {
   };
 
   return (
-    <footer className="footer" data-testid="footer">
+    <>
+      <footer className="footer" data-testid="footer">
+        <div>occitanie-evasion</div>
+        <div>
+          <button onClick={handleModal} className="btn-secondary-outline small">
+            {isAuthenticated ? "Déconnexion" : "Connection"}{" "}
+          </button>
+        </div>
+      </footer>
       <Modal isOpened={modalIsOpened} Closed={handleModal}>
         <Login isConnect={(e) => setModalIsOpened(e.target)} />
       </Modal>
-      <div className="link">
-        <Tooltip
-          title="Facebook"
-          placement="top"
-          color={moduleStyle.toolTipBackground}
-        >
-          <FaFacebookSquare className="icon"/>
-        </Tooltip>
-        <Tooltip
-          title="Instagram"
-          placement="top"
-          color={moduleStyle.toolTipBackground}
-        >
-          <FaInstagram className="icon"/>
-        </Tooltip>
-      </div>
-      <div>occitanie-evasion</div>
-      <div>
-        <button onClick={handleModal} className="btn-secondary-outline small">
-          {isAuthenticated ? "Déconnexion" : "Connection"}{" "}
-        </button>
-      </div>
-    </footer>
+    </>
   );
 }
 

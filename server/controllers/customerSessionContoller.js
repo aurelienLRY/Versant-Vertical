@@ -79,6 +79,7 @@ exports.getOneCustomerSession = async (req, res, next) => {
 //update
 exports.updateCustomerSession = async (req, res, next) => {
   try {
+    const oldSession = await customerSession.findById(req.params.id);
     const sessionCustomer = await customerSession.findByIdAndUpdate(
       req.params.id,
       { ...req.body },
@@ -90,10 +91,10 @@ exports.updateCustomerSession = async (req, res, next) => {
       return next(error);
     } else {
       const status = req.body.status;
-      if (status === "cancelled") {
-        const numberOfPeople = req.body.number_of_people;
+      if (status === "cancelled" ||
+        oldSession.number_of_people !== req.body.number_of_people
+      ) {
         const sessionId = req.body.sessionId;
-
         const session = await sessions.findById(sessionId);
         if (!session) {
           const error = new Error(
@@ -102,8 +103,22 @@ exports.updateCustomerSession = async (req, res, next) => {
           error.statusCode = 404;
           return next(error);
         }
-
-        session.placesReserved -= numberOfPeople;
+        if (status === "cancelled") {
+          const numberOfPeople = req.body.number_of_people;
+          session.placesReserved -= numberOfPeople;
+        }
+        if (oldSession.number_of_people !== req.body.number_of_people) {
+          if (oldSession.number_of_people > req.body.number_of_people) {
+            const placesReserved =
+              oldSession.number_of_people - req.body.number_of_people;
+            session.placesReserved -= placesReserved;
+          }
+          if (oldSession.number_of_people < req.body.number_of_people) {
+            const placesReserved =
+              req.body.number_of_people - oldSession.number_of_people;
+            session.placesReserved += placesReserved;
+          }
+        }
         const updateSession = await sessions.findByIdAndUpdate(
           sessionId,
           session,
@@ -111,7 +126,6 @@ exports.updateCustomerSession = async (req, res, next) => {
             new: true,
           }
         );
-
         if (!updateSession) {
           const error = new Error("Session non trouvé");
           error.statusCode = 404;

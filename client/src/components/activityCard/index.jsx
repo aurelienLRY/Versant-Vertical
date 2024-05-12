@@ -1,7 +1,8 @@
+/* librairie*/
 import React from "react";
 import PropTypes from "prop-types";
 
-
+/* styles */
 import "./activityCard.scss";
 
 function ActivityCard({ activity, updateActivity, deleteActivity }) {
@@ -16,9 +17,10 @@ function ActivityCard({ activity, updateActivity, deleteActivity }) {
     max_OfPeople,
     min_OfPeople,
   } = activity;
-  return (
-    
 
+
+
+  return (
       <div className="activityCard card" data-testId="activityCard">
         <div className=" card_header">
           <h3>{name}</h3>
@@ -70,19 +72,3 @@ function ActivityCard({ activity, updateActivity, deleteActivity }) {
 }
 
 export default ActivityCard;
-
-const getItem = ({ deleteActivity, updateActivity }) => {
-  return {
-    title: "tralala",
-    footer: (
-      <div className="card_footer">
-        <button className="btn-warning-outline small" onClick={updateActivity}>
-          Modifier
-        </button>
-        <button className="btn-danger-outline small" onClick={deleteActivity}>
-          Supprimer
-        </button>
-      </div>
-    ),
-  };
-};

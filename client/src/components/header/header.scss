@@ -2,11 +2,25 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-between;
   align-items: center;
-  padding: 0.5em 6em;
+  padding: 0.5em 2em;
   height: 5vh;
   background-color: v.$background-dark;
+
+  &_logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    img {
+      width: 2em;
+      height: 2em;
+    }
+    h1 {
+      font-size: 1.5em;
+      color: v.$text-color;
+    }
+  }
   &_nav {
     display: flex;
     align-items: center;

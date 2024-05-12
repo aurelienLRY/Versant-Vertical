@@ -4,11 +4,30 @@
   height: 1.5em;
 
   &.add {
-    width: 1.5em;
-    height: 1.5em;
     transition: all 0.25s ease-in-out;
     &:hover {
       color: v.$primary-color;
     }
+  }
+
+  &.remove {
+    color: v.$danger-color-light;
+    transition: all 0.25s ease-in-out;
+    &:hover {
+      color: v.$danger-color;
+    }
+  }
+
+
+  &.xl{
+    width: 3em;
+    height: 3em;
+  }
+
+  &.primary {
+    color: v.$primary-color;
+  }
+  &.secondary {
+    color: v.$secondary-color;
   }
 }

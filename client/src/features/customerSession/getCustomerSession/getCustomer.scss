@@ -9,6 +9,19 @@
   align-items: center;
   gap: 1em;
 
+  h2{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5em;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 500;
+    color: white; 
+    background-color: v.$primary-color;
+    border-radius: 0.5em;
+
+  }
+
   .ant-collapse {
     width: 100%;
     display: flex;
@@ -35,7 +48,7 @@
 
     &_grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(1, minmax(350px, 1fr));
       justify-items: center;
       align-items: center;
       gap: 1em;

@@ -1,9 +1,8 @@
 // Desc: Dashboard view
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 import SlideBar from "../../components/SlideBar";
 
-import useCustomerSession from "../../hooks/useCustomerSession";
 
 import "./dashboard.scss";
 
@@ -14,7 +13,7 @@ function Dashboard() {
   }
   return (
     <main className="dashboard" data-testid="dashboard">
-      <SlideBar />
+     {/* <SlideBar/> */}
       <section>
         <Outlet />
       </section>

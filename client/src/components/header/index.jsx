@@ -10,17 +10,16 @@ const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     <header data-testid="header" className='header'>
      <div className="header_logo">
         <img src="https://" alt="logo" />
+        <h1>Occitanie Evasion</h1>
       </div>
 
     <nav className='header_nav' data-testid="header_nav">
-      {isAuthenticated && <NavLink to="/dashboard" className="nav_link">Mon espace</NavLink>}
-        <NavLink to="/" className="nav_link">Accueil</NavLink>
-        <NavLink to="/activities" className="nav_link">Activités</NavLink>
-        <NavLink to="/book" className="nav_link">Réserver</NavLink>
-        <NavLink to="/contact" className="nav_link">contact</NavLink>
-        
+      {isAuthenticated && <NavLink to="/dashboard" className="nav_link">Dashboard</NavLink>}
+      {isAuthenticated && <NavLink to="/dashboard/customer-session" className="nav_link">Les réservations</NavLink>}
+      {isAuthenticated && <NavLink to="/dashboard/sessions" className="nav_link">Sessions</NavLink>}
+      {isAuthenticated && <NavLink to="/dashboard/activities" className="nav_link">Mes activités</NavLink>}
+      {isAuthenticated && <NavLink to="/dashboard/spot" className="nav_link">Mes lieux</NavLink>}
 
-      
     </nav>
         
     </header>

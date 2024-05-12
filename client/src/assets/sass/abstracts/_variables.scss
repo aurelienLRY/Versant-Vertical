@@ -1,6 +1,6 @@
 @use 'sass:color';
 // THEME COLORS
-$primary-color:  #008b6b;
+$primary-color:  #0462a8;
 $primary-color-dark: darken($primary-color, 10%);
 $primary-color-dark-alpha: color.scale($primary-color-dark, $alpha: -50%);
 $primary-color-light: lighten($primary-color, 10%);
@@ -24,7 +24,7 @@ $primary-color-700 : darken($primary-color, 14%);
 
 
 
-$secondary-color: #2c62f8;
+$secondary-color: #f57720;
 $secondary-color-dark: darken($secondary-color, 10%);
 $secondary-color-dark-alpha: color.scale($secondary-color-dark, $alpha: -50%);
 $secondary-color-light: lighten($secondary-color, 10%);
@@ -42,7 +42,7 @@ $background-medium-alpha: color.scale($background-medium, $alpha: -50%);
 $background-dark: darken($background-medium, 10%)   !default;
 $background-dark-alpha: color.scale($background-dark, $alpha: -50%);
 
-$grey: #ededed;
+$grey: #52576a;
 $grey-100: darken($grey, 2%);
 $grey-200: darken($grey, 4%);
 $grey-300: darken($grey, 6%);

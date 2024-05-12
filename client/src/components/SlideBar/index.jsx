@@ -50,7 +50,7 @@ const items = [
     </Link>
   ),
   getItem(
-    "Sessions Réservées",
+    "Les réservations",
     "2",
     <Link to="/dashboard/customer-session">
       <TbBrandBooking className="icon slideBar" />
