@@ -20,6 +20,7 @@ function CreateSpot({ isOpened, modalClosed }) {
   const dispatch = useDispatch(); // Dispatch the action
   const [isOpen, setOpen] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [fullDayIsChecked, setFullDayIsChecked] = useState();
   const [halfDayIsChecked, setHalfDayIsChecked] = useState();
   const activities = useActivities();
@@ -84,13 +85,24 @@ function CreateSpot({ isOpened, modalClosed }) {
 
       if (action.type.endsWith("fulfilled")) {
         event.target.reset();
+        setSuccess("Lieu créé avec succès");
+        setTimeout(() => {
+          setSuccess(null);
+        }, 3000);
+    
       }
       if (action.type.endsWith("rejected")) {
         console.log("Erreur! ", action.error);
         setError(action.error.message);
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
       }
     } catch (err) {
       setError(err.message);
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
     }
   };
 
@@ -114,7 +126,7 @@ function CreateSpot({ isOpened, modalClosed }) {
       <article className="createSpot" data-testid="create-spot">
         <form onSubmit={handleSubmit} className="createSpot_form">
           <h3>Ajouter un lieu</h3>
-          <Feedback err={error} />
+          <Feedback err={error} success={success} />
           <div className="group-form">
             <label htmlFor="name">
               Nom du lieu

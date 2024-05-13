@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const dbConnection = require('./database/connection')
 const autorisation = require('./middleware/validate/tokenValidation');
@@ -24,17 +25,17 @@ app.use(cors(process.env.CORS_ORIGIN));
 app.use(express.json());
 
 //connection à la base de donnée
-dbConnection();
-
+(async () => {
+    await dbConnection();
+  })();
 
 app.use('/activities', activityRouter);
 app.use('/spots', spotRouter);
 app.use('/sessions', sessionRouter);
 app.use('/customerSessions', customerSessionRouter);
-
-
-
 app.post('/login', authController.login);//
+
+
 
 app.post('/user', userController.createUser);
 

@@ -22,6 +22,7 @@ function CreateActivity({ isOpened, modalClosed }) {
   const dispatch = useDispatch(); // Dispatch to send the action
   const [isOpen, setIsOpen] = useState(false); // State for the modal
   const [error, setError] = useState(null); // Error handling
+  const [success, setSuccess] = useState(null); // Success message
   const [full_dayIsChecked, setFull_dayIsChecked] = useState(); // State for the full day checkbox
   const [half_dayIsChecked, setHalf_dayIsChecked] = useState(); // State for the half day checkbox]
 
@@ -63,10 +64,17 @@ function CreateActivity({ isOpened, modalClosed }) {
       // If the action is successful, reset the form
       if (action.type.endsWith("fulfilled")) {
         event.target.reset();
+        setSuccess("Activité créée avec succès");
+        setTimeout(() => {
+          setSuccess(null);
+        }, 3000);
       }
       if (action.type.endsWith("rejected")) {
         console.log("Erreur! ", action.error);
         setError(action.error.message);
+        setTimeout(() => {
+          setError(null);
+        }, 3000); 
       }
     } catch (err) {
       // Error handling
@@ -99,7 +107,7 @@ function CreateActivity({ isOpened, modalClosed }) {
       >
         <div className="createActivity_header">
           <h3>Ajouter une activité</h3>
-          <Feedback err={error} />
+          <Feedback err={error} success={success}/>
         </div>
 
         <div className="createActivity_body">

@@ -1,28 +1,17 @@
-/**
- * Establishes a connection to the MongoDB database.
- * @module database/connection
- */
 
-const mongoose = require('mongoose')
 
-/**
- * The URL of the MongoDB database.
- * @type {string}
- */
-const databaseUrl =
-  process.env.DATABASE_URL || 'mongodb://localhost/reservationDB'
+const  mongoose = require('mongoose');
+const uri = process.env.MONGODB_URI 
 
-/**
- * Connects to the MongoDB database.
- * @async
- * @throws {Error} If there is an error connecting to the database.
- */
-module.exports = async () => {
+
+const dbConnection = async () => {
   try {
-    await mongoose.connect(databaseUrl)
-    console.log('Database successfully connected')
-  } catch (error) {
-    console.error(`Database Connectivity Error: ${error}`)
-    throw new Error(error)
+    await mongoose.connect(uri);
+    console.log('Connected to the database');
+
+  } catch (err) {
+    console.error(err);
   }
-}
+};
+
+module.exports = dbConnection;
